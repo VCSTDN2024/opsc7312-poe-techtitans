@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignupPage">
+
+    <ImageView
+        android:id="@+id/image_logo"
+        android:layout_width="564dp"
+        android:layout_height="846dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_rectangle"
+        android:layout_width="343dp"
+        android:layout_height="494dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="269dp"
+        android:layout_marginEnd="196dp"
+        android:layout_marginBottom="83dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_rectangle"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo" />
+
+    <Button
+        android:id="@+id/btnSignupPage"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="269dp"
+        android:layout_marginEnd="221dp"
+        android:layout_marginBottom="517dp"
+        android:background="#00FFFFFF"
+        android:text="Signup"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo" />
+
+    <Button
+        android:id="@+id/BtnLoginPage"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="269dp"
+        android:layout_marginBottom="517dp"
+        android:background="#00FFFFFF"
+        android:text="Login"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo" />
+
+    <ImageView
+        android:id="@+id/image_background"
+        android:layout_width="227dp"
+        android:layout_height="202dp"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="254dp"
+        android:layout_marginBottom="598dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_background"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo" />
+
+    <FrameLayout
+        android:id="@+id/container_button"
+        android:layout_width="224dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="61dp"
+        android:layout_marginTop="427dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="17dp"
+        android:background="@drawable/container_button"
+        app:layout_constraintBottom_toBottomOf="@+id/image_rectangle"
+        app:layout_constraintEnd_toEndOf="@+id/image_rectangle"
+        app:layout_constraintStart_toStartOf="@+id/image_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/image_rectangle">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:text="Signup"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/txtSUsername"
+        android:layout_width="246dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="61dp"
+        android:layout_marginTop="378dp"
+        android:layout_marginEnd="232dp"
+        android:layout_marginBottom="434dp"
+        android:background="@drawable/borderfortext"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintStart_toStartOf="@+id/image_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/image_logo"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="246dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="465dp"
+        android:layout_marginEnd="231dp"
+        android:layout_marginBottom="347dp"
+        android:background="@drawable/borderfortext"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/txtSPassword"
+        android:layout_width="246dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="549dp"
+        android:layout_marginEnd="231dp"
+        android:layout_marginBottom="263dp"
+        android:background="@drawable/borderfortext"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/edtCPassword"
+        android:layout_width="247dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="627dp"
+        android:layout_marginEnd="231dp"
+        android:layout_marginBottom="185dp"
+        android:background="@drawable/borderfortext"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/container_pass"
+        android:layout_width="160dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="599dp"
+        android:layout_marginEnd="351dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Confirm Password"
+        android:textColor="#FF000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/text_email"
+        android:layout_width="75dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="435dp"
+        android:layout_marginEnd="403dp"
+        android:alpha="0.800000011920929"
+        android:gravity="left|center_vertical"
+        android:text="Email"
+        android:textColor="#FF000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <TextView
+        android:id="@+id/container_pass1"
+        android:layout_width="93dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="349dp"
+        android:layout_marginEnd="403dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Username"
+        android:textColor="#FF000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo"
+        app:layout_constraintVertical_bias="0.008" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="86dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="522dp"
+        android:layout_marginEnd="415dp"
+        android:text="Password"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo"
+        app:layout_constraintVertical_bias="0.013" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
