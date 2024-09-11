@@ -15,22 +15,22 @@
         android:src="@drawable/image_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.111" />
 
     <ImageView
-        android:id="@+id/image_rectangle"
-        android:layout_width="343dp"
-        android:layout_height="494dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="269dp"
-        android:layout_marginEnd="196dp"
-        android:layout_marginBottom="83dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/image_rectangle"
-        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
-        app:layout_constraintEnd_toEndOf="@+id/image_logo"
-        app:layout_constraintStart_toStartOf="@+id/image_logo"
-        app:layout_constraintTop_toTopOf="@+id/image_logo" />
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="259dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="155dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image_view_rectanglesignup" />
 
     <Button
         android:id="@+id/btnSignupPage"
@@ -64,10 +64,10 @@
         android:id="@+id/image_background"
         android:layout_width="227dp"
         android:layout_height="202dp"
-        android:layout_marginStart="83dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginEnd="254dp"
-        android:layout_marginBottom="598dp"
+        android:layout_marginStart="103dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="234dp"
+        android:layout_marginBottom="600dp"
         android:scaleType="centerInside"
         android:src="@drawable/image_background"
         app:layout_constraintBottom_toBottomOf="@+id/image_logo"
@@ -79,15 +79,15 @@
         android:id="@+id/container_button"
         android:layout_width="224dp"
         android:layout_height="50dp"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="427dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="761dp"
+        android:layout_marginEnd="236dp"
+        android:layout_marginBottom="35dp"
         android:background="@drawable/container_button"
-        app:layout_constraintBottom_toBottomOf="@+id/image_rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/image_rectangle"
-        app:layout_constraintStart_toStartOf="@+id/image_rectangle"
-        app:layout_constraintTop_toTopOf="@+id/image_rectangle">
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
+        app:layout_constraintEnd_toEndOf="@+id/image_logo"
+        app:layout_constraintStart_toStartOf="@+id/image_logo"
+        app:layout_constraintTop_toTopOf="@+id/image_logo">
 
         <Button
             android:id="@+id/button"
@@ -97,21 +97,18 @@
             android:text="Signup"
             android:textColor="#000000"
             android:textSize="20sp" />
-
     </FrameLayout>
 
     <EditText
         android:id="@+id/txtSUsername"
         android:layout_width="246dp"
         android:layout_height="50dp"
-        android:layout_marginStart="61dp"
         android:layout_marginTop="378dp"
         android:layout_marginEnd="232dp"
         android:layout_marginBottom="434dp"
         android:background="@drawable/borderfortext"
         app:layout_constraintBottom_toBottomOf="@+id/image_logo"
         app:layout_constraintEnd_toEndOf="@+id/image_logo"
-        app:layout_constraintStart_toStartOf="@+id/image_rectangle"
         app:layout_constraintTop_toTopOf="@+id/image_logo"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck" />
