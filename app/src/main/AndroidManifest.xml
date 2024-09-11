@@ -16,6 +16,9 @@
             android:name=".ShoppingListPage"
             android:exported="false" />
         <activity
+            android:name=".SearchPage"
+            android:exported="false" />
+        <activity
             android:name=".SettingsPage"
             android:exported="false" />
         <activity
