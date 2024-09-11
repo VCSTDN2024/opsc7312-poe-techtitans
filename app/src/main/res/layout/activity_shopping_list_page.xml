@@ -12,7 +12,6 @@
         android:id="@+id/img_shopping_list1"
         android:layout_width="564dp"
         android:layout_height="1002dp"
-        android:layout_marginStart="4dp"
         android:scaleType="centerInside"
         android:src="@drawable/img_shopping_list1"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,25 +19,21 @@
 
     <ImageView
         android:id="@+id/img_shopping_list2"
-        android:layout_width="412dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="752dp"
-        android:layout_marginEnd="181dp"
-        android:layout_marginBottom="202dp"
+        android:layout_width="395dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="756dp"
+        android:layout_marginBottom="196dp"
         android:background="@drawable/img_shopping_list2"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/img_shopping_list1"
-        app:layout_constraintEnd_toEndOf="@+id/img_shopping_list1"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_shopping_list1"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/img_shopping_list1" />
 
     <ImageView
         android:id="@+id/img_shopping_list3"
-        android:layout_width="14dp"
-        android:layout_height="18dp"
+        android:layout_width="78dp"
+        android:layout_height="50dp"
         android:layout_marginStart="103dp"
         android:layout_marginTop="768dp"
         android:layout_marginEnd="447dp"
@@ -47,10 +42,10 @@
         android:src="@drawable/img_shopping_list3"
         app:layout_constraintBottom_toBottomOf="@+id/img_shopping_list1"
         app:layout_constraintEnd_toEndOf="@+id/img_shopping_list1"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.343"
         app:layout_constraintStart_toStartOf="@+id/img_shopping_list1"
         app:layout_constraintTop_toTopOf="@+id/img_shopping_list1"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.375" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -69,8 +64,8 @@
 
     <ImageView
         android:id="@+id/img_shopping_list5"
-        android:layout_width="21.02dp"
-        android:layout_height="18.68dp"
+        android:layout_width="78dp"
+        android:layout_height="50dp"
         android:layout_marginStart="26dp"
         android:layout_marginTop="766dp"
         android:layout_marginEnd="517dp"
@@ -79,13 +74,15 @@
         android:src="@drawable/img_shopping_list5"
         app:layout_constraintBottom_toBottomOf="@+id/img_shopping_list1"
         app:layout_constraintEnd_toEndOf="@+id/img_shopping_list1"
+        app:layout_constraintHorizontal_bias="0.406"
         app:layout_constraintStart_toStartOf="@+id/img_shopping_list1"
-        app:layout_constraintTop_toTopOf="@+id/img_shopping_list1" />
+        app:layout_constraintTop_toTopOf="@+id/img_shopping_list1"
+        app:layout_constraintVertical_bias="0.322" />
 
     <ImageView
         android:id="@+id/iv_settings"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
         android:layout_marginStart="319dp"
         android:layout_marginTop="768dp"
         android:layout_marginEnd="221dp"
@@ -94,13 +91,15 @@
         android:src="@drawable/iv_settings"
         app:layout_constraintBottom_toBottomOf="@+id/img_shopping_list1"
         app:layout_constraintEnd_toEndOf="@+id/img_shopping_list1"
+        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="@+id/img_shopping_list1"
-        app:layout_constraintTop_toTopOf="@+id/img_shopping_list1" />
+        app:layout_constraintTop_toTopOf="@+id/img_shopping_list1"
+        app:layout_constraintVertical_bias="0.461" />
 
     <ImageView
         android:id="@+id/image_all_small_buy"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="78dp"
+        android:layout_height="50dp"
         android:layout_marginStart="247dp"
         android:layout_marginTop="768dp"
         android:layout_marginEnd="293dp"
@@ -109,13 +108,15 @@
         android:src="@drawable/image_all_small_buy"
         app:layout_constraintBottom_toBottomOf="@+id/img_shopping_list1"
         app:layout_constraintEnd_toEndOf="@+id/img_shopping_list1"
+        app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toStartOf="@+id/img_shopping_list1"
-        app:layout_constraintTop_toTopOf="@+id/img_shopping_list1" />
+        app:layout_constraintTop_toTopOf="@+id/img_shopping_list1"
+        app:layout_constraintVertical_bias="0.461" />
 
     <ImageView
         android:id="@+id/container_group"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="78dp"
+        android:layout_height="50dp"
         android:layout_marginStart="183dp"
         android:layout_marginTop="768dp"
         android:layout_marginEnd="357dp"
@@ -124,8 +125,10 @@
         android:src="@drawable/container_group"
         app:layout_constraintBottom_toBottomOf="@+id/img_shopping_list1"
         app:layout_constraintEnd_toEndOf="@+id/img_shopping_list1"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="@+id/img_shopping_list1"
-        app:layout_constraintTop_toTopOf="@+id/img_shopping_list1" />
+        app:layout_constraintTop_toTopOf="@+id/img_shopping_list1"
+        app:layout_constraintVertical_bias="0.461" />
 
     <ImageView
         android:id="@+id/leading_icon_image"
