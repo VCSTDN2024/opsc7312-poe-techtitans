@@ -1,10 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomePage">
+    android:layout_height="844dp"
+    android:background="@drawable/drawable_shape">
+
+    <ImageView
+        android:id="@+id/iv_home_page_rectangle3"
+        android:layout_width="390dp"
+        android:layout_height="45dp"
+        android:background="@drawable/iv_home_page_rectangle3"
+        android:scaleType="centerInside"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="761dp" />
+
+    <ImageView
+        android:id="@+id/iv_home_page_vector1"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/iv_home_page_vector1"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="761dp" />
+
+    <ImageView
+        android:id="@+id/iv_home_page_vector2"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/iv_home_page_vector2"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="761dp" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="52dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/drawable_image"
+        tools:layout_editor_absoluteX="311dp"
+        tools:layout_editor_absoluteY="761dp" />
+
+    <ImageView
+        android:id="@+id/img_all_small_buy"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_all_small_buy"
+        tools:layout_editor_absoluteX="240dp"
+        tools:layout_editor_absoluteY="761dp" />
+
+    <ImageView
+        android:id="@+id/container_group"
+        android:layout_width="59dp"
+        android:layout_height="34dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/container_group"
+        tools:layout_editor_absoluteX="167dp"
+        tools:layout_editor_absoluteY="772dp" />
+
+    <ImageView
+        android:id="@+id/iv_home_page_image"
+        android:layout_width="390dp"
+        android:layout_height="158dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/iv_home_page_image"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="-2dp" />
+
+    <ImageView
+        android:id="@+id/iv_home_page_rectangle2"
+        android:layout_width="390dp"
+        android:layout_height="53dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/iv_home_page_rectangle2"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="118dp" />
+
+    <ImageView
+        android:id="@+id/iv_home_page_rectangle4"
+        android:layout_width="360dp"
+        android:layout_height="62dp"
+        android:background="@drawable/iv_home_page_rectangle4"
+        android:scaleType="centerInside"
+        tools:layout_editor_absoluteX="17dp"
+        tools:layout_editor_absoluteY="29dp" />
+
+    <ImageView
+        android:id="@+id/image_state_layer2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_state_layer2"
+        tools:layout_editor_absoluteX="328dp"
+        tools:layout_editor_absoluteY="41dp" />
+
+    <ImageView
+        android:id="@+id/image_state_layer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_state_layer"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="41dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search for Recipes"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="50dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
