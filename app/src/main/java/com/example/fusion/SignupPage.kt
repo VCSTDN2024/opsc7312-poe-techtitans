@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +16,9 @@ class SignupPage : AppCompatActivity() {
 
         val signupButton = findViewById<Button>(R.id.button)
         val loginButton = findViewById<Button>(R.id.BtnLoginPage)
-        val usernameEditText = findViewById<EditText>(R.id.txtSUsername)
+        val usernameEditText = findViewById<EditText>(R.id.txtLUsername)
         val emailEditText = findViewById<EditText>(R.id.edtEmail)
-        val passwordEditText = findViewById<EditText>(R.id.txtSPassword)
+        val passwordEditText = findViewById<EditText>(R.id.txtLPassword)
         val confirmPasswordEditText = findViewById<EditText>(R.id.edtCPassword)
 
         signupButton.setOnClickListener {

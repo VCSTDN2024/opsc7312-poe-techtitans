@@ -16,8 +16,10 @@
         android:src="@drawable/image_view_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/image_view_rectangle"
@@ -29,10 +31,10 @@
         android:src="@drawable/image_view_rectangle"
         app:layout_constraintBottom_toTopOf="@+id/text_view_sign_up"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintHorizontal_bias="0.627"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image_view_background"
-        app:layout_constraintVertical_bias="0.529" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <FrameLayout
         android:id="@+id/container_button"
@@ -95,10 +97,10 @@
         android:layout_width="93dp"
         android:layout_height="23dp"
         android:layout_gravity="left"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="206dp"
-        android:layout_marginEnd="195dp"
-        android:layout_marginBottom="165dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="522dp"
+        android:layout_marginEnd="317dp"
+        android:layout_marginBottom="299dp"
         android:alpha="0.800000011920929"
         android:gravity="left|center_vertical"
         android:includeFontPadding="false"
@@ -107,20 +109,20 @@
         android:text="Password"
         android:textColor="#FF000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/image_view_rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/image_view_rectangle"
-        app:layout_constraintStart_toStartOf="@+id/image_view_rectangle"
-        app:layout_constraintTop_toTopOf="@+id/image_view_rectangle" />
+        app:layout_constraintBottom_toBottomOf="@+id/image_view_background"
+        app:layout_constraintEnd_toEndOf="@+id/image_view_background"
+        app:layout_constraintStart_toStartOf="@+id/image_view_background"
+        app:layout_constraintTop_toTopOf="@+id/image_view_background" />
 
     <TextView
         android:id="@+id/container_pass"
         android:layout_width="100dp"
         android:layout_height="27dp"
         android:layout_gravity="top|left"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="117dp"
-        android:layout_marginEnd="195dp"
-        android:layout_marginBottom="250dp"
+        android:layout_marginStart="146dp"
+        android:layout_marginTop="424dp"
+        android:layout_marginEnd="319dp"
+        android:layout_marginBottom="393dp"
         android:gravity="center_horizontal|center_vertical"
         android:includeFontPadding="false"
         android:maxLines="1"
@@ -128,39 +130,39 @@
         android:text="Username"
         android:textColor="#FF000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/image_view_rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/image_view_rectangle"
-        app:layout_constraintStart_toStartOf="@+id/image_view_rectangle"
-        app:layout_constraintTop_toTopOf="@+id/image_view_rectangle" />
+        app:layout_constraintBottom_toBottomOf="@+id/image_view_background"
+        app:layout_constraintEnd_toEndOf="@+id/image_view_background"
+        app:layout_constraintStart_toStartOf="@+id/image_view_background"
+        app:layout_constraintTop_toTopOf="@+id/image_view_background" />
 
     <EditText
-        android:id="@+id/txtSUsername"
-        android:layout_width="247dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="156dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="204dp"
-        android:background="@drawable/borderfortext"
-        app:layout_constraintBottom_toBottomOf="@+id/image_view_rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/image_view_rectangle"
-        app:layout_constraintStart_toStartOf="@+id/image_view_rectangle"
-        app:layout_constraintTop_toTopOf="@+id/image_view_rectangle" />
+        android:id="@+id/txtLUsername"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="437dp"
+        android:layout_marginEnd="133dp"
+        android:layout_marginBottom="357dp"
+        android:background="@drawable/image_view_rectangle1"
+        app:layout_constraintBottom_toBottomOf="@+id/image_view_background"
+        app:layout_constraintEnd_toEndOf="@+id/image_view_background"
+        app:layout_constraintStart_toStartOf="@+id/image_view_background"
+        app:layout_constraintTop_toTopOf="@+id/image_view_background" />
 
     <EditText
-        android:id="@+id/txtSPassword"
-        android:layout_width="247dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="120dp"
-        android:background="@drawable/borderfortext"
+        android:id="@+id/txtLPassword"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="533dp"
+        android:layout_marginEnd="134dp"
+        android:layout_marginBottom="261dp"
+        android:background="@drawable/image_view_rectangle1"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="@+id/image_view_rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/image_view_rectangle"
-        app:layout_constraintStart_toStartOf="@+id/image_view_rectangle"
-        app:layout_constraintTop_toTopOf="@+id/image_view_rectangle" />
+        app:layout_constraintBottom_toBottomOf="@+id/image_view_background"
+        app:layout_constraintEnd_toEndOf="@+id/image_view_background"
+        app:layout_constraintStart_toStartOf="@+id/image_view_background"
+        app:layout_constraintTop_toTopOf="@+id/image_view_background" />
 
     <Button
         android:id="@+id/btnSignup2"
