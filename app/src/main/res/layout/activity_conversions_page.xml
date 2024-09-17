@@ -32,87 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView35"
-        android:layout_width="395dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="755dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_shopping_list2" />
-
-    <ImageView
-        android:id="@+id/imageView36"
-        android:layout_width="78dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="157dp"
-        android:layout_marginTop="755dp"
-        android:layout_marginEnd="158dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/container_group" />
-
-    <ImageView
-        android:id="@+id/imageView37"
-        android:layout_width="78sp"
-        android:layout_height="50sp"
-        android:layout_marginStart="317dp"
-        android:layout_marginTop="755dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/drawable_image" />
-
-    <ImageView
-        android:id="@+id/imageView38"
-        android:layout_width="78dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="235dp"
-        android:layout_marginTop="755dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_all_small_buy" />
-
-    <ImageView
-        android:id="@+id/imageView39"
-        android:layout_width="78dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="760dp"
-        android:layout_marginEnd="236dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_vector" />
-
-    <ImageView
-        android:id="@+id/imageView40"
-        android:layout_width="78dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="760dp"
-        android:layout_marginEnd="314dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_vector1" />
-
     <TextView
         android:id="@+id/textView37"
         android:layout_width="100dp"
@@ -491,5 +410,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="4dp"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

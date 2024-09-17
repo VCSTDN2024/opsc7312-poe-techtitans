@@ -129,79 +129,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="395dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="758dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="4dp"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBaseline_toBottomOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_rectangle1" />
+        app:menu="@menu/bottom_nav" />
 
-    <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="78dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="157dp"
-        android:layout_marginTop="758dp"
-        android:layout_marginEnd="158dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/container_group" />
-
-    <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="78dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="314dp"
-        android:layout_marginTop="758dp"
-        android:layout_marginEnd="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/drawable_image" />
-
-    <ImageView
-        android:id="@+id/imageView16"
-        android:layout_width="78dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="763dp"
-        android:layout_marginEnd="314dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_vector1" />
-
-    <ImageView
-        android:id="@+id/imageView17"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="235dp"
-        android:layout_marginTop="758dp"
-        android:layout_marginEnd="78dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_all_small_buy" />
-
-    <ImageView
-        android:id="@+id/imageView18"
-        android:layout_width="78dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="763dp"
-        android:layout_marginEnd="236dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_vector" />
 </androidx.constraintlayout.widget.ConstraintLayout>
