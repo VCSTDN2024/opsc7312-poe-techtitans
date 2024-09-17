@@ -33,7 +33,7 @@
         app:srcCompat="@drawable/container_button" />
 
     <ImageView
-        android:id="@+id/leading_icon_image"
+        android:id="@+id/OptionsIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="276dp"
@@ -72,7 +72,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/ic_plus_square"
+        android:id="@+id/AddToList"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="47dp"

@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
     <ImageView
-        android:id="@+id/image_state_layer2"
+        android:id="@+id/SearchIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="328dp"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/image_state_layer"
+        android:id="@+id/OptionsIcon1"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"

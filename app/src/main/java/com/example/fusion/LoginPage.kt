@@ -1,6 +1,5 @@
 package com.example.fusion
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -29,7 +28,7 @@ class LoginPage : AppCompatActivity() {
         val passwordEditText = findViewById<EditText>(R.id.txtLPassword)
         val loginButton = findViewById<Button>(R.id.btnLogin)
         val createAccountTextView = findViewById<TextView>(R.id.btnSignupPage)
-        val createAccountTextView2 = findViewById<TextView>(R.id.btnSignup2)
+        val createAccountTextView2 = findViewById<TextView>(R.id.BtnSignupPage1)
 
 
         loginButton.setOnClickListener {

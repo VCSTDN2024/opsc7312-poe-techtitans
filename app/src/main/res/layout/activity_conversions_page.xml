@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView37"
+        android:id="@+id/txtGrams"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="41dp"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView38"
+        android:id="@+id/txtOunces"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="245dp"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView39"
+        android:id="@+id/txtKilos"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="41dp"
@@ -78,7 +78,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView40"
+        android:id="@+id/txtPounds"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="246dp"
@@ -135,7 +135,7 @@
         app:srcCompat="@drawable/blacklinevertical" />
 
     <TextView
-        android:id="@+id/textView41"
+        android:id="@+id/txtMil"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="41dp"
@@ -150,7 +150,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView42"
+        android:id="@+id/txtLeters"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="41dp"
@@ -165,7 +165,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView43"
+        android:id="@+id/txtQuart"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="245dp"
@@ -180,7 +180,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView44"
+        android:id="@+id/txtGallon"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="245dp"
@@ -195,7 +195,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView45"
+        android:id="@+id/txtFOunces"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="246dp"
@@ -224,22 +224,6 @@
         app:srcCompat="@drawable/blacklinehorizontal" />
 
     <TextView
-        android:id="@+id/textView46"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="600dp"
-        android:layout_marginEnd="147dp"
-        android:layout_marginBottom="167dp"
-        android:background="@drawable/conversiongreyrec"
-        android:text="Apply"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView47"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -248,38 +232,6 @@
         android:layout_marginEnd="31dp"
         android:layout_marginBottom="120dp"
         android:text="Would you like to use the Metric or Imperial system ?"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView48"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="701dp"
-        android:layout_marginEnd="252dp"
-        android:layout_marginBottom="66dp"
-        android:background="@drawable/conversiongreyrec"
-        android:text="Metric"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView49"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="246dp"
-        android:layout_marginTop="701dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="66dp"
-        android:background="@drawable/conversiongreyrec"
-        android:text="Imperial"
-        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -422,6 +374,60 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav" />
+        app:menu="@menu/bottom_nav">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <Button
+        android:id="@+id/btnApply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="597dp"
+        android:layout_marginEnd="155dp"
+        android:layout_marginBottom="162dp"
+        android:backgroundTint="#DCD9DC"
+        android:backgroundTintMode="add"
+        android:text="Apply"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btmImperial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="694dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="65dp"
+        android:backgroundTint="#DCD9DC"
+        android:backgroundTintMode="add"
+        android:text="Imperial"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnMetric"
+        android:layout_width="102dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="694dp"
+        android:layout_marginEnd="250dp"
+        android:layout_marginBottom="66dp"
+        android:backgroundTint="#DBD8DB"
+        android:backgroundTintMode="add"
+        android:text="Metric"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

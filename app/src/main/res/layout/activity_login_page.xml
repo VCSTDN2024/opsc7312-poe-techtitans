@@ -165,7 +165,7 @@
         app:layout_constraintTop_toTopOf="@+id/image_view_background" />
 
     <Button
-        android:id="@+id/btnSignup2"
+        android:id="@+id/BtnSignupPage1"
         android:layout_width="112dp"
         android:layout_height="49dp"
         android:layout_marginStart="225dp"
@@ -194,7 +194,7 @@
         app:layout_constraintTop_toTopOf="@+id/image_view_background" />
 
     <Button
-        android:id="@+id/BtnLoginPage"
+        android:id="@+id/btnLoginPage"
         android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_marginStart="49dp"

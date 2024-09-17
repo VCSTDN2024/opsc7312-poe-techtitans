@@ -104,7 +104,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioButton
-        android:id="@+id/radioButton"
+        android:id="@+id/rbtnEng"
         android:layout_width="29dp"
         android:layout_height="32dp"
         android:layout_marginStart="314dp"
@@ -117,7 +117,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioButton
-        android:id="@+id/radioButton2"
+        android:id="@+id/rBtnAfr"
         android:layout_width="31dp"
         android:layout_height="35dp"
         android:layout_marginStart="314dp"

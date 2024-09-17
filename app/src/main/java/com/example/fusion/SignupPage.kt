@@ -28,7 +28,7 @@ class SignupPage : AppCompatActivity() {
         val passwordEditText = findViewById<EditText>(R.id.txtLPassword)
         val confirmPasswordEditText = findViewById<EditText>(R.id.edtCPassword)
         val registerButton = findViewById<Button>(R.id.button)
-        val loginTextView = findViewById<TextView>(R.id.BtnLoginPage)
+        val loginTextView = findViewById<TextView>(R.id.btnLoginPage2)
 
         registerButton.setOnClickListener {
             val username = usernameEditText.text.toString()
