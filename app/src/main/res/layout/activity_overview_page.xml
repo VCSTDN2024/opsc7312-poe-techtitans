@@ -144,4 +144,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/bottom_nav" />
 
+    <ImageView
+        android:id="@+id/img_calender"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="417dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="98dp"
+        android:layout_marginBottom="181dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="@+id/imageView6"
+        app:srcCompat="@drawable/container_group" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
