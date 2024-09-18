@@ -13,6 +13,12 @@
         android:theme="@style/Theme.CodiaDemo"
         tools:targetApi="31">
         <activity
+            android:name=".MealPlannerMeal"
+            android:exported="false" />
+        <activity
+            android:name=".FavoritesPage"
+            android:exported="false" />
+        <activity
             android:name=".ChooseTimePage"
             android:exported="false" />
         <activity
