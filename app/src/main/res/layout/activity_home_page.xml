@@ -40,10 +40,11 @@ android:background="@drawable/drawable_shape">
     android:layout_marginTop="16dp"
     android:visibility="gone"
     app:layout_constraintTop_toBottomOf="@id/btn_show_filters"
-    app:layout_constraintBottom_toTopOf="@id/scrollView"
+    app:layout_constraintBottom_toTopOf="@id/rv_search_results"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHeight_percent="0.3"> <!-- Limit to 30% of screen height -->
+    <!-- ScrollView content -->
 
     <LinearLayout
         android:id="@+id/filterSection"
@@ -180,24 +181,17 @@ android:background="@drawable/drawable_shape">
     </LinearLayout>
 </ScrollView>
 
-<!-- Search Results Section (ScrollView) -->
-<ScrollView
-    android:id="@+id/scrollView"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_marginTop="16dp"
-    app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/filterScrollView"
-    tools:ignore="SpeakableTextPresentCheck">
-
-    <LinearLayout
-        android:id="@+id/ll_search_results"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" />
-</ScrollView>
+    <!-- RecyclerView for Search Results -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_results"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterScrollView"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 <!-- Bottom Navigation -->
 <com.google.android.material.bottomnavigation.BottomNavigationView

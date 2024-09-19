@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.Recipe
@@ -15,26 +17,30 @@ import retrofit2.Response
 class HomePage : AppCompatActivity() {
 
     private val apiKey = "b6544cc7e3f043ba8063aaedbb84cb9e"
+    private lateinit var recipeAdapter: RecipeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
 
         val etSearch: EditText = findViewById(R.id.et_search)
-        val llSearchResults: LinearLayout = findViewById(R.id.ll_search_results)
-        val filterSection: LinearLayout = findViewById(R.id.filterSection)
-        val btnShowFilters: Button = findViewById(R.id.btn_show_filters)
-
-        // Automatically load recipes on app start
-        loadDefaultRecipes(llSearchResults)
+        val rvSearchResults: RecyclerView = findViewById(R.id.rv_search_results)
+        val btnShowFilter = findViewById<Button>(R.id.btn_show_filters)
 
         // Filter radio groups
         val caloriesGroup: RadioGroup = findViewById(R.id.radioGroupCalories)
         val mealTypeGroup: RadioGroup = findViewById(R.id.radioGroupMealType)
         val ingredientGroup: RadioGroup = findViewById(R.id.radioGroupIngredients)
 
-        // Toggle filter visibility on button click
-        btnShowFilters.setOnClickListener {
+        // Initialize the RecyclerView with a GridLayoutManager for two columns
+        rvSearchResults.layoutManager = GridLayoutManager(this, 2)
+        recipeAdapter = RecipeAdapter(this, emptyList())
+        rvSearchResults.adapter = recipeAdapter
+
+        // Automatically load recipes on app start
+        loadDefaultRecipes()
+
+        btnShowFilter.setOnClickListener{
             val filterScrollView: ScrollView = findViewById(R.id.filterScrollView)
             if (filterScrollView.visibility == View.GONE) {
                 filterScrollView.visibility = View.VISIBLE
@@ -51,11 +57,11 @@ class HomePage : AppCompatActivity() {
             val selectedFilters = getSelectedFilters(caloriesGroup, mealTypeGroup, ingredientGroup)
 
             // Clear previous results
-            llSearchResults.removeAllViews()
+            rvSearchResults.removeAllViews()
 
             // Check if search query is not empty
             if (query.isNotEmpty()) {
-                searchRecipes(query, selectedFilters, llSearchResults)
+                searchRecipes(query, selectedFilters, rvSearchResults)
             } else {
                 Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show()
             }
@@ -96,10 +102,11 @@ class HomePage : AppCompatActivity() {
         return filters
     }
 
+
     /**
      * Modifies the API request by including the query and selected filters.
      */
-    private fun searchRecipes(query: String, filters: Map<String, String>, llSearchResults: LinearLayout) {
+    private fun searchRecipes(query: String, filters: Map<String, String>, llSearchResults: RecyclerView) {
         // Ensure SpoonacularApi has been modified to accept filters
         val call = RetrofitInstance.api.searchRecipes(query, apiKey, filters)
         call.enqueue(object : Callback<RecipeResponse> {
@@ -119,30 +126,9 @@ class HomePage : AppCompatActivity() {
     }
 
     /**
-     * Automatically loads default recipes on app start.
-     */
-    private fun loadDefaultRecipes(llSearchResults: LinearLayout) {
-        val call = RetrofitInstance.api.searchRecipes("pasta", apiKey, emptyMap())
-        call.enqueue(object : Callback<RecipeResponse> {
-            override fun onResponse(call: Call<RecipeResponse>, response: Response<RecipeResponse>) {
-                if (response.isSuccessful) {
-                    val recipes = response.body()?.results ?: emptyList()
-                    displayResults(recipes, llSearchResults)
-                } else {
-                    Toast.makeText(this@HomePage, "Failed to load default recipes", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<RecipeResponse>, t: Throwable) {
-                Toast.makeText(this@HomePage, "Error loading default recipes: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    /**
      * Displays the results in the scroll view.
      */
-    private fun displayResults(recipes: List<Recipe>, llSearchResults: LinearLayout) {
+    private fun displayResults(recipes: List<Recipe>, llSearchResults: RecyclerView) {
         val inflater = layoutInflater
         for (recipe in recipes) {
             val recipeView = inflater.inflate(R.layout.recipe_item, llSearchResults, false)
@@ -156,5 +142,24 @@ class HomePage : AppCompatActivity() {
 
             llSearchResults.addView(recipeView)
         }
+    }
+
+    private fun loadDefaultRecipes() {
+        val call = RetrofitInstance.api.searchRecipes("pasta", apiKey, emptyMap())
+        call.enqueue(object : Callback<RecipeResponse> {
+            override fun onResponse(call: Call<RecipeResponse>, response: Response<RecipeResponse>) {
+                if (response.isSuccessful) {
+                    val recipes = response.body()?.results ?: emptyList()
+                    recipeAdapter = RecipeAdapter(this@HomePage, recipes)
+                    findViewById<RecyclerView>(R.id.rv_search_results).adapter = recipeAdapter
+                } else {
+                    Toast.makeText(this@HomePage, "Failed to load default recipes", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<RecipeResponse>, t: Throwable) {
+                Toast.makeText(this@HomePage, "Error loading default recipes: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
