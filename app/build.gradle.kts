@@ -47,6 +47,8 @@ dependencies {
     implementation(libs.androidx.gridlayout)
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.google.android.material:material:1.5.0")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -1,33 +1,39 @@
 package com.example.fusion
 
 import android.os.Bundle
-import android.text.Html
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.RecipeDetailsResponse
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RecipeDetailsActivity : AppCompatActivity() {
 
-    private val apiKey = "b6544cc7e3f043ba8063aaedbb84cb9e"
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabLayout: TabLayout
+    private val apiKey = "b6544cc7e3f043ba8063aaedbb84cb9e" // Replace with your actual API key
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_details)
 
-        val recipeId = intent.getIntExtra("RECIPE_ID", -1)
+        viewPager = findViewById(R.id.view_pager)
+        tabLayout = findViewById(R.id.tab_layout)
 
+        val recipeId = intent.getIntExtra("RECIPE_ID", -1)
         if (recipeId != -1) {
             getRecipeDetails(recipeId)
         } else {
-            Toast.makeText(this, "Invalid Recipe ID", Toast.LENGTH_SHORT).show()
-            finish()
+            showError("Invalid Recipe ID")
         }
     }
 
@@ -42,46 +48,47 @@ class RecipeDetailsActivity : AppCompatActivity() {
                     val recipeDetails = response.body()
                     recipeDetails?.let {
                         displayRecipeDetails(it)
+                        setupViewPager(it)
                     }
                 } else {
-                    Toast.makeText(
-                        this@RecipeDetailsActivity,
-                        "Failed to get recipe details",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    // Handle failure
+                    showError("Failed to load recipe details.")
                 }
             }
 
             override fun onFailure(call: Call<RecipeDetailsResponse>, t: Throwable) {
-                Toast.makeText(
-                    this@RecipeDetailsActivity,
-                    "Error: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                // Handle failure
+                showError("Error: ${t.message}")
             }
         })
     }
 
     private fun displayRecipeDetails(details: RecipeDetailsResponse) {
         val imageView: ImageView = findViewById(R.id.iv_recipe_image)
-        val titleView: TextView = findViewById(R.id.tv_recipe_title)
-        val summaryView: TextView = findViewById(R.id.tv_recipe_summary)
-        val ingredientsView: TextView = findViewById(R.id.tv_ingredients)
-        val instructionsView: TextView = findViewById(R.id.tv_instructions)
+        Glide.with(this)
+            .load(details.image)
+            .into(imageView)
+    }
 
-        titleView.text = details.title
-        Glide.with(this).load(details.image).into(imageView)
-        summaryView.text = Html.fromHtml(details.summary)
+    private fun setupViewPager(details: RecipeDetailsResponse) {
+        val fragments = listOf(
+            OverviewFragment.newInstance(details.summary),
+            IngredientsFragment.newInstance(details.extendedIngredients.joinToString("\n") { it.original }),
+            StepsFragment.newInstance(details.instructions ?: "No instructions available")
+        )
 
-        // Display ingredients
-        val ingredientsText = details.extendedIngredients.joinToString(separator = "\n") { it.original }
-        ingredientsView.text = ingredientsText
-
-        // Display instructions
-        if (!details.instructions.isNullOrEmpty()) {
-            instructionsView.text = Html.fromHtml(details.instructions)
-        } else {
-            instructionsView.text = "No instructions available."
+        viewPager.adapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int = fragments.size
+            override fun createFragment(position: Int): Fragment = fragments[position]
         }
+
+        val tabTitles = listOf("Overview", "Ingredients", "Steps")
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = tabTitles[position]
+        }.attach()
+    }
+
+    private fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }
