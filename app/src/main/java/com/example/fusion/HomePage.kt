@@ -1,6 +1,8 @@
 package com.example.fusion
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.Recipe
 import com.example.fusion.model.RecipeResponse
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +21,7 @@ class HomePage : AppCompatActivity() {
 
     private val apiKey = "b6544cc7e3f043ba8063aaedbb84cb9e"
     private lateinit var recipeAdapter: RecipeAdapter
+    private lateinit var bottomNavigationView: BottomNavigationView  // Added this line
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +44,7 @@ class HomePage : AppCompatActivity() {
         // Automatically load recipes on app start
         loadDefaultRecipes()
 
-        btnShowFilter.setOnClickListener{
+        btnShowFilter.setOnClickListener {
             val filterScrollView: ScrollView = findViewById(R.id.filterScrollView)
             if (filterScrollView.visibility == View.GONE) {
                 filterScrollView.visibility = View.VISIBLE
@@ -56,9 +60,6 @@ class HomePage : AppCompatActivity() {
             val query = etSearch.text.toString()
             val selectedFilters = getSelectedFilters(caloriesGroup, mealTypeGroup, ingredientGroup)
 
-            // Clear previous results
-            rvSearchResults.removeAllViews()
-
             // Check if search query is not empty
             if (query.isNotEmpty()) {
                 searchRecipes(query, selectedFilters, rvSearchResults)
@@ -66,6 +67,44 @@ class HomePage : AppCompatActivity() {
                 Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show()
             }
             true
+        }
+
+        // Initialize BottomNavigationView
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)  // Added this line
+        setupBottomNavigation()  // Added this line
+    }
+
+    private fun setupBottomNavigation() {
+        // Set the selected item as Home
+        bottomNavigationView.selectedItemId = R.id.navigation_home
+
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    // Already on the home page
+                    true
+                }
+                R.id.navigation_saved -> {
+                    // Navigate to Saved Activity
+                    startActivity(Intent(this, FavoritesPage::class.java))
+                    true
+                }
+                R.id.navigation_calendar -> {
+                    startActivity(Intent(this, MealPlannerPage::class.java))
+                    true
+                }
+                R.id.navigation_cart -> {
+                    // Navigate to Cart Activity
+                    startActivity(Intent(this, ShoppingListPage::class.java))
+                    true
+                }
+                R.id.navigation_settings -> {
+                    // Navigate to Settings Activity
+                    startActivity(Intent(this, SettingsPage::class.java))
+                    true
+                }
+                else -> false
+            }
         }
     }
 
@@ -162,4 +201,5 @@ class HomePage : AppCompatActivity() {
             }
         })
     }
+
 }

@@ -1,18 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Home"
-        android:id="@+id/Home"
-        android:icon="@drawable/img_shopping_list5"/>
-    <item android:title="Saved"
-        android:id="@+id/Saved"
-        android:icon="@drawable/iv_home_page_vector1"/>
-    <item android:title="Calendar"
-        android:id="@+id/Calendar"
-        android:icon="@drawable/container_group"/>
-    <item android:title="Cart"
-        android:id="@+id/Cart"
-        android:icon="@drawable/img_all_small_buy"/>
-    <item android:title="Settings"
-        android:id="@+id/Settings"
-        android:icon="@drawable/iv_settings"/>
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/img_shopping_list5"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/navigation_saved"
+        android:icon="@drawable/iv_home_page_vector1"
+        android:title="Saved" />
+
+    <item
+        android:id="@+id/navigation_calendar"
+        android:icon="@drawable/container_group"
+        android:title="Calendar" />
+
+    <item
+        android:id="@+id/navigation_cart"
+        android:icon="@drawable/img_all_small_buy"
+        android:title="Cart" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/iv_settings"
+        android:title="Settings" />
+
 </menu>
