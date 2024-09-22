@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/colors.xml -->
 <resources>
-
+    <!-- Define your blue colors -->
+    <!-- <color name="colorPrimary">#1976D2</color> -->              <!-- Primary Blue -->
+    <!-- <color name="colorPrimaryVariant">#1565C0</color> -->       <!-- Darker variant of blue -->
+    <!-- <color name="colorSecondary">#2196F3</color> -->            <!-- Accent Blue -->
+    <!-- Update other UI colors if necessary -->
 </resources>
