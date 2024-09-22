@@ -53,31 +53,21 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Breakfast"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
-    <!-- ScrollView for displaying recipes -->
-    <ScrollView
-        android:id="@+id/recipeScrollView"
+    <!-- RecyclerView for displaying recipes -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_meal_recipes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mealTimeCard"
-        tools:ignore="SpeakableTextPresentCheck">
-
-        <LinearLayout
-            android:id="@+id/recipeContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <!-- Dynamic recipe cards will be added here programmatically -->
-        </LinearLayout>
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@id/mealTimeCard" />
 
     <!-- Back Button -->
     <ImageView

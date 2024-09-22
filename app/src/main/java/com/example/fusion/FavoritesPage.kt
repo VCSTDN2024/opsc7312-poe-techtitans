@@ -2,12 +2,10 @@ package com.example.fusion
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.fusion.model.Recipe
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -17,19 +15,22 @@ import com.google.firebase.database.ValueEventListener
 import java.util.concurrent.CountDownLatch
 
 class FavoritesPage : AppCompatActivity() {
+
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var rvSearchResults: RecyclerView
-
-    private lateinit var recipeAdapter: RecipeAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_favorites_page)
 
+        // Initialize bottom navigation view
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        rvSearchResults = findViewById(R.id.recyclerView)
+
+        // Handle window insets to ensure proper padding
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNavigationView) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(bottom = systemBars.bottom)
+            insets
+        }
 
         // Setup bottom navigation
         setupBottomNavigation()
@@ -105,7 +106,6 @@ class FavoritesPage : AppCompatActivity() {
     }
 
     private fun setupBottomNavigation() {
-        // Set the selected item as Home
         bottomNavigationView.selectedItemId = R.id.navigation_saved
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->

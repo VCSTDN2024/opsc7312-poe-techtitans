@@ -133,6 +133,9 @@ class RecipeAdapter(
             context.startActivity(intent)
         }
     }
+    fun getRecipeList(): List<Recipe> {
+        return recipeList
+    }
 
     override fun getItemCount(): Int {
         return recipeList.size
