@@ -2,10 +2,12 @@ package com.example.fusion
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import com.example.fusion.model.Recipe
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -17,6 +19,7 @@ import java.util.concurrent.CountDownLatch
 class FavoritesPage : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var recipeAdapter: RecipeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +39,7 @@ class FavoritesPage : AppCompatActivity() {
         setupBottomNavigation()
 
         // Setup RecyclerView
-        rvSearchResults.layoutManager = GridLayoutManager(this, 2)
         recipeAdapter = RecipeAdapter(this, mutableListOf())
-        rvSearchResults.adapter = recipeAdapter
 
         displaySavedRecipes()
     }
