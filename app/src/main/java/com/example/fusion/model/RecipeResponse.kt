@@ -7,5 +7,6 @@ data class RecipeResponse(
 data class Recipe(
     val id: Int,
     val title: String,
-    val image: String
+    val image: String,
+    var isSaved: Boolean = false //track saved state
 )
