@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.fusion.model.Recipe
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +21,7 @@ import java.util.concurrent.CountDownLatch
 class FavoritesPage : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var rvSearchResults: RecyclerView
     private lateinit var recipeAdapter: RecipeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +30,7 @@ class FavoritesPage : AppCompatActivity() {
 
         // Initialize bottom navigation view
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        rvSearchResults = findViewById(R.id.recyclerView)
 
         // Handle window insets to ensure proper padding
         ViewCompat.setOnApplyWindowInsetsListener(bottomNavigationView) { view, insets ->
@@ -39,7 +43,9 @@ class FavoritesPage : AppCompatActivity() {
         setupBottomNavigation()
 
         // Setup RecyclerView
+        rvSearchResults.layoutManager = GridLayoutManager(this, 2)
         recipeAdapter = RecipeAdapter(this, mutableListOf())
+        rvSearchResults.adapter = recipeAdapter
 
         displaySavedRecipes()
     }
