@@ -29,8 +29,8 @@
         android:layout_marginTop="292dp"
         android:scaleType="centerInside"
         android:src="@drawable/image_view_rectangle"
-        android:tint="#95C3C3C3"
         android:tintMode="screen"
+        app:tint="#95C3C3C3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.627"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +57,10 @@
             android:background="#00FFFFFF"
             android:text="Login"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusUp="@id/txtLPassword" />
     </FrameLayout>
 
     <ImageView
@@ -78,6 +81,8 @@
         android:layout_height="50dp"
         android:background="@drawable/image_view_rectangle1"
         android:padding="8dp"
+        android:nextFocusDown="@id/txtLPassword"
+        android:nextFocusForward="@id/txtLPassword"
         app:layout_constraintBottom_toBottomOf="@+id/image_view_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -110,12 +115,15 @@
         android:background="@drawable/image_view_rectangle1"
         android:inputType="textPassword"
         android:padding="8dp"
+        android:nextFocusDown="@id/btnLogin"
+        android:nextFocusForward="@id/btnLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.636" />
+        app:layout_constraintVertical_bias="0.636"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/text_view_password"
@@ -145,12 +153,15 @@
         android:background="#00FFFFFF"
         android:text="Signup"
         android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/image_view_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.776"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405" />
+        android:textColor="#FFFFFF"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    app:layout_constraintBottom_toBottomOf="@+id/image_view_background"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.776"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.405" />
 
     <Button
         android:id="@+id/btnLoginPage"
@@ -159,10 +170,13 @@
         android:background="#00FFFFFF"
         android:text="Login"
         android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.269"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405" />
+        android:textColor="#000000"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.269"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.405" />
 </androidx.constraintlayout.widget.ConstraintLayout>
