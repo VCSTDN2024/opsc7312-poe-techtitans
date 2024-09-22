@@ -2,6 +2,8 @@ package com.example.fusion
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -16,7 +18,33 @@ class SettingsPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings_page)
 
-        // Initialize bottom navigation view
+        findViewById<TextView>(R.id.txtEditProfile).setOnClickListener {
+            Toast.makeText(this, "Edit profile clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, editProfilePage::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<TextView>(R.id.txtNotifications).setOnClickListener {
+            Toast.makeText(this, "Notifications clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, NotificationsPage::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<TextView>(R.id.txtLanguage).setOnClickListener {
+            Toast.makeText(this, "Notifications clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, LanguagePage::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<TextView>(R.id.txtUOM).setOnClickListener {
+            Toast.makeText(this, "Notifications clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ConversionsPage::class.java)
+            startActivity(intent)
+        }
+
+
+
+// Initialize bottom navigation view
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
         // Handle window insets to ensure proper padding

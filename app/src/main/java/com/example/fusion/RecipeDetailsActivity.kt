@@ -31,8 +31,8 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var bottomNavigationView: BottomNavigationView
-    private val apiKey = "ffb55d8730b748a1ad84cfd535e3debc"
     private val databaseReference = FirebaseDatabase.getInstance().getReference("users")
+    private val apiKey = "ffb55d8730b748a1ad84cfd535e3debc"
 
     private var recipeId: Int = -1
 
@@ -98,7 +98,6 @@ class RecipeDetailsActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val recipeDetails = response.body()
                     recipeDetails?.let {
-                        checkIfFavoriteAndSave(it)
                         displayRecipeDetails(it)
                         setupViewPager(it)
                     }
@@ -168,7 +167,32 @@ class RecipeDetailsActivity : AppCompatActivity() {
             val customTab = layoutInflater.inflate(R.layout.tab_item, tabLayout, false) as LinearLayout
             val tabTextView = customTab.findViewById<TextView>(R.id.tab_title)
             tabTextView.text = tabTitles[position]
-            tab.customView = customTab        }.attach()
+            tab.customView = customTab
+        }.attach()
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                updateTabStyles(position)
+            }
+        })
+
+        // Initialize the first tab with the selected background
+        updateTabStyles(0)
+    }
+
+    private fun updateTabStyles(selectedPosition: Int) {
+        for (i in 0 until tabLayout.tabCount) {
+            val tab = tabLayout.getTabAt(i)
+            val tabView = tab?.customView as? LinearLayout
+
+            if (i == selectedPosition) {
+                tabView?.setBackgroundResource(R.drawable.tab_selected_background)  // Set blue box with curved corners
+                tabView?.isSelected = true
+            } else {
+                tabView?.background = null  // Remove background for unselected tabs
+                tabView?.isSelected = false
+            }
+        }
     }
 
     private fun showError(message: String) {
