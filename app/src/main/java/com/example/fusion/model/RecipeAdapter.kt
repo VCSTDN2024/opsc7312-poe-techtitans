@@ -13,8 +13,13 @@ import com.example.fusion.model.Recipe
 
 class RecipeAdapter(
     private val context: Context,
-    private val recipeList: List<Recipe>
+    private var recipeList: List<Recipe>
 ) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+
+    fun updateData(newRecipes: List<Recipe>) {
+        recipeList = newRecipes
+        notifyDataSetChanged()
+    }
 
     class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val recipeTitle: TextView = itemView.findViewById(R.id.tv_recipe_title)

@@ -1,185 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@drawable/drawable_shape">
-
-<!-- Search Bar -->
-<EditText
-    android:id="@+id/et_search"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:background="@drawable/iv_home_page_rectangle2"
-    android:hint="Search for Recipes"
-    android:padding="12dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-
-<!-- Button for Filter Pop-up -->
-<Button
-    android:id="@+id/btn_show_filters"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Filter"
-    app:layout_constraintTop_toBottomOf="@id/et_search"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintHorizontal_bias="0.5" />
-
-<!-- Scrollable Filter Section (Initially Hidden) -->
-<ScrollView
-    android:id="@+id/filterScrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_marginTop="16dp"
-    android:visibility="gone"
-    app:layout_constraintTop_toBottomOf="@id/btn_show_filters"
-    app:layout_constraintBottom_toTopOf="@id/rv_search_results"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.3"> <!-- Limit to 30% of screen height -->
-    <!-- ScrollView content -->
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/filterSection"
-        android:layout_width="match_parent"
+    <!-- Search Bar -->
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/iv_home_page_rectangle2"
+        android:hint="Search for Recipes"
+        android:padding="12dp"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/filterLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Apply a filter"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp" />
+    <!-- Button for Filter Pop-up -->
+    <Button
+        android:id="@+id/btn_show_filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        app:layout_constraintTop_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Calories Filter -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Calories"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp" />
+    <!-- Scrollable Filter Section (Initially Hidden) -->
+    <ScrollView
+        android:id="@+id/filterScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/btn_show_filters"
+        app:layout_constraintBottom_toTopOf="@id/rv_search_results"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.3">
 
-        <RadioGroup
-            android:id="@+id/radioGroupCalories"
+        <!-- ScrollView content -->
+        <LinearLayout
+            android:id="@+id/filterSection"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/radioCalories500"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="500&lt;" />
-
-            <RadioButton
-                android:id="@+id/radioCalories1000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1000&lt;" />
-
-            <RadioButton
-                android:id="@+id/radioCalories1500"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1500&lt;" />
-
-            <RadioButton
-                android:id="@+id/radioCalories2000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2000&lt;" />
-        </RadioGroup>
-
-        <!-- Type of Meal Filter -->
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Type of meal"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="4dp" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <RadioGroup
-            android:id="@+id/radioGroupMealType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/radioBreakfast"
+            <TextView
+                android:id="@+id/filterLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Breakfast" />
+                android:text="Apply a filter"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
 
-            <RadioButton
-                android:id="@+id/radioLunch"
+            <!-- Calories Filter -->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lunch" />
+                android:text="Calories"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp" />
 
-            <RadioButton
-                android:id="@+id/radioDinner"
+            <RadioGroup
+                android:id="@+id/radioGroupCalories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radioCalories500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="500&lt;" />
+
+                <RadioButton
+                    android:id="@+id/radioCalories1000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1000&lt;" />
+
+                <RadioButton
+                    android:id="@+id/radioCalories1500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1500&lt;" />
+
+                <RadioButton
+                    android:id="@+id/radioCalories2000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2000&lt;" />
+            </RadioGroup>
+
+            <!-- Type of Meal Filter -->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dinner" />
-        </RadioGroup>
+                android:text="Type of meal"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp" />
 
-        <!-- Main Ingredient Filter -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Main ingredient"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="4dp" />
+            <RadioGroup
+                android:id="@+id/radioGroupMealType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <RadioGroup
-            android:id="@+id/radioGroupIngredients"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/radioBreakfast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Breakfast" />
 
-            <RadioButton
-                android:id="@+id/radioChicken"
+                <RadioButton
+                    android:id="@+id/radioLunch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lunch" />
+
+                <RadioButton
+                    android:id="@+id/radioDinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dinner" />
+            </RadioGroup>
+
+            <!-- Main Ingredient Filter -->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chicken" />
+                android:text="Main ingredient"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp" />
 
-            <RadioButton
-                android:id="@+id/radioBeef"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Beef" />
+            <RadioGroup
+                android:id="@+id/radioGroupIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/radioFish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fish" />
+                <RadioButton
+                    android:id="@+id/radioChicken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chicken" />
 
-            <RadioButton
-                android:id="@+id/radioFlour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Flour" />
+                <RadioButton
+                    android:id="@+id/radioBeef"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Beef" />
 
-            <RadioButton
-                android:id="@+id/radioEggs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Eggs" />
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/radioFish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fish" />
 
-    </LinearLayout>
-</ScrollView>
+                <RadioButton
+                    android:id="@+id/radioFlour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Flour" />
+
+                <RadioButton
+                    android:id="@+id/radioEggs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eggs" />
+            </RadioGroup>
+
+        </LinearLayout>
+    </ScrollView>
 
     <!-- RecyclerView for Search Results -->
     <androidx.recyclerview.widget.RecyclerView
@@ -187,22 +186,21 @@ android:background="@drawable/drawable_shape">
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filterScrollView"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-<!-- Bottom Navigation -->
-<com.google.android.material.bottomnavigation.BottomNavigationView
-    android:id="@+id/bottomNavigationView"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
-    app:labelVisibilityMode="unlabeled"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:menu="@menu/bottom_nav" />
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
