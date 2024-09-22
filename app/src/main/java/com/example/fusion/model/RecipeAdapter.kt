@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fusion.model.Recipe
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class RecipeAdapter(
     private val context: Context,
@@ -43,48 +46,61 @@ class RecipeAdapter(
             Glide.with(context).load(recipe.image).into(recipeImage)
 
             val userId = FirebaseAuth.getInstance().currentUser?.uid
-            // Retrieve the current saved state from the local map or initialize it as false
-            val isSaved = savedRecipes[recipe.id.toString()] ?: false
-            saveIcon.setImageResource(if (isSaved) R.drawable.favoritewhite else R.drawable.image_group1)
 
-            // Handle save button click
+            // Initialize the save icon to a default state before checking the database
+            saveIcon.setImageResource(R.drawable.image_group1)
+
+            // Check if the recipe is saved in Firebase and update the icon
+            userId?.let { id ->
+                databaseReference.child(id).child("favorites").child(recipe.id.toString()).addListenerForSingleValueEvent(object :
+                    ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        // Update local map and icon based on Firebase state
+                        val isSaved = snapshot.exists()
+                        savedRecipes[recipe.id.toString()] = isSaved
+                        saveIcon.setImageResource(if (isSaved) R.drawable.favoritewhite else R.drawable.image_group1)
+
+                        handleSaveIconClick(userId, recipe, isSaved)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(context, "Failed to check recipe status: ${error.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }
+
+        private fun handleSaveIconClick(userId: String, recipe: Recipe, currentSavedState: Boolean) {
             saveIcon.setOnClickListener {
-                // Correctly toggle the state based on the current map entry, updating it immediately
-                val currentSavedState = savedRecipes[recipe.id.toString()] ?: false
                 val newSavedState = !currentSavedState
                 savedRecipes[recipe.id.toString()] = newSavedState
                 saveIcon.setImageResource(if (newSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
 
                 if (newSavedState) {
-                    // Attempt to save to Firebase
-                    userId?.let { id ->
-                        databaseReference.child(id).child("favorites").child(recipe.id.toString()).setValue(true)
-                            .addOnSuccessListener {
-                                Toast.makeText(context, "Recipe saved", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(context, "Failed to save recipe: ${e.message}", Toast.LENGTH_SHORT).show()
-                                savedRecipes[recipe.id.toString()] = currentSavedState
-                                saveIcon.setImageResource(if (currentSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
-                            }
-                    }
+                    databaseReference.child(userId).child("favorites").child(recipe.id.toString()).setValue(true)
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Recipe saved", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(context, "Failed to save recipe: ${e.message}", Toast.LENGTH_SHORT).show()
+                            savedRecipes[recipe.id.toString()] = currentSavedState
+                            saveIcon.setImageResource(if (currentSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
+                        }
                 } else {
-                    // Attempt to remove from Firebase
-                    userId?.let { id ->
-                        databaseReference.child(id).child("favorites").child(recipe.id.toString()).removeValue()
-                            .addOnSuccessListener {
-                                Toast.makeText(context, "Recipe removed from favorites", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(context, "Failed to remove recipe: ${e.message}", Toast.LENGTH_SHORT).show()
-                                savedRecipes[recipe.id.toString()] = currentSavedState
-                                saveIcon.setImageResource(if (currentSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
-                            }
-                    }
+                    databaseReference.child(userId).child("favorites").child(recipe.id.toString()).removeValue()
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Recipe removed from favorites", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(context, "Failed to remove recipe: ${e.message}", Toast.LENGTH_SHORT).show()
+                            savedRecipes[recipe.id.toString()] = currentSavedState
+                            saveIcon.setImageResource(if (currentSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
+                        }
                 }
             }
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.recipe_item, parent, false)
