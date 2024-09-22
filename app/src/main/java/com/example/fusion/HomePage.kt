@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class HomePage : AppCompatActivity() {
 
-    private val apiKey = "b6544cc7e3f043ba8063aaedbb84cb9e"
+    private val apiKey = "a6db912098794bf4a235d7fff9bb0fc5"
 
     private lateinit var etSearch: EditText
     private lateinit var rvSearchResults: RecyclerView
