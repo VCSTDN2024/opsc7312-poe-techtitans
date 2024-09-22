@@ -25,12 +25,6 @@ class RecipeAdapter(
     private var savedRecipes = mutableMapOf<String, Boolean>()
     private val databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
-    fun updateSavedState(savedRecipeIds: Set<String>) {
-        recipeList.forEach { recipe ->
-            recipe.isSaved = savedRecipeIds.contains(recipe.id.toString())
-        }
-        notifyDataSetChanged()
-    }
 
     fun updateData(newRecipes: List<Recipe>) {
         recipeList = newRecipes
@@ -84,6 +78,9 @@ class RecipeAdapter(
                         databaseReference.child(id).child("favorites").child(recipe.id.toString()).setValue(true)
                             .addOnSuccessListener {
                                 Toast.makeText(context, "Recipe saved", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(context, RecipeDetailsActivity::class.java)
+                                intent.putExtra("RECIPE_ID", recipe.id)
+                                context.startActivity(intent)
                             }
                             .addOnFailureListener { e ->
                                 Toast.makeText(context, "Failed to save recipe: ${e.message}", Toast.LENGTH_SHORT).show()

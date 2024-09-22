@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.util.concurrent.CountDownLatch
 
 class FavoritesPage : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -67,25 +68,40 @@ class FavoritesPage : AppCompatActivity() {
     }
 
     private fun fetchRecipeDetails(recipeIds: List<String>) {
-        // Assuming you have a function to fetch recipe details from the IDs
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val recipes = mutableListOf<Recipe>()
+
+        val countDownLatch = CountDownLatch(recipeIds.size)  // Use a CountDownLatch to wait for all data fetches
+
         recipeIds.forEach { id ->
-            // Placeholder for fetching recipe details, replace with actual call
-            // For instance, you could use an API or further Firebase calls here
-            val recipe = fetchRecipeById(id) // This should be an asynchronous call returning a Recipe object
-            recipes.add(recipe)
+            val recipeRef = FirebaseDatabase.getInstance().getReference("users/$userId/recipes/$id")
+            recipeRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val recipe = dataSnapshot.getValue(Recipe::class.java)
+                    if (recipe != null) {
+                        recipes.add(recipe)
+                    }
+                    countDownLatch.countDown()  // Decrease count after each fetch
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Toast.makeText(this@FavoritesPage, "Error fetching recipe details: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+                    countDownLatch.countDown()  // Ensure count down even on failure to prevent deadlock
+                }
+            })
         }
 
-        // Update the adapter with the fetched recipes
-        runOnUiThread {
-            recipeAdapter.updateData(recipes)
-        }
-    }
-
-    private fun fetchRecipeById(id: String): Recipe {
-        // Placeholder function to simulate fetching a recipe by ID
-        // Replace with actual fetching logic
-        return Recipe(id.toInt(), "Sample Title for $id", "http://image.url/for/$id.jpg")
+        // Wait for all fetches to complete
+        Thread {
+            try {
+                countDownLatch.await()  // Wait for all responses
+                runOnUiThread {
+                    recipeAdapter.updateData(recipes)  // Update adapter data on UI thread
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }.start()
     }
 
     private fun setupBottomNavigation() {
