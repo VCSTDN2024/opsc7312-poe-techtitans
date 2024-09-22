@@ -16,7 +16,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +29,8 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var bottomNavigationView: BottomNavigationView
-    private val apiKey = "a6db912098794bf4a235d7fff9bb0fc5"
+    private val apiKey = "96f6fd257d504979bd789dd3d0f2c751"
+    private val databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
     private var recipeId: Int = -1
 
@@ -55,7 +59,6 @@ class RecipeDetailsActivity : AppCompatActivity() {
         intent.putExtra("RECIPE_ID", recipeId) // Pass the recipeId to MealPlannerActivity
         startActivity(intent)
     }
-
 
     private fun setupBottomNavigation() {
         bottomNavigationView.selectedItemId = R.id.navigation_home
@@ -93,6 +96,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val recipeDetails = response.body()
                     recipeDetails?.let {
+                        checkIfFavoriteAndSave(it)
                         displayRecipeDetails(it)
                         setupViewPager(it)
                     }
@@ -105,6 +109,38 @@ class RecipeDetailsActivity : AppCompatActivity() {
                 showError("Error: ${t.message}")
             }
         })
+    }
+
+    private fun checkIfFavoriteAndSave(recipeDetails: RecipeDetailsResponse) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        userId?.let {
+            databaseReference.child(it).child("favorites").child(recipeId.toString())
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {  // Check if the recipe is marked as favorite
+                            saveRecipeDetailsToFirebase(recipeDetails)
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        showError("Failed to check if recipe is favorite.")
+                    }
+                })
+        }
+    }
+
+    private fun saveRecipeDetailsToFirebase(recipeDetails: RecipeDetailsResponse) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        userId?.let {
+            val recipeRef = databaseReference.child(it).child("recipes").child(recipeId.toString())
+            recipeRef.setValue(recipeDetails)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Recipe details saved to Firebase.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Failed to save recipe details to Firebase.", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     private fun displayRecipeDetails(details: RecipeDetailsResponse) {

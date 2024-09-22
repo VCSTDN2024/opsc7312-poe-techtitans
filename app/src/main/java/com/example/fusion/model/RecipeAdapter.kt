@@ -1,3 +1,4 @@
+
 package com.example.fusion
 
 import android.content.Context
@@ -72,32 +73,50 @@ class RecipeAdapter(
 
         private fun handleSaveIconClick(userId: String, recipe: Recipe, currentSavedState: Boolean) {
             saveIcon.setOnClickListener {
+                val currentSavedState = savedRecipes[recipe.id.toString()] ?: false
                 val newSavedState = !currentSavedState
                 savedRecipes[recipe.id.toString()] = newSavedState
                 saveIcon.setImageResource(if (newSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
 
                 if (newSavedState) {
-                    databaseReference.child(userId).child("favorites").child(recipe.id.toString()).setValue(true)
-                        .addOnSuccessListener {
-                            Toast.makeText(context, "Recipe saved", Toast.LENGTH_SHORT).show()
-                        }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(context, "Failed to save recipe: ${e.message}", Toast.LENGTH_SHORT).show()
-                            savedRecipes[recipe.id.toString()] = currentSavedState
-                            saveIcon.setImageResource(if (currentSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
-                        }
+                    // Save to Firebase
+                    userId?.let { id ->
+                        databaseReference.child(id).child("favorites").child(recipe.id.toString()).setValue(true)
+                            .addOnSuccessListener {
+                                Toast.makeText(context, "Recipe saved", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(context, "Failed to save recipe: ${e.message}", Toast.LENGTH_SHORT).show()
+                                savedRecipes[recipe.id.toString()] = currentSavedState
+                                saveIcon.setImageResource(if (currentSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
+                            }
+                    }
                 } else {
-                    databaseReference.child(userId).child("favorites").child(recipe.id.toString()).removeValue()
-                        .addOnSuccessListener {
-                            Toast.makeText(context, "Recipe removed from favorites", Toast.LENGTH_SHORT).show()
-                        }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(context, "Failed to remove recipe: ${e.message}", Toast.LENGTH_SHORT).show()
-                            savedRecipes[recipe.id.toString()] = currentSavedState
-                            saveIcon.setImageResource(if (currentSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
-                        }
+                    // Remove from Firebase
+                    userId?.let { id ->
+                        databaseReference.child(id).child("favorites").child(recipe.id.toString()).removeValue()
+                            .addOnSuccessListener {
+                                Toast.makeText(context, "Recipe removed from favorites", Toast.LENGTH_SHORT).show()
+                                removeRecipeData(id, recipe.id.toString())
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(context, "Failed to remove recipe: ${e.message}", Toast.LENGTH_SHORT).show()
+                                savedRecipes[recipe.id.toString()] = currentSavedState
+                                saveIcon.setImageResource(if (currentSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
+                            }
+                    }
                 }
             }
+        }
+        fun removeRecipeData(userId: String, recipeId: String) {
+            // Remove the recipe details from the 'recipes' node
+            databaseReference.child(userId).child("recipes").child(recipeId).removeValue()
+                .addOnSuccessListener {
+                    Toast.makeText(context, "Recipe details also removed from database.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(context, "Failed to remove recipe details: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 

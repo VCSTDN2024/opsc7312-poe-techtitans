@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import retrofit2.Response
 
 class HomePage : AppCompatActivity() {
 
-    private val apiKey = "a6db912098794bf4a235d7fff9bb0fc5"
+    private val apiKey = "96f6fd257d504979bd789dd3d0f2c751"
 
     private lateinit var etSearch: EditText
     private lateinit var rvSearchResults: RecyclerView
@@ -37,6 +38,7 @@ class HomePage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Set your layout
         setContentView(R.layout.activity_home_page)
+        enableEdgeToEdge()
 
         // Initialize views
         etSearch = findViewById(R.id.et_search)
