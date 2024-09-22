@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MealPlannerPage">
 
-    <!-- Background image -->
+    <!-- Background Image -->
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="0dp"
@@ -24,16 +23,14 @@
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Choose a day"
+        android:layout_marginTop="20dp"
+        android:text="Meal Planner"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <!-- ScrollView for the day selection -->
     <ScrollView
@@ -41,7 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@id/buttonDone"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleText">
@@ -51,265 +48,154 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"> <!-- Centering items inside the layout -->
+            android:orientation="vertical">
 
-            <!-- Sunday -->
+            <!-- Monday Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardMonday"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:backgroundTint="#AAFFFFFF"
-                app:cardCornerRadius="20dp">
-
-                <LinearLayout
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@android:color/white">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Sunday"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/checkBoxSunday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:gravity="center"
+                    android:text="Monday"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:padding="16dp" />
             </androidx.cardview.widget.CardView>
 
-            <!-- Monday -->
+            <!-- Tuesday Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardTuesday"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:backgroundTint="#AAFFFFFF"
-                app:cardCornerRadius="20dp">
-
-                <LinearLayout
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@android:color/white">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Monday"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/checkBoxMonday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:gravity="center"
+                    android:text="Tuesday"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:padding="16dp" />
             </androidx.cardview.widget.CardView>
 
-            <!-- Tuesday -->
+            <!-- Wednesday Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardWednesday"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:backgroundTint="#AAFFFFFF"
-                app:cardCornerRadius="20dp">
-
-                <LinearLayout
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@android:color/white">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Tuesday"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/checkBoxTuesday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:gravity="center"
+                    android:text="Wednesday"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:padding="16dp" />
             </androidx.cardview.widget.CardView>
 
-            <!-- Wednesday -->
+            <!-- Thursday Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardThursday"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:backgroundTint="#AAFFFFFF"
-                app:cardCornerRadius="20dp">
-
-                <LinearLayout
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@android:color/white">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Wednesday"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/checkBoxWednesday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:gravity="center"
+                    android:text="Thursday"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:padding="16dp" />
             </androidx.cardview.widget.CardView>
 
-            <!-- Thursday -->
+            <!-- Friday Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardFriday"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:backgroundTint="#AAFFFFFF"
-                app:cardCornerRadius="20dp">
-
-                <LinearLayout
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@android:color/white">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Thursday"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/checkBoxThursday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:gravity="center"
+                    android:text="Friday"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:padding="16dp" />
             </androidx.cardview.widget.CardView>
 
-            <!-- Friday -->
+            <!-- Saturday Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardSaturday"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:backgroundTint="#AAFFFFFF"
-                app:cardCornerRadius="20dp">
-
-                <LinearLayout
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@android:color/white">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Friday"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/checkBoxFriday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:gravity="center"
+                    android:text="Saturday"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:padding="16dp" />
             </androidx.cardview.widget.CardView>
 
-            <!-- Saturday -->
+            <!-- Sunday Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardSunday"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:backgroundTint="#AAFFFFFF"
-                app:cardCornerRadius="20dp">
-
-                <LinearLayout
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@android:color/white">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Saturday"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/checkBoxSaturday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:gravity="center"
+                    android:text="Sunday"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:padding="16dp" />
             </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </ScrollView>
 
-    <!-- Done Button -->
-    <Button
-        android:id="@+id/buttonDone"
-        android:layout_width="wrap_content"
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="#808080"
-        android:text="Done"
+        android:layout_marginBottom="4dp"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="328dp"
-        android:layout_marginBottom="739dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_shopping_list2" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="321dp"
-        android:layout_marginBottom="739dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_ios" />
+        app:menu="@menu/bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

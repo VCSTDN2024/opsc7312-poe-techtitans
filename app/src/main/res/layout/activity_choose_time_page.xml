@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="Choose a time"
+        android:text="Pick the time"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -46,8 +46,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleText">
 
-        <!-- Breakfast -->
+        <!-- Breakfast Card -->
         <androidx.cardview.widget.CardView
+            android:id="@+id/breakfastCard"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -70,15 +71,12 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxBreakfast"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Lunch -->
+        <!-- Lunch Card -->
         <androidx.cardview.widget.CardView
+            android:id="@+id/lunchCard"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -101,15 +99,12 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxLunch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Dinner -->
+        <!-- Dinner Card -->
         <androidx.cardview.widget.CardView
+            android:id="@+id/dinnerCard"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -132,15 +127,12 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxDinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Snack -->
+        <!-- Snack Card -->
         <androidx.cardview.widget.CardView
+            android:id="@+id/snackCard"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -163,12 +155,9 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxSnack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
     <!-- Done Button -->
@@ -183,33 +172,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Back Button -->
     <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="337dp"
-        android:layout_marginBottom="739dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_shopping_list2" />
-
-    <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/backArrow"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="328dp"
-        android:layout_marginBottom="739dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_arrow_back_ios" />
 
-
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/bottom_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>
