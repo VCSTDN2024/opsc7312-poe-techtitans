@@ -22,8 +22,8 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
-    private lateinit var bottomNavigationView: BottomNavigationView  // Added for Bottom Navigation
-    private val apiKey = "b6544cc7e3f043ba8063aaedbb84cb9e" // Replace with your actual API key
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private val apiKey = "a6db912098794bf4a235d7fff9bb0fc5" // Replace with your actual API key
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +31,9 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
         viewPager = findViewById(R.id.view_pager)
         tabLayout = findViewById(R.id.tab_layout)
-        bottomNavigationView = findViewById(R.id.bottomNavigationView)  // Initialize BottomNavigationView
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
-        // Set up Bottom Navigation similar to HomePage
+        // Set up Bottom Navigation
         setupBottomNavigation()
 
         val recipeId = intent.getIntExtra("RECIPE_ID", -1)
@@ -45,29 +45,29 @@ class RecipeDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigation() {
-        // Set the selected item as the appropriate one
+        // Set the selected item as Home or appropriate
         bottomNavigationView.selectedItemId = R.id.navigation_home
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    startActivity(Intent(this, HomePage::class.java))  // Navigate to home page
+                    startActivity(Intent(this, HomePage::class.java))
                     true
                 }
                 R.id.navigation_saved -> {
-                    startActivity(Intent(this, FavoritesPage::class.java))  // Navigate to Favorites
+                    startActivity(Intent(this, FavoritesPage::class.java))
                     true
                 }
                 R.id.navigation_calendar -> {
-                    startActivity(Intent(this, MealPlannerPage::class.java))  // Navigate to Calendar
+                    startActivity(Intent(this, MealPlannerPage::class.java))
                     true
                 }
                 R.id.navigation_cart -> {
-                    startActivity(Intent(this, ShoppingListPage::class.java))  // Navigate to Shopping List
+                    startActivity(Intent(this, ShoppingListPage::class.java))
                     true
                 }
                 R.id.navigation_settings -> {
-                    startActivity(Intent(this, SettingsPage::class.java))  // Navigate to Settings
+                    startActivity(Intent(this, SettingsPage::class.java))
                     true
                 }
                 else -> false
@@ -76,7 +76,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
     }
 
     private fun getRecipeDetails(recipeId: Int) {
-        val call = RetrofitInstance.api.getRecipeInformation(recipeId, apiKey)
+        val call = RetrofitInstance.api.getRecipeInformation(recipeId, apiKey, includeNutrition = true)
         call.enqueue(object : Callback<RecipeDetailsResponse> {
             override fun onResponse(call: Call<RecipeDetailsResponse>, response: Response<RecipeDetailsResponse>) {
                 if (response.isSuccessful) {
@@ -105,7 +105,8 @@ class RecipeDetailsActivity : AppCompatActivity() {
         val fragments = listOf(
             OverviewFragment.newInstance(details.summary),
             IngredientsFragment.newInstance(details.extendedIngredients.joinToString("\n") { it.original }),
-            StepsFragment.newInstance(details.instructions ?: "No instructions available")
+            StepsFragment.newInstance(details.instructions ?: "No instructions available"),
+            NutritionFragment.newInstance(details.nutrition)  // Added NutritionFragment
         )
 
         viewPager.adapter = object : FragmentStateAdapter(this) {
@@ -113,7 +114,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
             override fun createFragment(position: Int): Fragment = fragments[position]
         }
 
-        val tabTitles = listOf("Overview", "Ingredients", "Steps")
+        val tabTitles = listOf("Overview", "Ingredients", "Steps", "Nutrition")
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()

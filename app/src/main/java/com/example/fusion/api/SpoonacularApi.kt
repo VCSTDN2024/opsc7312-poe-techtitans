@@ -19,6 +19,7 @@ interface SpoonacularApi {
     @GET("recipes/{id}/information")
     fun getRecipeInformation(
         @Path("id") id: Int,
-        @Query("apiKey") apiKey: String
+        @Query("apiKey") apiKey: String,
+        @Query("includeNutrition") includeNutrition: Boolean = true  // Added parameter
     ): Call<RecipeDetailsResponse>
 }
