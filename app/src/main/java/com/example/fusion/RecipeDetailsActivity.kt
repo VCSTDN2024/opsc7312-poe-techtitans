@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -15,8 +17,6 @@ import com.example.fusion.model.RecipeDetailsResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,7 +55,6 @@ class RecipeDetailsActivity : AppCompatActivity() {
         intent.putExtra("RECIPE_ID", recipeId) // Pass the recipeId to MealPlannerActivity
         startActivity(intent)
     }
-
 
     private fun setupBottomNavigation() {
         bottomNavigationView.selectedItemId = R.id.navigation_home
@@ -127,8 +126,35 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
         val tabTitles = listOf("Overview", "Ingredients", "Steps", "Nutrition")
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = tabTitles[position]
+            val customTab = layoutInflater.inflate(R.layout.tab_item, tabLayout, false) as LinearLayout
+            val tabTextView = customTab.findViewById<TextView>(R.id.tab_title)
+            tabTextView.text = tabTitles[position]
+            tab.customView = customTab
         }.attach()
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                updateTabStyles(position)
+            }
+        })
+
+        // Initialize the first tab with the selected background
+        updateTabStyles(0)
+    }
+
+    private fun updateTabStyles(selectedPosition: Int) {
+        for (i in 0 until tabLayout.tabCount) {
+            val tab = tabLayout.getTabAt(i)
+            val tabView = tab?.customView as? LinearLayout
+
+            if (i == selectedPosition) {
+                tabView?.setBackgroundResource(R.drawable.tab_selected_background)  // Set blue box with curved corners
+                tabView?.isSelected = true
+            } else {
+                tabView?.background = null  // Remove background for unselected tabs
+                tabView?.isSelected = false
+            }
+        }
     }
 
     private fun showError(message: String) {
