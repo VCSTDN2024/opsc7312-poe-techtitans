@@ -15,6 +15,9 @@
         android:theme="@style/Theme.CodiaDemo"
         tools:targetApi="31">
         <activity
+            android:name=".RecipeOverviewActivity"
+            android:exported="false" />
+        <activity
             android:name=".MealTimeActivity"
             android:exported="false" />
         <activity
@@ -64,7 +67,6 @@
             android:exported="false" />
         <activity
             android:name=".SignupPage"
-
             android:exported="false" />
         <activity
             android:name=".LoginPage"
