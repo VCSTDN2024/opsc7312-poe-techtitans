@@ -13,8 +13,7 @@ import com.example.fusion.model.Recipe
 
 class RecipeAdapter(
     private val context: Context,
-    private var recipeList: List<Recipe>
-) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+    private var recipeList: List<Recipe> ) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     fun updateData(newRecipes: List<Recipe>) {
         recipeList = newRecipes
