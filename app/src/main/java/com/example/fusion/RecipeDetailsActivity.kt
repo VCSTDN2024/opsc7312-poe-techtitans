@@ -2,6 +2,7 @@ package com.example.fusion
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,8 @@ import com.example.fusion.model.RecipeDetailsResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,7 +26,9 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var bottomNavigationView: BottomNavigationView
-    private val apiKey = "a6db912098794bf4a235d7fff9bb0fc5" // Replace with your actual API key
+    private val apiKey = "a6db912098794bf4a235d7fff9bb0fc5"
+
+    private var recipeId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +38,10 @@ class RecipeDetailsActivity : AppCompatActivity() {
         tabLayout = findViewById(R.id.tab_layout)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
-        // Set up Bottom Navigation
         setupBottomNavigation()
 
-        val recipeId = intent.getIntExtra("RECIPE_ID", -1)
+        // Get the recipeId from the intent
+        recipeId = intent.getIntExtra("RECIPE_ID", -1)
         if (recipeId != -1) {
             getRecipeDetails(recipeId)
         } else {
@@ -44,10 +49,16 @@ class RecipeDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupBottomNavigation() {
-        // Set the selected item as Home or appropriate
-        bottomNavigationView.selectedItemId = R.id.navigation_home
+    // Opens the Meal Planner and passes the recipeId
+    fun openMealPlanner(view: View) {
+        val intent = Intent(this, MealPlannerActivity::class.java)
+        intent.putExtra("RECIPE_ID", recipeId) // Pass the recipeId to MealPlannerActivity
+        startActivity(intent)
+    }
 
+
+    private fun setupBottomNavigation() {
+        bottomNavigationView.selectedItemId = R.id.navigation_home
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
