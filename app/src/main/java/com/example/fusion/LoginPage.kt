@@ -28,7 +28,7 @@ class LoginPage : AppCompatActivity() {
         val passwordEditText = findViewById<EditText>(R.id.txtLPassword)
         val loginButton = findViewById<Button>(R.id.btnLogin)
         val createAccountTextView = findViewById<TextView>(R.id.btnSignupPage)
-        val createAccountTextView2 = findViewById<TextView>(R.id.BtnSignupPage1)
+
 
 
         loginButton.setOnClickListener {
@@ -47,9 +47,7 @@ class LoginPage : AppCompatActivity() {
             navigateToRegisterPage()
         }
 
-        createAccountTextView2.setOnClickListener {
-            navigateToRegisterPage()
-        }
+
     }
 
     private fun loginUser(username: String, password: String) {
