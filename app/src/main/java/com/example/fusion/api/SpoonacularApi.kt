@@ -12,9 +12,8 @@ interface SpoonacularApi {
 
     @GET("recipes/complexSearch")
     fun searchRecipes(
-        @Query("query") query: String,
         @Query("apiKey") apiKey: String,
-        @QueryMap filters: Map<String, String>
+        @QueryMap parameters: Map<String, String>
     ): Call<RecipeResponse>
 
     @GET("recipes/{id}/information")

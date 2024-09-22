@@ -28,6 +28,8 @@ class HomePage : AppCompatActivity() {
     private lateinit var ingredientGroup: RadioGroup
     private lateinit var filterScrollView: ScrollView
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var btnSearch: Button
+    private lateinit var btnClearFilters: Button
 
     private lateinit var recipeAdapter: RecipeAdapter
 
@@ -45,6 +47,8 @@ class HomePage : AppCompatActivity() {
         ingredientGroup = findViewById(R.id.radioGroupIngredients)
         filterScrollView = findViewById(R.id.filterScrollView)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        btnSearch = findViewById(R.id.btn_search)
+        btnClearFilters = findViewById(R.id.btn_clear_filters)
 
         // Setup RecyclerView
         rvSearchResults.layoutManager = GridLayoutManager(this, 2)
@@ -75,18 +79,28 @@ class HomePage : AppCompatActivity() {
             }
         }
 
+        // Handle search button click
+        btnSearch.setOnClickListener {
+            performSearch()
+        }
+
+        // Handle clear filters button click
+        btnClearFilters.setOnClickListener {
+            clearFilters()
+        }
+
         // Setup bottom navigation
         setupBottomNavigation()
     }
 
     private fun performSearch() {
         val query = etSearch.text.toString()
-        val selectedFilters = getSelectedFilters(caloriesGroup, mealTypeGroup, ingredientGroup)
+        val selectedFilters = getSelectedFilters()
 
-        if (query.isNotEmpty()) {
+        if (query.isNotEmpty() || selectedFilters.isNotEmpty()) {
             searchRecipes(query, selectedFilters)
         } else {
-            Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please enter a search term or select a filter", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -96,12 +110,8 @@ class HomePage : AppCompatActivity() {
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navigation_home -> {
-                    // Already on the home page
-                    true
-                }
+                R.id.navigation_home -> true
                 R.id.navigation_saved -> {
-                    // Navigate to Saved Activity
                     startActivity(Intent(this, FavoritesPage::class.java))
                     true
                 }
@@ -110,12 +120,10 @@ class HomePage : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_cart -> {
-                    // Navigate to Cart Activity
                     startActivity(Intent(this, ShoppingListPage::class.java))
                     true
                 }
                 R.id.navigation_settings -> {
-                    // Navigate to Settings Activity
                     startActivity(Intent(this, SettingsPage::class.java))
                     true
                 }
@@ -127,11 +135,7 @@ class HomePage : AppCompatActivity() {
     /**
      * Captures the selected filters from the radio buttons.
      */
-    private fun getSelectedFilters(
-        caloriesGroup: RadioGroup,
-        mealTypeGroup: RadioGroup,
-        ingredientGroup: RadioGroup
-    ): Map<String, String> {
+    private fun getSelectedFilters(): Map<String, String> {
         val filters = mutableMapOf<String, String>()
 
         // Capture selected calories filter
@@ -145,7 +149,7 @@ class HomePage : AppCompatActivity() {
         // Capture selected meal type filter
         when (mealTypeGroup.checkedRadioButtonId) {
             R.id.radioBreakfast -> filters["type"] = "breakfast"
-            R.id.radioLunch -> filters["type"] = "lunch" // Adjusted for API
+            R.id.radioLunch -> filters["type"] = "lunch"
             R.id.radioDinner -> filters["type"] = "dinner"
         }
 
@@ -165,7 +169,12 @@ class HomePage : AppCompatActivity() {
      * Searches recipes based on query and filters.
      */
     private fun searchRecipes(query: String, filters: Map<String, String>) {
-        val call = RetrofitInstance.api.searchRecipes(query, apiKey, filters)
+        val parameters = filters.toMutableMap()
+        if (query.isNotEmpty()) {
+            parameters["query"] = query
+        }
+
+        val call = RetrofitInstance.api.searchRecipes(apiKey, parameters)
         call.enqueue(object : Callback<RecipeResponse> {
             override fun onResponse(
                 call: Call<RecipeResponse>,
@@ -201,7 +210,7 @@ class HomePage : AppCompatActivity() {
     }
 
     private fun loadDefaultRecipes() {
-        val call = RetrofitInstance.api.searchRecipes("pasta", apiKey, emptyMap())
+        val call = RetrofitInstance.api.searchRecipes(apiKey, emptyMap())
         call.enqueue(object : Callback<RecipeResponse> {
             override fun onResponse(
                 call: Call<RecipeResponse>,
@@ -227,5 +236,18 @@ class HomePage : AppCompatActivity() {
                 ).show()
             }
         })
+    }
+
+    /**
+     * Clears all selected filters.
+     */
+    private fun clearFilters() {
+        // Clear selections in RadioGroups
+        caloriesGroup.clearCheck()
+        mealTypeGroup.clearCheck()
+        ingredientGroup.clearCheck()
+
+        // Optionally, reset any variables or perform additional actions
+        Toast.makeText(this, "Filters cleared", Toast.LENGTH_SHORT).show()
     }
 }
