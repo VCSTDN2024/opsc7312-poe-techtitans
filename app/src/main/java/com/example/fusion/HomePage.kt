@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +28,7 @@ class HomePage : AppCompatActivity() {
     private lateinit var ingredientGroup: RadioGroup
     private lateinit var filterScrollView: ScrollView
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var btnSearch: Button
+    private lateinit var btnSearch: ImageButton // Correct casting to ImageButton
     private lateinit var btnClearFilters: Button
 
     private lateinit var recipeAdapter: RecipeAdapter
@@ -38,7 +37,6 @@ class HomePage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Set your layout
         setContentView(R.layout.activity_home_page)
-        enableEdgeToEdge()
 
         // Initialize views
         etSearch = findViewById(R.id.et_search)
@@ -49,7 +47,7 @@ class HomePage : AppCompatActivity() {
         ingredientGroup = findViewById(R.id.radioGroupIngredients)
         filterScrollView = findViewById(R.id.filterScrollView)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        btnSearch = findViewById(R.id.btn_search)
+        btnSearch = findViewById(R.id.btn_search) // Correct ImageButton cast
         btnClearFilters = findViewById(R.id.btn_clear_filters)
 
         // Setup RecyclerView
