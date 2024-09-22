@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -163,8 +165,10 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
         val tabTitles = listOf("Overview", "Ingredients", "Steps", "Nutrition")
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = tabTitles[position]
-        }.attach()
+            val customTab = layoutInflater.inflate(R.layout.tab_item, tabLayout, false) as LinearLayout
+            val tabTextView = customTab.findViewById<TextView>(R.id.tab_title)
+            tabTextView.text = tabTitles[position]
+            tab.customView = customTab        }.attach()
     }
 
     private fun showError(message: String) {
