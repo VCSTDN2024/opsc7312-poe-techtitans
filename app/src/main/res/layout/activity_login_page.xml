@@ -65,8 +65,8 @@
 
     <ImageView
         android:id="@+id/image_view_remove_background"
-        android:layout_width="227dp"
-        android:layout_height="202dp"
+        android:layout_width="185dp"
+        android:layout_height="173dp"
         android:layout_gravity="top|center_horizontal"
         android:scaleType="centerInside"
         android:src="@drawable/image_view_remove_background"
@@ -151,17 +151,17 @@
         android:layout_width="134dp"
         android:layout_height="59dp"
         android:background="#00FFFFFF"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:text="Signup"
+        android:textColor="#B2E1F5FE"
         android:textSize="25sp"
-        android:textColor="#FFFFFF"
-    android:focusable="false"
-    android:focusableInTouchMode="false"
-    app:layout_constraintBottom_toBottomOf="@+id/image_view_background"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.776"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.405" />
+        app:layout_constraintBottom_toBottomOf="@+id/image_view_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.776"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.405" />
 
     <Button
         android:id="@+id/btnLoginPage"
@@ -179,4 +179,5 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.405" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

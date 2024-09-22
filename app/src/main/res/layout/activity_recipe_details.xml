@@ -29,12 +29,8 @@
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
+
             <!-- Small clickable ImageView in the top-right corner -->
-            <!-- Click to open meal planner -->
-
-
-
-            <!-- TabLayout -->
             <ImageView
                 android:id="@+id/iv_meal_planner"
                 android:layout_width="49dp"
@@ -45,11 +41,21 @@
                 android:onClick="openMealPlanner"
                 android:src="@drawable/container_group" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
+            <!-- HorizontalScrollView to wrap TabLayout for horizontal scrolling -->
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_collapseMode="pin" />
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <!-- TabLayout with increased width inside HorizontalScrollView -->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="1500dp"
+                    android:layout_height="wrap_content"
+                    app:tabMode="scrollable"
+                    app:layout_collapseMode="pin" />
+            </HorizontalScrollView>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -66,21 +72,20 @@
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginTop="-14dp"> <!-- Adjust margin to overlap image -->
+        android:layout_marginTop="-14dp">
 
         <!-- ViewPager2 for the fragments inside -->
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="350dp"
+            android:layout_height="375dp"
+            android:background="@drawable/image_view_rectanglesignup"
             android:clipToPadding="false"
             android:padding="16dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
