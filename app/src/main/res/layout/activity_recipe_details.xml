@@ -29,8 +29,22 @@
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
+            <!-- Small clickable ImageView in the top-right corner -->
+            <!-- Click to open meal planner -->
+
+
 
             <!-- TabLayout -->
+            <ImageView
+                android:id="@+id/iv_meal_planner"
+                android:layout_width="49dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end|top"
+                android:layout_margin="60dp"
+                android:contentDescription="@null"
+                android:onClick="openMealPlanner"
+                android:src="@drawable/container_group" />
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
