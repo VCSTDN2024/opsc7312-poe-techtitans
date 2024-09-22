@@ -21,7 +21,7 @@ class RecipeOverviewActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private var recipeId: String? = null
-    private val apiKey = "ffb55d8730b748a1ad84cfd535e3debc" // Replace with your Spoonacular API key
+    private val apiKey = BuildConfig.API_KEY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -31,7 +31,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var bottomNavigationView: BottomNavigationView
-    private val apiKey = "ffb55d8730b748a1ad84cfd535e3debc"
+    private val apiKey = BuildConfig.API_KEY
     private val databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
     private var recipeId: Int = -1

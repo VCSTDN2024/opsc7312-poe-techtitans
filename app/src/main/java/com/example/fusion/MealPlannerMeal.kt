@@ -22,6 +22,8 @@ class MealPlannerMeal : AppCompatActivity() {
     private lateinit var selectedMealTime: String
     private lateinit var rvMealRecipes: RecyclerView
     private lateinit var recipeAdapter: RecipeAdapter
+    private val apiKey = BuildConfig.API_KEY
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +89,6 @@ class MealPlannerMeal : AppCompatActivity() {
     }
 
     private fun loadRecipeDetailsFromAPI(recipeId: String) {
-        val apiKey = "ffb55d8730b748a1ad84cfd535e3debc"
         val call = RetrofitInstance.api.getRecipeInformation(recipeId.toInt(), apiKey)
 
         call.enqueue(object : Callback<RecipeDetailsResponse> {
