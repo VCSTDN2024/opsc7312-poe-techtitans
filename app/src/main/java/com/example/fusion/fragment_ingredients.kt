@@ -67,16 +67,17 @@ class IngredientsFragment : Fragment() {
 
     private fun addIngredientsToShoppingList() {
         val user = FirebaseAuth.getInstance().currentUser
+        var userID = FirebaseAuth.getInstance().currentUser?.uid
         if (user != null) {
             user.getIdToken(true).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     ApiClient.authToken = task.result?.token
-                    Log.d("IngredientsFragment", "ID Token: ${ApiClient.authToken}")
+                    Log.d("IngredientsFragment", "ID Token: ${userID}")
                     Log.d("IngredientsFragment", "recipeId: $recipeId")
                     // Proceed with API request
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
-                            val requestBody = AddIngredientsRequest(recipeId)
+                            val requestBody = AddIngredientsRequest(userID.toString(), recipeId)
                             Log.d("IngredientsFragment", "Request Body: $requestBody")
                             val response = apiService.addIngredientsToShoppingList(requestBody)
                             Log.d("IngredientsFragment", "Response Code: ${response.code()}")

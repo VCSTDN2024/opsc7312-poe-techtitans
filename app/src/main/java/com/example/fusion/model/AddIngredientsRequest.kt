@@ -1,6 +1,7 @@
 package com.example.fusion.model
 
 data class AddIngredientsRequest(
+    val userID: String,
     val recipeId: Int
 )
 data class AddIngredientsResponse(
