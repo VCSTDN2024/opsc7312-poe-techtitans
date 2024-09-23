@@ -14,6 +14,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.FirebaseApp
+
 
 private lateinit var auth: FirebaseAuth
 
@@ -26,7 +28,7 @@ class LoginPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login_page)
-
+        FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
         sharedPreferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
 

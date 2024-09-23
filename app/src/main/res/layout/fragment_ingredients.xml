@@ -1,5 +1,5 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- fragment_ingredients.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,11 +9,20 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Ingredients TextView -->
         <TextView
             android:id="@+id/tv_ingredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
+
+        <!-- Add to Shopping List Button -->
+        <Button
+            android:id="@+id/btn_add_to_shopping_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add to Shopping List"
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 </ScrollView>

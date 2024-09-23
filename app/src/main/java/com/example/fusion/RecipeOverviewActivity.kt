@@ -20,7 +20,7 @@ class RecipeOverviewActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
-    private var recipeId: String? = null
+    private var recipeId: Int = -1 // Changed to Int
     private val apiKey = BuildConfig.API_KEY
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,21 +28,21 @@ class RecipeOverviewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recipe_overview)
 
         // Get the recipeId from the intent
-        recipeId = intent.getStringExtra("RECIPE_ID")
+        recipeId = intent.getIntExtra("RECIPE_ID", -1)
 
         viewPager = findViewById(R.id.view_pager)
         tabLayout = findViewById(R.id.tab_layout)
 
         // Fetch recipe details from Spoonacular API
-        if (recipeId != null) {
-            loadRecipeDetailsFromAPI(recipeId!!)
+        if (recipeId != -1) {
+            loadRecipeDetailsFromAPI(recipeId)
         } else {
             showError("Invalid Recipe ID")
         }
     }
 
-    private fun loadRecipeDetailsFromAPI(recipeId: String) {
-        val call = RetrofitInstance.api.getRecipeInformation(recipeId.toInt(), apiKey)
+    private fun loadRecipeDetailsFromAPI(recipeId: Int) {
+        val call = RetrofitInstance.api.getRecipeInformation(recipeId, apiKey)
 
         call.enqueue(object : Callback<RecipeDetailsResponse> {
             override fun onResponse(call: Call<RecipeDetailsResponse>, response: Response<RecipeDetailsResponse>) {
@@ -71,7 +71,10 @@ class RecipeOverviewActivity : AppCompatActivity() {
     private fun setupViewPager(details: RecipeDetailsResponse) {
         val fragments = listOf(
             OverviewFragment.newInstance(details.summary),
-            IngredientsFragment.newInstance(details.extendedIngredients.joinToString("\n") { it.original }),
+            IngredientsFragment.newInstance(
+                details.extendedIngredients.joinToString("\n") { it.original },
+                recipeId // Pass recipeId here
+            ),
             StepsFragment.newInstance(details.instructions ?: "No instructions available"),
             NutritionFragment.newInstance(details.nutrition)
         )

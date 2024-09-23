@@ -153,10 +153,15 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private fun setupViewPager(details: RecipeDetailsResponse) {
         val fragments = listOf(
             OverviewFragment.newInstance(details.summary),
-            IngredientsFragment.newInstance(details.extendedIngredients.joinToString("\n") { it.original }),
+            IngredientsFragment.newInstance(
+                details.extendedIngredients.joinToString("\n") { it.original },
+                recipeId
+            ),
             StepsFragment.newInstance(details.instructions ?: "No instructions available"),
-            NutritionFragment.newInstance(details.nutrition)  // Added NutritionFragment
+            NutritionFragment.newInstance(details.nutrition)
         )
+
+
 
         viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = fragments.size
