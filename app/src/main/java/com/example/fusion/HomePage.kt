@@ -2,6 +2,7 @@ package com.example.fusion
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
@@ -38,6 +39,7 @@ class HomePage : AppCompatActivity() {
         // Set your layout
         setContentView(R.layout.activity_home_page)
 
+        Log.d("HomePage", "API Key: $")
         // Initialize views
         etSearch = findViewById(R.id.et_search)
         rvSearchResults = findViewById(R.id.rv_search_results)

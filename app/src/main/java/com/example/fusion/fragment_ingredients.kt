@@ -68,6 +68,8 @@ class IngredientsFragment : Fragment() {
     private fun addIngredientsToShoppingList() {
         val user = FirebaseAuth.getInstance().currentUser
         var userID = FirebaseAuth.getInstance().currentUser?.uid
+        var userToken = FirebaseAuth.getInstance().currentUser?.getIdToken(true)
+        Log.d("IngredientsFragment", "User ID: $userToken")
         if (user != null) {
             user.getIdToken(true).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
