@@ -10,9 +10,9 @@
 
         android:id="@+id/imageView10"
 
-        android:layout_width="435dp"
+        android:layout_width="393dp"
 
-        android:layout_height="176dp"
+        android:layout_height="177dp"
 
         android:scaleType="centerCrop"
 
@@ -23,7 +23,6 @@
         app:layout_constraintTop_toTopOf="parent"
 
         app:srcCompat="@drawable/iv_home_page_image" />
-
 
     <ImageView
 
@@ -48,7 +47,6 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView10"
 
         app:layout_constraintTop_toTopOf="@+id/imageView10" />
-
 
     <EditText
 
@@ -79,9 +77,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_home_page_rectangle4"
 
         app:layout_constraintStart_toStartOf="@+id/imageView10"
-
         app:layout_constraintTop_toTopOf="@+id/iv_home_page_rectangle4" />
-
 
     <ImageButton
 
@@ -107,9 +103,24 @@
 
         app:layout_constraintTop_toTopOf="@+id/iv_home_page_rectangle4" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_results"
+        android:layout_width="389dp"
+        android:layout_height="516dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
-    <!-- Scrollable Filter Section (Initially Hidden) -->
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav" />
 
     <!-- Scrollable Filter Section (Initially Hidden) -->
 
@@ -121,7 +132,7 @@
 
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="164dp"
+        android:layout_marginStart="168dp"
 
         android:layout_marginTop="108dp"
 
@@ -140,12 +151,14 @@
         android:id="@+id/filterScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#80000000"
+        android:translationY="-50dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/rv_search_results"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_search_results"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_show_filters">
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- ScrollView content -->
         <LinearLayout
@@ -162,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:text="Apply a filter"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -170,6 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="Calories"
+                android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
             <RadioGroup
@@ -181,25 +196,29 @@
                     android:id="@+id/radioCalories500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="500&lt;" />
+                    android:text="500&lt;"
+                    android:textColor="#FFFFFF" />
 
                 <RadioButton
                     android:id="@+id/radioCalories1000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000&lt;" />
+                    android:text="1000&lt;"
+                    android:textColor="#FFFFFF" />
 
                 <RadioButton
                     android:id="@+id/radioCalories1500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1500&lt;" />
+                    android:text="1500&lt;"
+                    android:textColor="#FFFFFF" />
 
                 <RadioButton
                     android:id="@+id/radioCalories2000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2000&lt;" />
+                    android:text="2000&lt;"
+                    android:textColor="#FFFFFF" />
             </RadioGroup>
 
             <!-- Type of Meal Filter -->
@@ -209,6 +228,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="4dp"
                 android:text="Type of meal"
+                android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
             <RadioGroup
@@ -220,19 +240,22 @@
                     android:id="@+id/radioBreakfast"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Breakfast" />
+                    android:text="Breakfast"
+                    android:textColor="#FFFFFF" />
 
                 <RadioButton
                     android:id="@+id/radioLunch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lunch" />
+                    android:text="Lunch"
+                    android:textColor="#FFFFFF" />
 
                 <RadioButton
                     android:id="@+id/radioDinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dinner" />
+                    android:text="Dinner"
+                    android:textColor="#FFFFFF" />
             </RadioGroup>
 
             <!-- Main Ingredient Filter -->
@@ -242,6 +265,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="4dp"
                 android:text="Main ingredient"
+                android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
             <RadioGroup
@@ -253,31 +277,36 @@
                     android:id="@+id/radioChicken"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chicken" />
+                    android:text="Chicken"
+                    android:textColor="#FFFFFF" />
 
                 <RadioButton
                     android:id="@+id/radioBeef"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Beef" />
+                    android:text="Beef"
+                    android:textColor="#FFFFFF" />
 
                 <RadioButton
                     android:id="@+id/radioFish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fish" />
+                    android:text="Fish"
+                    android:textColor="#FFFFFF" />
 
                 <RadioButton
                     android:id="@+id/radioFlour"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Flour" />
+                    android:text="Flour"
+                    android:textColor="#FFFFFF" />
 
                 <RadioButton
                     android:id="@+id/radioEggs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Eggs" />
+                    android:text="Eggs"
+                    android:textColor="#FFFFFF" />
             </RadioGroup>
 
             <!-- Clear Filters Button -->
@@ -298,29 +327,5 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- RecyclerView for Search Results -->
-
-    <!-- Bottom Navigation -->
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_search_results"
-        android:layout_width="410dp"
-        android:layout_height="465dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="88dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
