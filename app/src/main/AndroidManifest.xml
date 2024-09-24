@@ -33,13 +33,15 @@
             android:exported="false" />
         <activity
             android:name=".FavoritesPage"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ChooseTimePage"
             android:exported="false" />
         <activity
             android:name=".MealPlannerPage"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".OverviewPage"
             android:exported="false" />
@@ -57,16 +59,19 @@
             android:exported="false" />
         <activity
             android:name=".ShoppingListPage"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".SearchPage"
             android:exported="false" />
         <activity
             android:name=".SettingsPage"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".HomePage"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".SignupPage"
             android:exported="false" />
