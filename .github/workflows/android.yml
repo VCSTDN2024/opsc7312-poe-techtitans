@@ -18,9 +18,9 @@ jobs:
 
     strategy:
       matrix:
-        api-level: [30]  # Use API level 30 for better compatibility
-        target: [google_apis]
-        arch: [x86]  # Use x86 architecture
+        api-level: [21]  # Use API level 21
+        target: [default]
+        arch: [armeabi-v7a]  # Use ARM architecture
 
     steps:
       - name: Checkout
