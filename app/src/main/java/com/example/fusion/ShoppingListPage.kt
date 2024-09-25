@@ -3,6 +3,7 @@ package com.example.fusion
 import android.content.Intent
 import android.os.Bundle
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -18,17 +19,25 @@ class ShoppingListPage : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private val currentUser = FirebaseAuth.getInstance().currentUser
 
+    // Set to keep track of expanded categories
+    private val expandedCategories = HashSet<TextView>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_list_page)
 
-        // Initialize the container where the categories will be displayed
+        // Initialize views
         shoppingListContainer = findViewById(R.id.linearLayout_shopping_list)
-
-        // Initialize the bottom navigation view
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        val addToListIcon: ImageView = findViewById(R.id.add_to_list_icon)
 
-        // Setup navigation item selection listener
+        // Set click listener on the add icon to open AddItemActivity
+        addToListIcon.setOnClickListener {
+            val intent = Intent(this, AddItemActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Setup bottom navigation
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
@@ -52,7 +61,7 @@ class ShoppingListPage : AppCompatActivity() {
             }
         }
 
-        // Firebase Database Reference (User's shopping list path)
+        // Initialize Firebase reference
         if (currentUser != null) {
             databaseReference = FirebaseDatabase.getInstance()
                 .getReference("users/${currentUser.uid}/shoppingList")
@@ -62,6 +71,12 @@ class ShoppingListPage : AppCompatActivity() {
         } else {
             Toast.makeText(this, "User not signed in", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh the shopping list when returning to this activity
+        fetchShoppingListCategories()
     }
 
     private fun fetchShoppingListCategories() {
@@ -79,14 +94,10 @@ class ShoppingListPage : AppCompatActivity() {
                         val isChecked = itemSnapshot.child("checked").getValue(Boolean::class.java) ?: false
 
                         if (category != null && itemName != null) {
-                            // Check if the item is already in the category set
-                            val itemExists = categoryItemsMap[category]?.any { it.first == itemName } ?: false
-                            if (!itemExists) {
-                                if (!categoryItemsMap.containsKey(category)) {
-                                    categoryItemsMap[category] = mutableSetOf()
-                                }
-                                categoryItemsMap[category]?.add(Pair(itemName, isChecked))
+                            if (!categoryItemsMap.containsKey(category)) {
+                                categoryItemsMap[category] = mutableSetOf()
                             }
+                            categoryItemsMap[category]?.add(Pair(itemName, isChecked))
                         }
                     }
 
@@ -121,12 +132,15 @@ class ShoppingListPage : AppCompatActivity() {
         val isExpanded = categoryView.tag as? Boolean ?: false
 
         if (isExpanded) {
+            // Collapse the category
             val index = shoppingListContainer.indexOfChild(categoryView)
-            for (i in 1..items.size) {
+            for (i in items.indices) {
                 shoppingListContainer.removeViewAt(index + 1)
             }
             categoryView.tag = false
+            expandedCategories.remove(categoryView)
         } else {
+            // Expand the category
             val index = shoppingListContainer.indexOfChild(categoryView)
             var position = index + 1
             for (item in items) {
@@ -144,8 +158,10 @@ class ShoppingListPage : AppCompatActivity() {
                 position++
             }
             categoryView.tag = true
+            expandedCategories.add(categoryView)
         }
     }
+
     private fun removeIngredientFromFirebase(ingredientName: String) {
         if (currentUser != null) {
             val shoppingListRef = FirebaseDatabase.getInstance()
@@ -153,14 +169,19 @@ class ShoppingListPage : AppCompatActivity() {
 
             shoppingListRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    val itemsToRemove = mutableListOf<DatabaseReference>()
                     for (itemSnapshot in snapshot.children) {
                         val itemName = itemSnapshot.child("name").getValue(String::class.java)
                         if (itemName == ingredientName) {
-                            // Remove this item
-                            itemSnapshot.ref.removeValue()
+                            // Collect references to items to remove
+                            itemsToRemove.add(itemSnapshot.ref)
                         }
                     }
-                    // After removing, refresh the UI
+                    // Remove all matching items
+                    for (ref in itemsToRemove) {
+                        ref.removeValue()
+                    }
+                    // Refresh the UI
                     fetchShoppingListCategories()
                 }
 
@@ -172,8 +193,6 @@ class ShoppingListPage : AppCompatActivity() {
             Toast.makeText(this, "User not signed in", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
     private fun showEmptyMessage() {
         val emptyMessageTextView = TextView(this).apply {
