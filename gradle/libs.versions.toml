@@ -1,5 +1,7 @@
 [versions]
 agp = "8.5.1"
+androidxJunit = "1.1.5"
+androidxTestEspressoEspressoCore = "3.5.1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -12,9 +14,15 @@ constraintlayout = "2.1.4"
 firebaseAuthKtx = "23.0.0"
 firebaseDatabaseKtx = "21.0.0"
 gridlayout = "1.0.0"
+runner = "1.6.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "androidxTestEspressoEspressoCore" }
+androidx-espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "androidxTestEspressoEspressoCore" }
+androidx-junit-v115 = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
+androidx-test-espresso-espresso-core-v351-x2 = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxTestEspressoEspressoCore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

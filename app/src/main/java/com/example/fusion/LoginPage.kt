@@ -28,6 +28,14 @@ class LoginPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login_page)
+
+        if (isRunningTest()) {
+            // Skip login and navigate directly to HomePage
+            startActivity(Intent(this, HomePage::class.java))
+            finish()
+            return
+        }
+
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
         sharedPreferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
@@ -55,8 +63,10 @@ class LoginPage : AppCompatActivity() {
         createAccountTextView.setOnClickListener {
             navigateToRegisterPage()
         }
+    }
 
-
+    private fun isRunningTest(): Boolean {
+        return "true" == System.getProperty("IS_TESTING")
     }
 
     private fun checkLogin() {
