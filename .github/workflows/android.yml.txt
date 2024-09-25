@@ -1,0 +1,25 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Android App
+      uses: amirisback/automated-build-android-app-with-github-action@2.2.4
+      with:
+        gradle-wrapper-path: './gradlew'  # Ensure this path is correct for your project structure
+        build-command: 'assembleDebug'    # Specify the gradle task(s) you want to run, e.g., assembleDebug or assembleRelease
+        working-directory: '.'            # Optional: specify if your gradle files are not in the repository root
+
+    # Optional: add a step to upload artifacts if you want to keep the APK or other build outputs
+    - uses: actions/upload-artifact@v3
+      with:
+        name: android-build-artifacts
+        path: app/build/outputs/**/*.apk   # Adjust path according to your build outputs
