@@ -13,15 +13,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      API_KEY: ${{ secrets.API_KEY }}
-
-    strategy:
-      matrix:
-        api-level: [21]  # Use API level 21
-        target: [default]
-        arch: [armeabi-v7a]  # Use ARM architecture
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -32,38 +23,19 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Setup Android SDK
+      - name: Set up Android SDK
         uses: android-actions/setup-android@v2
         with:
-          api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
-          arch: ${{ matrix.arch }}
-          profile: 'no'
-          channel: '0'
+          api-level: 31
+          build-tools: 31.0.0
 
-      - name: Cache Gradle packages
-        uses: actions/cache@v3
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug assembleAndroidTest
+
+      - name: Run Instrumentation Tests on Firebase Test Lab
+        uses: wzieba/FirebaseTestLab@v2
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build with Gradle
-        env:
-          GRADLE_OPTS: -Xmx2048m -XX:MaxMetaspaceSize=512m
-        run: ./gradlew build -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true
-
-      - name: Run Instrumentation Tests
-        uses: reactivecircus/android-emulator-runner@v2.32.0
-        with:
-          api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
-          arch: ${{ matrix.arch }}
-          script: ./gradlew connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.systemProperty=IS_TESTING=true
-          emulator-options: -no-window -no-snapshot -gpu swiftshader_indirect
+          project: ${{ secrets.FIREBASE_PROJECT_ID }}
+          serviceCredentialsJson: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          debugApk: app/build/outputs/apk/debug/app-debug.apk
+          testApk: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
