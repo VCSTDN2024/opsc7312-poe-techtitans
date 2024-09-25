@@ -19,8 +19,8 @@ class ShoppingListPage : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private val currentUser = FirebaseAuth.getInstance().currentUser
 
-    // Set to keep track of expanded categories
-    private val expandedCategories = HashSet<TextView>()
+    // Set to keep track of expanded categories by name
+    private val expandedCategories = HashSet<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,10 +109,18 @@ class ShoppingListPage : AppCompatActivity() {
                                 textSize = 18f
                                 setPadding(16, 16, 16, 16)
                                 setOnClickListener {
-                                    toggleItemsVisibility(this, items)
+                                    toggleItemsVisibility(this, category, items)
                                 }
                             }
                             shoppingListContainer.addView(categoryTextView)
+
+                            // If category is expanded, automatically expand it
+                            if (expandedCategories.contains(category)) {
+                                expandCategory(categoryTextView, category, items)
+                                categoryTextView.tag = true
+                            } else {
+                                categoryTextView.tag = false
+                            }
                         }
                     } else {
                         showEmptyMessage()
@@ -128,7 +136,7 @@ class ShoppingListPage : AppCompatActivity() {
         })
     }
 
-    private fun toggleItemsVisibility(categoryView: TextView, items: Set<Pair<String, Boolean>>) {
+    private fun toggleItemsVisibility(categoryView: TextView, categoryName: String, items: Set<Pair<String, Boolean>>) {
         val isExpanded = categoryView.tag as? Boolean ?: false
 
         if (isExpanded) {
@@ -138,31 +146,35 @@ class ShoppingListPage : AppCompatActivity() {
                 shoppingListContainer.removeViewAt(index + 1)
             }
             categoryView.tag = false
-            expandedCategories.remove(categoryView)
+            expandedCategories.remove(categoryName)
         } else {
             // Expand the category
-            val index = shoppingListContainer.indexOfChild(categoryView)
-            var position = index + 1
-            for (item in items) {
-                val itemView = CheckBox(this).apply {
-                    text = item.first
-                    isChecked = item.second
-                    setPadding(32, 8, 16, 8)
-                    setOnCheckedChangeListener { _, isChecked ->
-                        if (isChecked) {
-                            removeIngredientFromFirebase(item.first)
-                        }
-                    }
-                }
-                shoppingListContainer.addView(itemView, position)
-                position++
-            }
+            expandCategory(categoryView, categoryName, items)
             categoryView.tag = true
-            expandedCategories.add(categoryView)
+            expandedCategories.add(categoryName)
         }
     }
 
-    private fun removeIngredientFromFirebase(ingredientName: String) {
+    private fun expandCategory(categoryView: TextView, categoryName: String, items: Set<Pair<String, Boolean>>) {
+        val index = shoppingListContainer.indexOfChild(categoryView)
+        var position = index + 1
+        for (item in items) {
+            val itemView = CheckBox(this).apply {
+                text = item.first
+                isChecked = item.second
+                setPadding(32, 8, 16, 8)
+                setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) {
+                        removeIngredientFromFirebase(item.first, categoryName)
+                    }
+                }
+            }
+            shoppingListContainer.addView(itemView, position)
+            position++
+        }
+    }
+
+    private fun removeIngredientFromFirebase(ingredientName: String, categoryName: String) {
         if (currentUser != null) {
             val shoppingListRef = FirebaseDatabase.getInstance()
                 .getReference("users/${currentUser.uid}/shoppingList")
