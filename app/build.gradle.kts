@@ -18,7 +18,7 @@ android {
 
         // Access API_KEY securely
         val apiKey = findProperty("API_KEY")?.toString() ?: "a6db912098794bf4a235d7fff9bb0fc5"
-        buildConfigField("String", "API_KEY", apiKey)
+        buildConfigField("String", "API_KEY", "\"apiKey\"")
     }
 
     // Enable custom BuildConfig generation
