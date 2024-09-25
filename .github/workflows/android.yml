@@ -14,8 +14,13 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+      API_KEY: ${{ secrets.API_KEY }}
+
+    strategy:
+      matrix:
+        api-level: [30]  # Use API level 30 for better compatibility
+        target: [default]
+        arch: [x86]  # Use x86 architecture
 
     steps:
       - name: Checkout
@@ -27,11 +32,14 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Set up Android SDK
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v2
         with:
-          api-level: 31
-          build-tools: 31.0.0
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
+          profile: 'no'
+          channel: '0'
 
       - name: Cache Gradle packages
         uses: actions/cache@v3
@@ -46,17 +54,14 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build Debug APK and Instrumentation Test APK
-        run: ./gradlew assembleDebug assembleAndroidTest
+      - name: Build with Gradle
+        run: ./gradlew build -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true
 
-      - name: Run Instrumentation Tests on Firebase Test Lab
-        uses: wzieba/FirebaseTestLab@v2
+      - name: Run Instrumentation Tests
+        uses: reactivecircus/android-emulator-runner@v2.32.0
         with:
-          project: ${{ env.FIREBASE_PROJECT_ID }}
-          serviceCredentialsFileContents: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
-          appApk: app/build/outputs/apk/debug/app-debug.apk
-          testApk: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
-          deviceIds: Nexus6P
-          apiLevel: 27
-          locales: en
-          orientations: portrait
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
+          script: ./gradlew connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.systemProperty=IS_TESTING=true
+          emulator-options: -no-window -no-snapshot -gpu swiftshader_indirect
