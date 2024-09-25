@@ -50,7 +50,7 @@ jobs:
         run: ./gradlew assembleDebug assembleAndroidTest
 
       - name: Run Instrumentation Tests on Firebase Test Lab
-        uses: wzieba/FirebaseTestLab@v2
+        uses: wzieba/FirebaseTestLab@v2 ##adc
         with:
           project: ${{ env.FIREBASE_PROJECT_ID }}
           serviceCredentialsFileContents: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
