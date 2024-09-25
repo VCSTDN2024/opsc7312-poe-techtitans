@@ -55,6 +55,8 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
+        env:
+          GRADLE_OPTS: -Xmx2048m -XX:MaxMetaspaceSize=512m
         run: ./gradlew build -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true
 
       - name: Run Instrumentation Tests
