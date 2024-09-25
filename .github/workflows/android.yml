@@ -54,7 +54,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -Dandroid.useAndroidX=true -Dandroid.enableJetifier=true
 
       - name: Run Instrumentation Tests
         uses: reactivecircus/android-emulator-runner@v2.32.0
