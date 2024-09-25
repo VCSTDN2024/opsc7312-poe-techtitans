@@ -44,9 +44,7 @@
             android:name=".MealPlannerPage"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".OverviewPage"
-            android:exported="false" />
+
         <activity
             android:name=".ConversionsPage"
             android:exported="false" />
@@ -63,9 +61,7 @@
             android:name=".ShoppingListPage"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".SearchPage"
-            android:exported="false" />
+
         <activity
             android:name=".SettingsPage"
             android:exported="false"
