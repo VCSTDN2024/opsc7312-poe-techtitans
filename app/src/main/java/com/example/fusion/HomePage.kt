@@ -26,7 +26,7 @@ class HomePage : AppCompatActivity() {
 
     private lateinit var etSearch: EditText
     private lateinit var rvSearchResults: RecyclerView
-    private lateinit var btnShowFilter: Button
+    private lateinit var btnShowFilter: ImageButton
     private lateinit var caloriesGroup: RadioGroup
     private lateinit var mealTypeGroup: RadioGroup
     private lateinit var ingredientGroup: RadioGroup
@@ -45,7 +45,7 @@ class HomePage : AppCompatActivity() {
         // Initialize views
         etSearch = findViewById(R.id.et_search)
         rvSearchResults = findViewById(R.id.rv_search_results)
-        btnShowFilter = findViewById(R.id.btn_show_filters)
+        btnShowFilter = findViewById<ImageButton>(R.id.btn_show_filters)
         caloriesGroup = findViewById(R.id.radioGroupCalories)
         mealTypeGroup = findViewById(R.id.radioGroupMealType)
         ingredientGroup = findViewById(R.id.radioGroupIngredients)

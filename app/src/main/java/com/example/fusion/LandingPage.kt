@@ -24,9 +24,14 @@ class LandingPage : AppCompatActivity() {
         fusionlogo = findViewById(R.id.logo)
         requestNotificationPermission()
 
+        // Set the logo's visibility to VISIBLE and start the animation
         fusionlogo.alpha = 0f
-        fusionlogo.animate().setDuration(1500).alpha(1f).withEndAction{
+        fusionlogo.visibility = ImageView.VISIBLE
+
+        fusionlogo.animate().setDuration(1100).alpha(1f).withEndAction {
+            // Start the LoginPage after the animation ends
             startActivity(Intent(this, LoginPage::class.java))
+            finish()  // Close LandingPage so the user cannot go back
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
