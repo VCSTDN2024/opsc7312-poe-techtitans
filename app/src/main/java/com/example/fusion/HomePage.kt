@@ -13,6 +13,9 @@ import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.Recipe
 import com.example.fusion.model.RecipeResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +42,6 @@ class HomePage : AppCompatActivity() {
         // Set your layout
         setContentView(R.layout.activity_home_page)
 
-        Log.d("HomePage", "API Key: $")
         // Initialize views
         etSearch = findViewById(R.id.et_search)
         rvSearchResults = findViewById(R.id.rv_search_results)
