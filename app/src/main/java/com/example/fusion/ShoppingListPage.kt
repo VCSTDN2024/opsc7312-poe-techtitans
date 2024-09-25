@@ -128,17 +128,52 @@ class ShoppingListPage : AppCompatActivity() {
             categoryView.tag = false
         } else {
             val index = shoppingListContainer.indexOfChild(categoryView)
+            var position = index + 1
             for (item in items) {
                 val itemView = CheckBox(this).apply {
                     text = item.first
                     isChecked = item.second
                     setPadding(32, 8, 16, 8)
+                    setOnCheckedChangeListener { _, isChecked ->
+                        if (isChecked) {
+                            removeIngredientFromFirebase(item.first)
+                        }
+                    }
                 }
-                shoppingListContainer.addView(itemView, index + 1)
+                shoppingListContainer.addView(itemView, position)
+                position++
             }
             categoryView.tag = true
         }
     }
+    private fun removeIngredientFromFirebase(ingredientName: String) {
+        if (currentUser != null) {
+            val shoppingListRef = FirebaseDatabase.getInstance()
+                .getReference("users/${currentUser.uid}/shoppingList")
+
+            shoppingListRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (itemSnapshot in snapshot.children) {
+                        val itemName = itemSnapshot.child("name").getValue(String::class.java)
+                        if (itemName == ingredientName) {
+                            // Remove this item
+                            itemSnapshot.ref.removeValue()
+                        }
+                    }
+                    // After removing, refresh the UI
+                    fetchShoppingListCategories()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@ShoppingListPage, "Failed to remove item", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            Toast.makeText(this, "User not signed in", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 
     private fun showEmptyMessage() {
         val emptyMessageTextView = TextView(this).apply {
