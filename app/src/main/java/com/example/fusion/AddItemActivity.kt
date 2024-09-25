@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -75,8 +74,8 @@ class AddItemActivity : AppCompatActivity() {
                     }
                 }
                 categories.clear()
+                categories.add("Create new category")  // Add "Create new category" at the top
                 categories.addAll(categorySet.sorted())
-                categories.add("Create new category")
                 setupCategoryDropdown()
             }
 
