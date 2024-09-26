@@ -67,7 +67,7 @@ jobs:
 
       # Step 9: Start the emulator and run UI tests
       - name: Start emulator and run UI tests
-        uses: reactivecircus/android-emulator-runner@v3.1.0
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
           target: google_apis
