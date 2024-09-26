@@ -60,16 +60,18 @@ jobs:
         with:
           api-level: 30
           target: google_apis
-          arch: x86  # Switching to x86 architecture for better compatibility with macOS/Intel
+          arch: x86_64  # Switch to x86_64 for better compatibility with macOS/Intel
           profile: Nexus 6
           emulator-options: -no-window -no-snapshot -gpu swiftshader_indirect
           disable-animations: true
           script: ./gradlew connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.systemProperty=IS_TESTING=true
+          boot-timeout: 600  # Increase boot timeout to 10 minutes to avoid emulator boot failures
+          adb-channel-timeout: 180  # Increase ADB connection timeout for better stability
+          working-directory: android  # Optional, specify your Android project directory if needed
 
-      # Optional: You can add a step to generate reports for test results, like uploading logs or test results to GitHub Actions artifacts
-      # Example (if you need it):
-      # - name: Upload Test Results
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: android-test-results
-      #     path: app/build/reports/androidTests/*
+      # Optional: Upload Test Results to GitHub Actions artifacts
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-test-results
+          path: app/build/reports/androidTests/*
