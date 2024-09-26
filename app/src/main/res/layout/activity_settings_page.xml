@@ -8,187 +8,53 @@
     android:layout_height="844dp"
     android:background="@drawable/container_settings">
 
+
+
+    <ImageView
+        android:id="@+id/imageViewSettingspage"
+        android:layout_width="396dp"
+        android:layout_height="159dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/iv_home_page_image" />
+
+    <ImageView
+        android:id="@+id/imageView3settingspage"
+        android:layout_width="403dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="104dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/iv_home_page_rectangle2" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="366dp"
         android:layout_height="371dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/img_shopping_list2"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/txtUOM"
         android:layout_width="273dp"
         android:layout_height="42dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="323dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="400dp"
         android:gravity="left|center_vertical"
         android:includeFontPadding="false"
         android:maxLines="1"
         android:singleLine="true"
-        android:text="Units of measurement"
+        android:text="Convert measurements"
         android:textColor="#FF000000"
         android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/image_vector2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="436dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/image_vector2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtDelAcc"
-        android:layout_width="196dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="438dp"
-        android:gravity="left|center_vertical"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="Delete account"
-        android:textColor="#FF000000"
-        android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/image_logout"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="left"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="382dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/image_logout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ic_heroicons_scale"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="323dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_heroicons_scale"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/txtLogout"
-        android:layout_width="154dp"
-        android:layout_height="37dp"
-        android:layout_gravity="left"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="385dp"
-        android:gravity="left|center_vertical"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="Log out"
-        android:textColor="#FF000000"
-        android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/text_settings"
-        android:layout_width="161dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="114dp"
-        android:layout_marginTop="16dp"
-        android:gravity="left|center_vertical"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="Settings"
-        android:textColor="#FF000000"
-        android:textSize="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtNotifications"
-        android:layout_width="228dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="201dp"
-        android:gravity="left|center_vertical"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="Notifications"
-        android:textColor="#FF000000"
-        android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="top|left"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="134dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/drawable_image_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="96dp"
-        android:gravity="left|center_vertical"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="Fusion app preferences:"
-        android:textColor="#FF000000"
-        android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtEditProfile"
-        android:layout_width="232dp"
-        android:layout_height="37dp"
-        android:layout_gravity="top"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="138dp"
-        android:gravity="left|center_vertical"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="Edit profile"
-        android:textColor="#FF000000"
-        android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="left"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="201dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/drawable_image_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -196,8 +62,8 @@
         android:id="@+id/txtLanguage"
         android:layout_width="223dp"
         android:layout_height="40dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="261dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="336dp"
         android:gravity="left|center_vertical"
         android:includeFontPadding="false"
         android:maxLines="1"
@@ -208,14 +74,172 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txtLogout"
+        android:layout_width="154dp"
+        android:layout_height="37dp"
+        android:layout_gravity="left"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="460dp"
+        android:gravity="left|center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Log out"
+        android:textColor="#FF000000"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtNotifications"
+        android:layout_width="228dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="276dp"
+        android:gravity="left|center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Notifications"
+        android:textColor="#FF000000"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtEditProfile"
+        android:layout_width="232dp"
+        android:layout_height="37dp"
+        android:layout_gravity="top"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="212dp"
+        android:gravity="left|center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Edit profile"
+        android:textColor="#FF000000"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDelAcc"
+        android:layout_width="196dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="512dp"
+        android:gravity="left|center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Delete account"
+        android:textColor="#FF000000"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/text_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="48dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Settings"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|left"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="212dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/drawable_image_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="left"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="276dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/drawable_image_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/container_language"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="261dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="336dp"
         android:scaleType="centerInside"
         android:src="@drawable/container_language"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/ic_heroicons_scale"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="400dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_heroicons_scale"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_logout"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="left"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="456dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_vector2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="508dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_vector2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="172dp"
+        android:gravity="left|center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Fusion app preferences:"
+        android:textColor="#FF000000"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
