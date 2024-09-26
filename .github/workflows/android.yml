@@ -10,8 +10,7 @@ on:
 
 jobs:
   build:
-
-    runs-on: macos-latest  # Using macOS, which might be Apple Silicon
+    runs-on: ubuntu-latest  # Switch to Ubuntu runner
 
     env:
       API_KEY: ${{ secrets.API_KEY }}
@@ -21,18 +20,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Step 2: Set up JDK 17
+      # Step 2: Enable KVM for hardware acceleration
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      # Step 3: Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: '17'
-
-      # Step 3: Set up Android SDK manually
-      - name: Set up Android SDK
-        run: |
-          yes | sdkmanager --licenses
-          sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "system-images;android-30;google_apis;arm64-v8a" "emulator"
 
       # Step 4: Cache Gradle dependencies for faster builds
       - name: Cache Gradle packages
@@ -55,13 +55,12 @@ jobs:
 
       # Step 7: Start the emulator and run UI tests
       - name: Start emulator and run UI tests
-        uses: reactivecircus/android-emulator-runner@v2.32.0
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
           target: google_apis
-          arch: arm64-v8a  # Use arm64-v8a for Apple Silicon compatibility
+          arch: x86_64
           profile: Nexus 6
-          emulator-options: -no-window -no-snapshot -gpu swiftshader_indirect
           disable-animations: true
           script: ./gradlew connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.systemProperty=IS_TESTING=true
 
