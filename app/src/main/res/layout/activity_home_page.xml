@@ -21,6 +21,19 @@
         app:srcCompat="@drawable/iv_home_page_image" />
 
     <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="403dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="104dp"
+        app:layout_constraintBottom_toTopOf="@+id/rv_search_results"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/iv_home_page_rectangle2" />
+
+
+
+    <ImageView
         android:id="@+id/iv_home_page_rectangle4"
         android:layout_width="360dp"
         android:layout_height="63dp"
@@ -102,13 +115,14 @@
         android:id="@+id/filterScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#80000000"
+        android:background="#D5000000"
         android:translationY="-50dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/rv_search_results"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHeight_percent="0.6"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottomNavigationView"
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- ScrollView content -->
@@ -277,17 +291,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="403dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="104dp"
-        app:layout_constraintBottom_toTopOf="@+id/rv_search_results"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/iv_home_page_rectangle2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
