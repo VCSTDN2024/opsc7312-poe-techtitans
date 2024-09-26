@@ -2,28 +2,41 @@
 agp = "8.5.1"
 androidxJunit = "1.1.5"
 androidxTestEspressoEspressoCore = "3.5.1"
+cardview = "1.0.0"
+compiler = "4.12.0"
+converterGson = "2.9.0"
 espressoContrib = "3.6.1"
 espressoIntents = "3.6.1"
+firebaseBomVersion = "33.3.0"
+glide = "4.12.0"
+hamcrestHamcrestLibrary = "2.2"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
+kotlinxCoroutinesAndroid = "1.7.3"
+loggingInterceptor = "4.9.1"
 material = "1.12.0"
 activity = "1.9.1"
 constraintlayout = "2.1.4"
 firebaseAuthKtx = "23.0.0"
 firebaseDatabaseKtx = "21.0.0"
 gridlayout = "1.0.0"
+materialVersion = "1.5.0"
+okhttp = "4.9.1"
+retrofit = "2.9.0"
 rules = "1.6.1"
 runner = "1.6.2"
 coreKtxVersion = "1.6.1"
 junitJunit = "4.12"
 junitKtx = "1.2.1"
 idlingConcurrent = "3.6.1"
+viewpager2 = "1.1.0"
 
 [libraries]
+androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "androidxTestEspressoEspressoCore" }
 androidx-espresso-contrib-v361 = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espressoContrib" }
@@ -34,11 +47,22 @@ androidx-junit-v115 = { module = "androidx.test.ext:junit", version.ref = "andro
 androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
 androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
 androidx-test-espresso-espresso-core-v351-x2 = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxTestEspressoEspressoCore" }
+androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
 com-google-firebase-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-auth = { module = "com.google.firebase:firebase-auth" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+google-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBomVersion" }
+hamcrest-hamcrest-library = { module = "org.hamcrest:hamcrest-library", version.ref = "hamcrestHamcrestLibrary" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
@@ -49,6 +73,9 @@ core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtxV
 junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 androidx-idling-concurrent = { group = "androidx.test.espresso.idling", name = "idling-concurrent", version.ref = "idlingConcurrent" }
+material-v150 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

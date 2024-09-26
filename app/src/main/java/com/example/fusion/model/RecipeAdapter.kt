@@ -74,7 +74,7 @@ class RecipeAdapter(
 
                 if (newSavedState) {
                     // Save to Firebase
-                    userId?.let { id ->
+                    userId.let { id ->
                         databaseReference.child(id).child("favorites").child(recipe.id.toString()).setValue(true)
                             .addOnSuccessListener {
                                 Toast.makeText(context, "Recipe saved", Toast.LENGTH_SHORT).show()
@@ -90,7 +90,7 @@ class RecipeAdapter(
                     }
                 } else {
                     // Remove from Firebase
-                    userId?.let { id ->
+                    userId.let { id ->
                         databaseReference.child(id).child("favorites").child(recipe.id.toString()).removeValue()
                             .addOnSuccessListener {
                                 Toast.makeText(context, "Recipe removed from favorites", Toast.LENGTH_SHORT).show()

@@ -42,30 +42,30 @@ android {
 }
 
 dependencies {
-    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.glide)
     implementation(libs.core.ktx)
     implementation(libs.junit.junit)
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.idling.concurrent)
-    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation("com.google.android.material:material:1.5.0")
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
-    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    annotationProcessor(libs.compiler)
+    implementation(libs.androidx.cardview)
+    implementation(libs.material.v150)
+    implementation(libs.androidx.viewpager2)
+    implementation(libs.okhttp)
 
     // Logging interceptor for OkHttp
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation(libs.logging.interceptor)
 
     // Firebase Authentication
-    implementation(platform("com.google.firebase:firebase-bom:29.0.4"))
-    implementation ("com.google.firebase:firebase-auth-ktx")
+    implementation(platform(libs.google.firebase.bom))
+    implementation (libs.google.firebase.auth.ktx)
 
     // Kotlin Coroutines
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation (libs.kotlinx.coroutines.android)
     // Espresso dependencies for UI testing
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.espresso.intents.v361)
@@ -77,13 +77,13 @@ dependencies {
 
     // Unit testing dependencies
     testImplementation(libs.junit)
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation(libs.androidx.junit)
 
     // Firebase Auth Testing
     implementation(libs.com.google.firebase.firebase.auth.ktx)
 
     // Ensure Firebase dependencies are included in the test configurations
-    androidTestImplementation("com.google.firebase:firebase-auth")
+    androidTestImplementation(libs.firebase.auth)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -92,7 +92,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.database.ktx)
+
     testImplementation(libs.junit)
+    androidTestImplementation(libs.hamcrest.hamcrest.library)
     androidTestImplementation(libs.androidx.junit.v115)
     androidTestImplementation(libs.androidx.runner)
     androidTestImplementation(libs.androidx.test.espresso.espresso.core.v351.x2)

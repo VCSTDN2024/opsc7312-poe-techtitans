@@ -22,7 +22,7 @@ private lateinit var auth: FirebaseAuth
 
 class LoginPage : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var rememberMeCheckBox: CheckBox;
+    private lateinit var rememberMeCheckBox: CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +38,10 @@ class LoginPage : AppCompatActivity() {
 
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
-        sharedPreferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("login_prefs", Context.MODE_PRIVATE)
 
-        rememberMeCheckBox = findViewById(R.id.checkbox_remember_me);
-        checkLogin();
+        rememberMeCheckBox = findViewById(R.id.checkbox_remember_me)
+        checkLogin()
 
         val usernameEditText = findViewById<EditText>(R.id.txtLUsername)
         val passwordEditText = findViewById<EditText>(R.id.txtLPassword)
