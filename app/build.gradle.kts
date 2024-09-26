@@ -17,8 +17,8 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // Access API_KEY securely
-        val apiKey = findProperty("API_KEY")?.toString() ?: "a6db912098794bf4a235d7fff9bb0fc5"
-        buildConfigField("String", "API_KEY", "\"apiKey\"")
+        val apiKey = findProperty("API_KEY")?.toString() ?: "b6544cc7e3f043ba8063aaedbb84cb9e"
+        buildConfigField("String", "API_KEY", "\"${apiKey}\"") // Correct interpolation
     }
 
     // Enable custom BuildConfig generation
