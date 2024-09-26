@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Switch to Ubuntu runner
+    runs-on: ubuntu-latest  # Using Ubuntu runner
 
     env:
       API_KEY: ${{ secrets.API_KEY }}
@@ -33,12 +33,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-
-      # Step 3: Set up Android SDK manually
-      - name: Set up Android SDK
-        run: |
-          yes | sdkmanager --licenses
-          sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "system-images;android-30;google_apis;arm64-v8a" "emulator"
 
       # Step 4: Cache Gradle dependencies for faster builds
       - name: Cache Gradle packages
