@@ -1,16 +1,17 @@
 package com.example.fusion
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import org.junit.Rule
-import org.junit.Test
-import org.junit.Before
-import org.junit.After
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.IdlingRegistry
+import com.example.fusion.api.ApiManager
+import org.junit.Before
+import org.junit.After
+import org.junit.Rule
+import org.junit.Test
 
 class HomePageTest {
 
@@ -19,27 +20,24 @@ class HomePageTest {
 
     @Before
     fun setUp() {
-        // Set the system property to bypass login
-        System.setProperty("IS_TESTING", "true")
+        // Register the IdlingResource before the test starts
+        IdlingRegistry.getInstance().register(ApiManager.idlingResource)
     }
 
     @After
     fun tearDown() {
-        // Clear the system property after tests
-        System.clearProperty("IS_TESTING")
+        // Unregister the IdlingResource after the test finishes
+        IdlingRegistry.getInstance().unregister(ApiManager.idlingResource)
     }
 
     @Test
-    fun testSearchAndFilter() {
+    fun testSearchAndFilterPizzaLunch() {
         // Type "pizza" in the search box
         onView(withId(R.id.et_search))
-            .perform(click(), typeText("pizza"))
+            .perform(click(), typeText("pizza"), closeSoftKeyboard())
 
         // Click the search button
         onView(withId(R.id.btn_search)).perform(click())
-
-        // Wait for the results to load (consider replacing with IdlingResource)
-        Thread.sleep(3000)
 
         // Open the filter section
         onView(withId(R.id.btn_show_filters)).perform(click())
@@ -50,13 +48,10 @@ class HomePageTest {
         // Close the filter section
         onView(withId(R.id.btn_show_filters)).perform(click())
 
-        // Click the search button again
+        // Click the search button again to apply the filter
         onView(withId(R.id.btn_search)).perform(click())
 
-        // Wait for the filtered results to load
-        Thread.sleep(3000)
-
-        // Verify that the RecyclerView is displaying results
+        // Verify that the RecyclerView is displaying the filtered results
         onView(withId(R.id.rv_search_results))
             .check(matches(isDisplayed()))
     }

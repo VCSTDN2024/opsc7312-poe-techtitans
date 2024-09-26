@@ -2,6 +2,8 @@
 agp = "8.5.1"
 androidxJunit = "1.1.5"
 androidxTestEspressoEspressoCore = "3.5.1"
+espressoContrib = "3.6.1"
+espressoIntents = "3.6.1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -14,15 +16,25 @@ constraintlayout = "2.1.4"
 firebaseAuthKtx = "23.0.0"
 firebaseDatabaseKtx = "21.0.0"
 gridlayout = "1.0.0"
+rules = "1.6.1"
 runner = "1.6.2"
+coreKtxVersion = "1.6.1"
+junitJunit = "4.12"
+junitKtx = "1.2.1"
+idlingConcurrent = "3.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "androidxTestEspressoEspressoCore" }
+androidx-espresso-contrib-v361 = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espressoContrib" }
+androidx-espresso-idling-resource = { module = "androidx.test.espresso:espresso-idling-resource", version.ref = "androidxTestEspressoEspressoCore" }
 androidx-espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "androidxTestEspressoEspressoCore" }
+androidx-espresso-intents-v361 = { module = "androidx.test.espresso:espresso-intents", version.ref = "espressoIntents" }
 androidx-junit-v115 = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
+androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
 androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
 androidx-test-espresso-espresso-core-v351-x2 = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxTestEspressoEspressoCore" }
+com-google-firebase-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -33,6 +45,10 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 androidx-gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
+core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtxVersion" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+androidx-idling-concurrent = { group = "androidx.test.espresso.idling", name = "idling-concurrent", version.ref = "idlingConcurrent" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
