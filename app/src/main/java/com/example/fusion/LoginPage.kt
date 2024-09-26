@@ -23,7 +23,7 @@ private lateinit var auth: FirebaseAuth
 class LoginPage : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var rememberMeCheckBox: CheckBox
-
+//testing the workflows
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
