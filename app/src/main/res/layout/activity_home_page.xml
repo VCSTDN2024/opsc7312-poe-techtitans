@@ -26,42 +26,26 @@
         app:srcCompat="@drawable/iv_home_page_image" />
 
     <ImageView
-
         android:id="@+id/iv_home_page_rectangle4"
-
         android:layout_width="360dp"
-
         android:layout_height="63dp"
-
         android:layout_marginStart="17dp"
-
         android:layout_marginTop="27dp"
-
         android:background="@drawable/iv_home_page_rectangle4"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-
         android:id="@+id/et_search"
-
         android:layout_width="202dp"
-
         android:layout_height="49dp"
-
         android:layout_gravity="center_vertical"
-
         android:layout_marginStart="92dp"
-
         android:layout_marginTop="32dp"
-
         android:background="@android:color/transparent"
-
         android:hint="Search for Recipes"
-
         android:imeOptions="actionSearch"
-
         android:inputType="text"
         android:padding="12dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,26 +54,17 @@
     <ImageButton
 
         android:id="@+id/btn_search"
-
-        android:layout_width="45dp"
-
-        android:layout_height="45dp"
-
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="9dp"
-
-        android:layout_marginEnd="12dp"
-
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-
-        android:background="@android:drawable/ic_search_category_default"
-
+        android:background="@drawable/image_state_layer2"
         android:contentDescription="Search Button"
-
         app:layout_constraintBottom_toBottomOf="@+id/iv_home_page_rectangle4"
-
         app:layout_constraintEnd_toEndOf="@+id/iv_home_page_rectangle4"
-
         app:layout_constraintTop_toTopOf="@+id/iv_home_page_rectangle4"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -118,10 +93,10 @@
 
     <ImageButton
         android:id="@+id/btn_show_filters"
-        android:layout_width="60dp"
-        android:layout_height="47dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/image_state_layer"
         android:contentDescription="Filter Button"
         app:layout_constraintStart_toStartOf="parent"
