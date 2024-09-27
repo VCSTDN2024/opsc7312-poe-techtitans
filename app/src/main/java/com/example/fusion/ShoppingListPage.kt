@@ -16,7 +16,7 @@ class ShoppingListPage : AppCompatActivity() {
 
     private lateinit var databaseReference: DatabaseReference
     private lateinit var shoppingListContainer: LinearLayout
-    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var bottomNavigationView: BottomNavigationView // Declare it here
     private val currentUser = FirebaseAuth.getInstance().currentUser
 
     // Set to keep track of expanded categories by name
@@ -28,7 +28,9 @@ class ShoppingListPage : AppCompatActivity() {
 
         // Initialize views
         shoppingListContainer = findViewById(R.id.linearLayout_shopping_list)
+        // Set up Bottom Navigation
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        setupBottomNavigation()
         val addToListIcon: ImageView = findViewById(R.id.add_to_list_icon)
 
         // Set click listener on the add icon to open AddItemActivity
@@ -37,7 +39,22 @@ class ShoppingListPage : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Setup bottom navigation
+
+
+        // Initialize Firebase reference
+        if (currentUser != null) {
+            databaseReference = FirebaseDatabase.getInstance()
+                .getReference("users/${currentUser.uid}/shoppingList")
+
+            // Fetch and display categories with dropdown functionality
+            fetchShoppingListCategories()
+        } else {
+            Toast.makeText(this, "User not signed in", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun setupBottomNavigation() {
+        bottomNavigationView.selectedItemId = R.id.navigation_cart
+
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
@@ -52,24 +69,15 @@ class ShoppingListPage : AppCompatActivity() {
                     startActivity(Intent(this, MealPlannerPage::class.java))
                     true
                 }
-                R.id.navigation_cart -> true
+                R.id.navigation_cart -> {
+                    true
+                }
                 R.id.navigation_settings -> {
                     startActivity(Intent(this, SettingsPage::class.java))
                     true
                 }
                 else -> false
             }
-        }
-
-        // Initialize Firebase reference
-        if (currentUser != null) {
-            databaseReference = FirebaseDatabase.getInstance()
-                .getReference("users/${currentUser.uid}/shoppingList")
-
-            // Fetch and display categories with dropdown functionality
-            fetchShoppingListCategories()
-        } else {
-            Toast.makeText(this, "User not signed in", Toast.LENGTH_SHORT).show()
         }
     }
 

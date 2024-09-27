@@ -1,5 +1,6 @@
 package com.example.fusion
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.Recipe
 import com.example.fusion.model.RecipeDetailsResponse
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import retrofit2.Call
@@ -23,12 +25,17 @@ class MealPlannerMeal : AppCompatActivity() {
     private lateinit var rvMealRecipes: RecyclerView
     private lateinit var recipeAdapter: RecipeAdapter
     private val apiKey = BuildConfig.API_KEY
+    private lateinit var bottomNavigationView: BottomNavigationView // Declare it here
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meal_planner_meal)
 
+        // Set up Bottom Navigation
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        setupBottomNavigation()
         // Get the selected day and meal time from the Intent
         selectedDay = intent.getStringExtra("DAY_SELECTED").toString()
         selectedMealTime = intent.getStringExtra("MEAL_TIME").toString()
@@ -51,7 +58,35 @@ class MealPlannerMeal : AppCompatActivity() {
             onBackPressed()
         }
     }
+    private fun setupBottomNavigation() {
+        bottomNavigationView.selectedItemId = R.id.navigation_calendar
 
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    startActivity(Intent(this, HomePage::class.java))
+                    true
+                }
+                R.id.navigation_saved -> {
+                    startActivity(Intent(this, FavoritesPage::class.java))
+                    true
+                }
+                R.id.navigation_calendar -> {
+                    // Stay on this page
+                    true
+                }
+                R.id.navigation_cart -> {
+                    startActivity(Intent(this, ShoppingListPage::class.java))
+                    true
+                }
+                R.id.navigation_settings -> {
+                    startActivity(Intent(this, SettingsPage::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+    }
     private fun loadRecipesFromFirebase() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
