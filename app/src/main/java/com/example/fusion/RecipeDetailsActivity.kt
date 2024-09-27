@@ -146,9 +146,15 @@ class RecipeDetailsActivity : AppCompatActivity() {
     }
 
     private fun displayRecipeDetails(details: RecipeDetailsResponse) {
+        // Update the recipe name in the TextView
+        val recipeNameTextView: TextView = findViewById(R.id.textView13)
+        recipeNameTextView.text = details.title  // Assuming 'title' contains the recipe name
+
+        // Load the recipe image using Glide
         val imageView: ImageView = findViewById(R.id.iv_recipe_image)
         Glide.with(this).load(details.image).into(imageView)
     }
+
 
     private fun setupViewPager(details: RecipeDetailsResponse) {
         val fragments = listOf(
