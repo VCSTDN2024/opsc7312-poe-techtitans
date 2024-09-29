@@ -27,7 +27,7 @@
         android:layout_marginEnd="153dp"
         android:layout_marginBottom="711dp"
         android:text="Language"
-        android:textSize="20sp"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
