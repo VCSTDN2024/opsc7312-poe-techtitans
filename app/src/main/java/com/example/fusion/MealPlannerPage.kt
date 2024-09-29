@@ -9,18 +9,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MealPlannerPage : AppCompatActivity() {
 
+    // Variable to store the BottomNavigationView
     private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge() // Enable edge-to-edge display for immersive UI
         setContentView(R.layout.activity_meal_planner_page)
 
-        // Set up Bottom Navigation
+        // Initialize the BottomNavigationView and set it up
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        setupBottomNavigation()
+        setupBottomNavigation() // Call method to configure the bottom navigation behavior
 
-        // Set click listeners on each day card
+        // Set click listeners for each day's card to navigate to ChooseTimePage with the selected day
         findViewById<CardView>(R.id.cardMonday)?.setOnClickListener { navigateToChooseTimePage("Monday") }
         findViewById<CardView>(R.id.cardTuesday)?.setOnClickListener { navigateToChooseTimePage("Tuesday") }
         findViewById<CardView>(R.id.cardWednesday)?.setOnClickListener { navigateToChooseTimePage("Wednesday") }
@@ -30,39 +31,42 @@ class MealPlannerPage : AppCompatActivity() {
         findViewById<CardView>(R.id.cardSunday)?.setOnClickListener { navigateToChooseTimePage("Sunday") }
     }
 
-    // Function to navigate to ChooseTimePage and pass the selected day
+    // Function to navigate to ChooseTimePage and pass the selected day as an intent extra
     private fun navigateToChooseTimePage(selectedDay: String) {
-        val intent = Intent(this, ChooseTimePage::class.java)
-        intent.putExtra("DAY_SELECTED", selectedDay)
-        startActivity(intent)
+        val intent = Intent(this, ChooseTimePage::class.java) // Create intent to start ChooseTimePage
+        intent.putExtra("DAY_SELECTED", selectedDay) // Pass the selected day as extra data
+        startActivity(intent) // Start the ChooseTimePage activity
     }
 
+    // Method to configure the behavior of the bottom navigation bar
     private fun setupBottomNavigation() {
+        // Set the default selected item in the bottom navigation to the calendar section
         bottomNavigationView.selectedItemId = R.id.navigation_calendar
 
+        // Set listener for bottom navigation item selection
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    startActivity(Intent(this, HomePage::class.java))
+                    startActivity(Intent(this, HomePage::class.java)) // Navigate to HomePage
                     true
                 }
                 R.id.navigation_saved -> {
-                    startActivity(Intent(this, FavoritesPage::class.java))
+                    startActivity(Intent(this, FavoritesPage::class.java)) // Navigate to FavoritesPage
                     true
                 }
                 R.id.navigation_calendar -> {
-                    // Stay on this page
+                    // Stay on the current page since it's already selected
                     true
                 }
                 R.id.navigation_cart -> {
-                    startActivity(Intent(this, ShoppingListPage::class.java))
+                    startActivity(Intent(this, ShoppingListPage::class.java)) // Navigate to ShoppingListPage
                     true
                 }
                 R.id.navigation_settings -> {
-                    startActivity(Intent(this, SettingsPage::class.java))
+                    startActivity(Intent(this, SettingsPage::class.java)) // Navigate to SettingsPage
                     true
                 }
-                else -> false
+                else -> false // Return false if none of the cases match
             }
         }
     }
