@@ -1,29 +1,266 @@
 package com.example.fusion
 
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 
 class editProfilePage : AppCompatActivity() {
+
+    private lateinit var etUsername: EditText
+    private lateinit var tvEmail: TextView
+    private lateinit var btnUpdateProfile: Button
+    private lateinit var btnChangePassword: Button
+    private lateinit var imgChangePfp: ImageView
+    private lateinit var imgProfilePicture: ImageView
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_edit_profile_page)
 
-        // Initialize the password change button
-        val btnChangePassword = findViewById<Button>(R.id.btnChangePassword)
+        // Initialize views
+        etUsername = findViewById(R.id.etUsername)
+        tvEmail = findViewById(R.id.tvEmail)
+        btnUpdateProfile = findViewById(R.id.btnUpdateProfile)
+        btnChangePassword = findViewById(R.id.btnChangePassword)
+        imgChangePfp = findViewById(R.id.image_ellipse)
+        imgProfilePicture = findViewById(R.id.image_ellipse)
+
+        // Initialize image picker launcher
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            if (uri != null) {
+                // Handle the image URI
+                uploadProfilePicture(uri)
+            }
+        }
+
+        // Load current user data
+        loadUserData()
+
+        // Set up listeners
+        btnUpdateProfile.setOnClickListener {
+            updateProfile()
+        }
+
+        imgChangePfp.setOnClickListener {
+            updatePfp()
+        }
+
+        imgProfilePicture.setOnClickListener {
+            updatePfp()
+        }
+
         btnChangePassword.setOnClickListener {
             showChangePasswordDialog()
+        }
+    }
+
+    private fun updatePfp() {
+        // Launch image picker
+        imagePickerLauncher.launch("image/*")
+    }
+
+    private fun uploadProfilePicture(uri: Uri) {
+        val user = FirebaseAuth.getInstance().currentUser ?: return
+        val userId = user.uid
+
+        // Reference to Firebase Storage
+        val storageRef = FirebaseStorage.getInstance().getReference("profilePictures/$userId.jpg")
+
+        // Upload file to Firebase Storage
+        val uploadTask = storageRef.putFile(uri)
+
+        // Show a progress indicator if needed
+
+        uploadTask.addOnSuccessListener {
+            // Get the download URL
+            storageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                // Save the download URL to the user's profile in the database
+                val databaseRef = FirebaseDatabase.getInstance().getReference("users").child(userId)
+                databaseRef.child("profilePictureUrl").setValue(downloadUrl.toString())
+
+                // Load the image into the ImageView using Glide
+                Glide.with(this)
+                    .load(downloadUrl)
+                    .into(imgProfilePicture)
+
+                Toast.makeText(this, "Profile picture updated successfully", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener { exception ->
+            Toast.makeText(this, "Failed to upload profile picture: ${exception.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun loadUserData() {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            val userId = user.uid
+            val databaseRef = FirebaseDatabase.getInstance().getReference("users").child(userId)
+
+            databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val username = snapshot.child("username").getValue(String::class.java)
+                    val email = snapshot.child("email").getValue(String::class.java)
+                    val profilePictureUrl = snapshot.child("profilePictureUrl").getValue(String::class.java)
+
+                    etUsername.setText(username)
+                    etUsername.tag = username // Store original username
+                    tvEmail.text = email
+
+                    // Load profile picture if it exists
+                    if (!profilePictureUrl.isNullOrEmpty()) {
+                        Glide.with(this@editProfilePage)
+                            .load(profilePictureUrl)
+                            .placeholder(R.drawable.image_ellipse) // Optional placeholder
+                            .into(imgProfilePicture)
+                    } else {
+                        // Set default profile picture
+                        imgProfilePicture.setImageResource(R.drawable.image_ellipse)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(
+                        this@editProfilePage,
+                        "Failed to load user data: ${error.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+        } else {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // Rest of your existing code (updateProfile, checkUsernameAvailability, etc.)
+
+    private fun updateProfile() {
+        val newUsername = etUsername.text.toString().trim()
+
+        if (newUsername.isEmpty()) {
+            Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val user = FirebaseAuth.getInstance().currentUser ?: return
+
+        if (user.email != null) {
+            // Re-authenticate user
+            val passwordInput = EditText(this).apply {
+                inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                hint = "Enter your password"
+            }
+
+            AlertDialog.Builder(this)
+                .setTitle("Re-authentication")
+                .setMessage("Please enter your password to continue:")
+                .setView(passwordInput)
+                .setPositiveButton("Confirm") { _, _ ->
+                    val password = passwordInput.text.toString()
+                    if (password.isNotEmpty()) {
+                        val credential = EmailAuthProvider.getCredential(user.email!!, password)
+                        user.reauthenticate(credential).addOnCompleteListener { reauthTask ->
+                            if (reauthTask.isSuccessful) {
+                                // Proceed to update username
+                                val oldUsername = etUsername.tag as? String ?: ""
+                                if (newUsername != oldUsername) {
+                                    // Check if username is available
+                                    checkUsernameAvailability(newUsername) { isAvailable ->
+                                        if (isAvailable) {
+                                            proceedToUpdate(oldUsername, newUsername)
+                                        } else {
+                                            Toast.makeText(
+                                                this,
+                                                "Username already taken",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
+                                } else {
+                                    Toast.makeText(
+                                        this,
+                                        "Username is unchanged",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "Password is incorrect",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        } else {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun checkUsernameAvailability(username: String, callback: (Boolean) -> Unit) {
+        val usernamesRef = FirebaseDatabase.getInstance().getReference("usernames")
+        usernamesRef.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                callback(!snapshot.exists())
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    this@editProfilePage,
+                    "Error checking username: ${error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                callback(false)
+            }
+        })
+    }
+
+    private fun proceedToUpdate(oldUsername: String, newUsername: String) {
+        val user = FirebaseAuth.getInstance().currentUser ?: return
+        val userId = user.uid
+        val updates = HashMap<String, Any>()
+
+        // Update username in the database
+        if (newUsername != oldUsername) {
+            val databaseRef = FirebaseDatabase.getInstance().getReference()
+            // Remove old username mapping
+            databaseRef.child("usernames").child(oldUsername).removeValue()
+
+            updates["users/$userId/username"] = newUsername
+            updates["usernames/$newUsername"] = userId
+
+            databaseRef.updateChildren(updates).addOnCompleteListener { dbUpdateTask ->
+                if (dbUpdateTask.isSuccessful) {
+                    Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
+                    // Update the tag to the new username
+                    etUsername.tag = newUsername
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Error updating profile: ${dbUpdateTask.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
@@ -88,9 +325,17 @@ class editProfilePage : AppCompatActivity() {
                 if (reauthTask.isSuccessful) {
                     user.updatePassword(newPassword).addOnCompleteListener { updateTask ->
                         if (updateTask.isSuccessful) {
-                            Toast.makeText(this, "Password updated successfully", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this,
+                                "Password updated successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } else {
-                            Toast.makeText(this, "Error updating password: ${updateTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this,
+                                "Error updating password: ${updateTask.exception?.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 } else {

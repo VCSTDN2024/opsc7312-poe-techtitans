@@ -38,42 +38,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/image_rectangle3"
-        android:layout_width="162dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="615dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="190dp"
-        android:background="#4CAF50"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtSave"
-        android:layout_width="125dp"
-        android:layout_height="39dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="19dp"
+    <Button
+        android:id="@+id/btnUpdateProfile"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
         android:layout_marginTop="615dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="190dp"
-        android:gravity="left|center_vertical"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="Save changes"
-        android:textColor="#000000"
-        android:textColorHighlight="#000000"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/image_rectangle3"
-        app:layout_constraintStart_toStartOf="@+id/image_rectangle3"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Save Changes"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <TextView
         android:id="@+id/text_edit_profile"
@@ -95,7 +71,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_ellipse"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -106,10 +82,11 @@
         android:layout_marginBottom="609dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_ellipse"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle" />
 
     <ImageView
         android:id="@+id/ImgChangePfp"
@@ -124,22 +101,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/image_ellipse"
         app:layout_constraintTop_toTopOf="@+id/image_ellipse" />
-
-    <ImageView
-        android:id="@+id/image_ellipse1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="121dp"
-        android:layout_marginTop="85dp"
-        android:layout_marginEnd="122dp"
-        android:layout_marginBottom="609dp"
-        android:background="@drawable/image_ellipse1"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/text_name"
         android:layout_width="wrap_content"
@@ -186,50 +147,51 @@
 
 
 
-    <TextView
-        android:id="@+id/txtEPName"
+    <EditText
+        android:id="@+id/etUsername"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="46dp"
         android:layout_marginTop="300dp"
         android:layout_marginEnd="47dp"
-        android:layout_marginBottom="494dp"
         android:background="@drawable/image_view_rectangle1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="8dp"
+        android:hint="Username"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
+    <!-- Email TextView (Non-editable) -->
     <TextView
-        android:id="@+id/txtEPEmail"
+        android:id="@+id/tvEmail"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="397dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="397dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/image_view_rectangle1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/text_email" />
 
     <Button
         android:id="@+id/btnChangePassword"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginStart="46dp"
         android:layout_marginTop="498dp"
-        android:layout_marginEnd="47dp"
         android:layout_marginBottom="296dp"
         android:text="Change Password"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,6 +43,7 @@ android {
 
 dependencies {
     implementation(platform(libs.google.firebase.bom))
+    implementation(libs.firebase.storage)
     implementation(libs.firebase.analytics)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -56,6 +57,14 @@ dependencies {
     implementation(libs.material.v150)
     implementation(libs.androidx.viewpager2)
     implementation(libs.okhttp)
+    implementation(libs.material.v190)
+
+    // Glide for image loading
+    implementation(libs.github.glide.v4151)
+    annotationProcessor(libs.compiler.v4151)
+
+    // For Activity Result APIs
+    implementation(libs.androidx.activity.ktx)
 
     // Logging interceptor for OkHttp
     implementation(libs.logging.interceptor)
@@ -84,6 +93,7 @@ dependencies {
 
     // Ensure Firebase dependencies are included in the test configurations
     androidTestImplementation(libs.firebase.auth)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
