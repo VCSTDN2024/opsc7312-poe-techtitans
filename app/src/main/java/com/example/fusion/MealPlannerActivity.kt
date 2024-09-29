@@ -10,16 +10,17 @@ import androidx.cardview.widget.CardView
 
 class MealPlannerActivity : AppCompatActivity() {
 
+    // Variable to store the recipe ID, initialized to -1 (default invalid value)
     private var recipeId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meal_planner)
 
-        // Get the recipeId from the intent
+        // Retrieve the recipe ID passed through the intent from another activity
         recipeId = intent.getIntExtra("RECIPE_ID", -1)
 
-        // Set up click listeners for each day (using CardView)
+        // Set up click listeners for each day of the week, linking them to the respective CardViews
         findViewById<CardView>(R.id.cardSunday).setOnClickListener { openMealTime("Sunday") }
         findViewById<CardView>(R.id.cardMonday).setOnClickListener { openMealTime("Monday") }
         findViewById<CardView>(R.id.cardTuesday).setOnClickListener { openMealTime("Tuesday") }
@@ -28,21 +29,24 @@ class MealPlannerActivity : AppCompatActivity() {
         findViewById<CardView>(R.id.cardFriday).setOnClickListener { openMealTime("Friday") }
         findViewById<CardView>(R.id.cardSaturday).setOnClickListener { openMealTime("Saturday") }
 
-        // Done button logic to check selected day and open MealTimeActivity
+        // Set up the "Done" button logic to check which day is selected before proceeding
         findViewById<Button>(R.id.buttonDone).setOnClickListener {
+            // Check if a day has been selected
             val selectedDay = getSelectedDay()
             if (selectedDay != null) {
-                openMealTime(selectedDay) // Use the selected day for the intent
+                // If a day is selected, open the MealTimeActivity passing the selected day
+                openMealTime(selectedDay)
             } else {
-                // Display a Toast if no day is selected
+                // Show a Toast message if no day has been selected
                 Toast.makeText(this, "Please select a day", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // Method to get the selected day based on the checked CheckBox
+    // Method to determine the selected day based on the checked CheckBox
     private fun getSelectedDay(): String? {
-       val sundayCheckBox = findViewById<CheckBox>(R.id.checkBoxSunday)
+        // Reference all the CheckBoxes for each day
+        val sundayCheckBox = findViewById<CheckBox>(R.id.checkBoxSunday)
         val mondayCheckBox = findViewById<CheckBox>(R.id.checkBoxMonday)
         val tuesdayCheckBox = findViewById<CheckBox>(R.id.checkBoxTuesday)
         val wednesdayCheckBox = findViewById<CheckBox>(R.id.checkBoxWednesday)
@@ -50,6 +54,7 @@ class MealPlannerActivity : AppCompatActivity() {
         val fridayCheckBox = findViewById<CheckBox>(R.id.checkBoxFriday)
         val saturdayCheckBox = findViewById<CheckBox>(R.id.checkBoxSaturday)
 
+        // Return the day that is checked, or null if none are selected
         return when {
             sundayCheckBox.isChecked -> "Sunday"
             mondayCheckBox.isChecked -> "Monday"
@@ -58,15 +63,18 @@ class MealPlannerActivity : AppCompatActivity() {
             thursdayCheckBox.isChecked -> "Thursday"
             fridayCheckBox.isChecked -> "Friday"
             saturdayCheckBox.isChecked -> "Saturday"
-            else -> null // No day selected
+            else -> null // No day is selected
         }
     }
 
-    // Open MealTimeActivity and pass the selected day and recipeId
+    // Method to open MealTimeActivity and pass the selected day and recipe ID
     private fun openMealTime(day: String) {
+        // Create an intent to start the MealTimeActivity
         val intent = Intent(this, MealTimeActivity::class.java)
+        // Pass the selected day and recipe ID to the next activity
         intent.putExtra("DAY_SELECTED", day)
-        intent.putExtra("RECIPE_ID", recipeId) // Pass the recipeId to MealTimeActivity
+        intent.putExtra("RECIPE_ID", recipeId)
+        // Start the new activity
         startActivity(intent)
     }
 }
