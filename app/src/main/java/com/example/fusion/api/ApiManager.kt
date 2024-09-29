@@ -19,7 +19,6 @@ class ApiManager {
         // Increment the idling resource count when async operation starts
         idlingResource.increment()
 
-        // Example of an async API call using Retrofit
         val call = RetrofitInstance.api.searchRecipes(query, parameters)
         call.enqueue(object : Callback<RecipeResponse> {
             override fun onResponse(call: Call<RecipeResponse>, response: Response<RecipeResponse>) {
