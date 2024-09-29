@@ -13,17 +13,16 @@ import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.Recipe
 import com.example.fusion.model.RecipeResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class HomePage : AppCompatActivity() {
 
+    // API key for making requests
     private val apiKey = BuildConfig.API_KEY
 
+    // UI components
     private lateinit var etSearch: EditText
     private lateinit var rvSearchResults: RecyclerView
     private lateinit var btnShowFilter: ImageButton
@@ -32,17 +31,18 @@ class HomePage : AppCompatActivity() {
     private lateinit var ingredientGroup: RadioGroup
     private lateinit var filterScrollView: ScrollView
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var btnSearch: ImageButton // Correct casting to ImageButton
-    private lateinit var btnClearFilters: Button
+    private lateinit var btnSearch: ImageButton // Search button
+    private lateinit var btnClearFilters: Button // Button to clear filters
 
+    // Adapter for the RecyclerView
     private lateinit var recipeAdapter: RecipeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Set your layout
+        // Set the layout for the home page
         setContentView(R.layout.activity_home_page)
 
-        // Initialize views
+        // Initialize UI components
         etSearch = findViewById(R.id.et_search)
         rvSearchResults = findViewById(R.id.rv_search_results)
         btnShowFilter = findViewById<ImageButton>(R.id.btn_show_filters)
@@ -51,18 +51,18 @@ class HomePage : AppCompatActivity() {
         ingredientGroup = findViewById(R.id.radioGroupIngredients)
         filterScrollView = findViewById(R.id.filterScrollView)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        btnSearch = findViewById(R.id.btn_search) // Correct ImageButton cast
+        btnSearch = findViewById(R.id.btn_search)
         btnClearFilters = findViewById(R.id.btn_clear_filters)
 
-        // Setup RecyclerView
+        // Setup RecyclerView to display recipes in a grid
         rvSearchResults.layoutManager = GridLayoutManager(this, 2)
         recipeAdapter = RecipeAdapter(this, mutableListOf())
         rvSearchResults.adapter = recipeAdapter
 
-        // Load default recipes
+        // Load default recipes when the home page is opened
         loadDefaultRecipes()
 
-        // Handle filter button click
+        // Show or hide filters when the filter button is clicked
         btnShowFilter.setOnClickListener {
             if (filterScrollView.visibility == View.GONE) {
                 filterScrollView.visibility = View.VISIBLE
@@ -73,34 +73,36 @@ class HomePage : AppCompatActivity() {
             }
         }
 
-        // Handle search action in the keyboard
+        // Handle search action when the search button on the keyboard is pressed
         etSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                performSearch()
+                performSearch() // Perform search
                 true
             } else {
                 false
             }
         }
 
-        // Handle search button click
+        // Handle search button click to perform search
         btnSearch.setOnClickListener {
             performSearch()
         }
 
         // Handle clear filters button click
         btnClearFilters.setOnClickListener {
-            clearFilters()
+            clearFilters() // Clear selected filters
         }
 
-        // Setup bottom navigation
+        // Set up the bottom navigation bar
         setupBottomNavigation()
     }
 
+    // Function to handle search and apply selected filters
     private fun performSearch() {
-        val query = etSearch.text.toString()
-        val selectedFilters = getSelectedFilters()
+        val query = etSearch.text.toString() // Get search query
+        val selectedFilters = getSelectedFilters() // Get selected filters
 
+        // Perform search only if query or filters are provided
         if (query.isNotEmpty() || selectedFilters.isNotEmpty()) {
             searchRecipes(query, selectedFilters)
         } else {
@@ -108,6 +110,7 @@ class HomePage : AppCompatActivity() {
         }
     }
 
+    // Function to set up the bottom navigation bar
     private fun setupBottomNavigation() {
         // Set the selected item as Home
         bottomNavigationView.selectedItemId = R.id.navigation_home
@@ -116,19 +119,19 @@ class HomePage : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_home -> true
                 R.id.navigation_saved -> {
-                    startActivity(Intent(this, FavoritesPage::class.java))
+                    startActivity(Intent(this, FavoritesPage::class.java)) // Navigate to FavoritesPage
                     true
                 }
                 R.id.navigation_calendar -> {
-                    startActivity(Intent(this, MealPlannerPage::class.java))
+                    startActivity(Intent(this, MealPlannerPage::class.java)) // Navigate to MealPlannerPage
                     true
                 }
                 R.id.navigation_cart -> {
-                    startActivity(Intent(this, ShoppingListPage::class.java))
+                    startActivity(Intent(this, ShoppingListPage::class.java)) // Navigate to ShoppingListPage
                     true
                 }
                 R.id.navigation_settings -> {
-                    startActivity(Intent(this, SettingsPage::class.java))
+                    startActivity(Intent(this, SettingsPage::class.java)) // Navigate to SettingsPage
                     true
                 }
                 else -> false
@@ -175,9 +178,10 @@ class HomePage : AppCompatActivity() {
     private fun searchRecipes(query: String, filters: Map<String, String>) {
         val parameters = filters.toMutableMap()
         if (query.isNotEmpty()) {
-            parameters["query"] = query
+            parameters["query"] = query // Add search query to parameters
         }
 
+        // Make an API call to search for recipes
         val call = RetrofitInstance.api.searchRecipes(apiKey, parameters)
         call.enqueue(object : Callback<RecipeResponse> {
             override fun onResponse(
@@ -186,7 +190,7 @@ class HomePage : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val recipes = response.body()?.results ?: emptyList()
-                    displayResults(recipes)
+                    displayResults(recipes) // Display the search results
                 } else {
                     Toast.makeText(
                         this@HomePage,
@@ -210,9 +214,10 @@ class HomePage : AppCompatActivity() {
      * Updates the RecyclerView with the new list of recipes.
      */
     private fun displayResults(recipes: List<Recipe>) {
-        recipeAdapter.updateData(recipes)
+        recipeAdapter.updateData(recipes) // Update the adapter with the new recipe list
     }
 
+    // Function to load default recipes when the home page is opened
     private fun loadDefaultRecipes() {
         val call = RetrofitInstance.api.searchRecipes(apiKey, emptyMap())
         call.enqueue(object : Callback<RecipeResponse> {
@@ -222,7 +227,7 @@ class HomePage : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val recipes = response.body()?.results ?: emptyList()
-                    recipeAdapter.updateData(recipes)
+                    recipeAdapter.updateData(recipes) // Update adapter with default recipes
                 } else {
                     Toast.makeText(
                         this@HomePage,
@@ -251,7 +256,7 @@ class HomePage : AppCompatActivity() {
         mealTypeGroup.clearCheck()
         ingredientGroup.clearCheck()
 
-        // Optionally, reset any variables or perform additional actions
+        // Notify the user that filters have been cleared
         Toast.makeText(this, "Filters cleared", Toast.LENGTH_SHORT).show()
     }
 }

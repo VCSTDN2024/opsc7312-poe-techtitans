@@ -14,9 +14,10 @@ import com.google.firebase.database.*
 
 class ShoppingListPage : AppCompatActivity() {
 
+    // Declare variables for Firebase database reference and UI elements
     private lateinit var databaseReference: DatabaseReference
     private lateinit var shoppingListContainer: LinearLayout
-    private lateinit var bottomNavigationView: BottomNavigationView // Declare it here
+    private lateinit var bottomNavigationView: BottomNavigationView
     private val currentUser = FirebaseAuth.getInstance().currentUser
 
     // Set to keep track of expanded categories by name
@@ -28,20 +29,19 @@ class ShoppingListPage : AppCompatActivity() {
 
         // Initialize views
         shoppingListContainer = findViewById(R.id.linearLayout_shopping_list)
+
         // Set up Bottom Navigation
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         setupBottomNavigation()
-        val addToListIcon: ImageView = findViewById(R.id.add_to_list_icon)
 
         // Set click listener on the add icon to open AddItemActivity
+        val addToListIcon: ImageView = findViewById(R.id.add_to_list_icon)
         addToListIcon.setOnClickListener {
             val intent = Intent(this, AddItemActivity::class.java)
             startActivity(intent)
         }
 
-
-
-        // Initialize Firebase reference
+        // Initialize Firebase reference for current user's shopping list
         if (currentUser != null) {
             databaseReference = FirebaseDatabase.getInstance()
                 .getReference("users/${currentUser.uid}/shoppingList")
@@ -52,6 +52,8 @@ class ShoppingListPage : AppCompatActivity() {
             Toast.makeText(this, "User not signed in", Toast.LENGTH_SHORT).show()
         }
     }
+
+    // Setup the bottom navigation bar
     private fun setupBottomNavigation() {
         bottomNavigationView.selectedItemId = R.id.navigation_cart
 
@@ -69,9 +71,7 @@ class ShoppingListPage : AppCompatActivity() {
                     startActivity(Intent(this, MealPlannerPage::class.java))
                     true
                 }
-                R.id.navigation_cart -> {
-                    true
-                }
+                R.id.navigation_cart -> true
                 R.id.navigation_settings -> {
                     startActivity(Intent(this, SettingsPage::class.java))
                     true
@@ -87,6 +87,7 @@ class ShoppingListPage : AppCompatActivity() {
         fetchShoppingListCategories()
     }
 
+    // Function to fetch and display shopping list categories and items
     private fun fetchShoppingListCategories() {
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -95,7 +96,7 @@ class ShoppingListPage : AppCompatActivity() {
                 if (snapshot.exists()) {
                     val categoryItemsMap = HashMap<String, MutableSet<Pair<String, Boolean>>>()
 
-                    // Loop through each item in the shopping list
+                    // Loop through each item in the shopping list and group by category
                     for (itemSnapshot in snapshot.children) {
                         val category = itemSnapshot.child("category").getValue(String::class.java)
                         val itemName = itemSnapshot.child("name").getValue(String::class.java)
@@ -144,6 +145,7 @@ class ShoppingListPage : AppCompatActivity() {
         })
     }
 
+    // Function to toggle the visibility of items under a category
     private fun toggleItemsVisibility(categoryView: TextView, categoryName: String, items: Set<Pair<String, Boolean>>) {
         val isExpanded = categoryView.tag as? Boolean ?: false
 
@@ -163,6 +165,7 @@ class ShoppingListPage : AppCompatActivity() {
         }
     }
 
+    // Function to expand the category and show the items
     private fun expandCategory(categoryView: TextView, categoryName: String, items: Set<Pair<String, Boolean>>) {
         val index = shoppingListContainer.indexOfChild(categoryView)
         var position = index + 1
@@ -182,6 +185,7 @@ class ShoppingListPage : AppCompatActivity() {
         }
     }
 
+    // Function to remove an ingredient from Firebase when it is checked off
     private fun removeIngredientFromFirebase(ingredientName: String, categoryName: String) {
         if (currentUser != null) {
             val shoppingListRef = FirebaseDatabase.getInstance()
@@ -197,7 +201,7 @@ class ShoppingListPage : AppCompatActivity() {
                             itemsToRemove.add(itemSnapshot.ref)
                         }
                     }
-                    // Remove all matching items
+                    // Remove all matching items from Firebase
                     for (ref in itemsToRemove) {
                         ref.removeValue()
                     }
@@ -214,6 +218,7 @@ class ShoppingListPage : AppCompatActivity() {
         }
     }
 
+    // Function to show a message when the shopping list is empty
     private fun showEmptyMessage() {
         val emptyMessageTextView = TextView(this).apply {
             text = "Your shopping list is empty"
