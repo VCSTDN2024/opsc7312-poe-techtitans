@@ -184,26 +184,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_password"
-        android:layout_width="wrap_content"
-        android:layout_height="21dp"
-        android:layout_gravity="left"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="488dp"
-        android:layout_marginEnd="250dp"
-        android:layout_marginBottom="335dp"
-        android:gravity="left|center_vertical"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="Password"
-        android:textColor="#FF000000"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/txtEPName"
@@ -233,18 +214,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtEPPassword"
+    <Button
+        android:id="@+id/btnChangePassword"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="46dp"
         android:layout_marginTop="498dp"
         android:layout_marginEnd="47dp"
         android:layout_marginBottom="296dp"
-        android:background="@drawable/image_view_rectangle1"
+        android:text="Change Password"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
