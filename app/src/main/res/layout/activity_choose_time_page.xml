@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFFFFF"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -9,42 +10,68 @@
 
     <!-- Background image -->
     <ImageView
-        android:id="@+id/backgroundImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/imageView10"
+        android:layout_width="413dp"
+        android:layout_height="158dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/iv_home_page_image" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="403dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="104dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_shopping_list1" />
+        app:srcCompat="@drawable/iv_home_page_rectangle2" />
+
+
+
+    <ImageView
+        android:id="@+id/iv_home_page_rectangle4"
+        android:layout_width="360dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/iv_home_page_rectangle4"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Title -->
+
+    <!-- ScrollView for the day selection -->
     <TextView
-        android:id="@+id/titleText"
+        android:id="@+id/titleText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Pick the time"
+        android:layout_marginTop="36dp"
+        android:text="Pick a Time"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <!-- Title -->
 
     <!-- Options for Breakfast, Lunch, Dinner, Snack -->
     <LinearLayout
         android:id="@+id/timeSelectionLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/buttonDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleText">
+        app:layout_constraintTop_toBottomOf="@+id/imageView10">
 
         <!-- Breakfast Card -->
         <androidx.cardview.widget.CardView
@@ -58,6 +85,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#EAEAEA"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="16dp">
@@ -86,6 +114,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#EAEAEA"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="16dp">
@@ -94,6 +123,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#EAEAEA"
                     android:gravity="center"
                     android:text="Lunch"
                     android:textColor="@android:color/black"
@@ -114,6 +144,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#EAEAEA"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="16dp">
@@ -142,6 +173,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#EAEAEA"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="16dp">

@@ -1,5 +1,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -8,35 +10,63 @@
 
     <!-- Background Image -->
     <ImageView
-        android:id="@+id/backgroundImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/imageView10"
+        android:layout_width="396dp"
+        android:layout_height="159dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.08"
+        app:srcCompat="@drawable/iv_home_page_image" />
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="403dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="116dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_shopping_list1" />
+        app:srcCompat="@drawable/iv_home_page_rectangle2" />
 
     <!-- Title -->
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Meal Planner"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
+    <ImageView
+        android:id="@+id/iv_home_page_rectangle4"
+        android:layout_width="360dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/iv_home_page_rectangle4"
+        android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Meal Time Options (Breakfast, Lunch, Dinner, Snack) -->
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Choose a day "
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Title -->
+
+
     <!-- ScrollView for the day selection -->
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="365dp"
+        android:layout_height="426dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,16 +87,19 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:elevation="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#EAEAEA"
                     android:gravity="center"
+                    android:padding="16dp"
+                    android:shadowColor="#C3BABA"
                     android:text="Monday"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:padding="16dp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <!-- Tuesday Card -->
@@ -76,16 +109,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:elevation="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#EAEAEA"
                     android:gravity="center"
+                    android:padding="16dp"
                     android:text="Tuesday"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:padding="16dp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <!-- Wednesday Card -->
@@ -95,16 +130,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:elevation="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#EAEAEA"
                     android:gravity="center"
+                    android:padding="16dp"
                     android:text="Wednesday"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:padding="16dp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <!-- Thursday Card -->
@@ -114,16 +151,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:elevation="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#EAEAEA"
                     android:gravity="center"
+                    android:padding="16dp"
                     android:text="Thursday"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:padding="16dp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <!-- Friday Card -->
@@ -133,16 +172,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:elevation="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#EAEAEA"
                     android:gravity="center"
+                    android:padding="16dp"
                     android:text="Friday"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:padding="16dp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <!-- Saturday Card -->
@@ -152,16 +193,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:elevation="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#EAEAEA"
                     android:gravity="center"
+                    android:padding="16dp"
                     android:text="Saturday"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:padding="16dp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <!-- Sunday Card -->
@@ -171,16 +214,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:elevation="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#EAEAEA"
                     android:gravity="center"
+                    android:padding="16dp"
                     android:text="Sunday"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:padding="16dp" />
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>

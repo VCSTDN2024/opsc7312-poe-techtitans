@@ -42,7 +42,7 @@ class MealPlannerActivity : AppCompatActivity() {
 
     // Method to get the selected day based on the checked CheckBox
     private fun getSelectedDay(): String? {
-        val sundayCheckBox = findViewById<CheckBox>(R.id.checkBoxSunday)
+       val sundayCheckBox = findViewById<CheckBox>(R.id.checkBoxSunday)
         val mondayCheckBox = findViewById<CheckBox>(R.id.checkBoxMonday)
         val tuesdayCheckBox = findViewById<CheckBox>(R.id.checkBoxTuesday)
         val wednesdayCheckBox = findViewById<CheckBox>(R.id.checkBoxWednesday)
