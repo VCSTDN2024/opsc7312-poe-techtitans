@@ -124,28 +124,49 @@ class SettingsPage : AppCompatActivity() {
             user.reauthenticate(credential)
                 .addOnCompleteListener { reauthTask ->
                     if (reauthTask.isSuccessful) {
-                        // Delete user data from Realtime Database
                         val userId = user.uid
                         val database = FirebaseDatabase.getInstance(databaseUrl).reference
-                        database.child("users").child(userId).removeValue()
-                            .addOnCompleteListener { dbTask ->
-                                if (dbTask.isSuccessful) {
-                                    // Now delete the user from FirebaseAuth
-                                    user.delete()
-                                        .addOnCompleteListener { deleteTask ->
-                                            if (deleteTask.isSuccessful) {
-                                                Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show()
-                                                val intent = Intent(this, LoginPage::class.java)
-                                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                                startActivity(intent)
-                                                finish()
+
+                        // Retrieve the username
+                        database.child("users").child(userId).child("username").get()
+                            .addOnSuccessListener { dataSnapshot ->
+                                val username = dataSnapshot.getValue(String::class.java)
+                                if (username != null) {
+                                    // Delete the username mapping
+                                    database.child("usernames").child(username).removeValue()
+                                        .addOnCompleteListener { usernameDeleteTask ->
+                                            if (usernameDeleteTask.isSuccessful) {
+                                                // Delete user data from Realtime Database
+                                                database.child("users").child(userId).removeValue()
+                                                    .addOnCompleteListener { dbTask ->
+                                                        if (dbTask.isSuccessful) {
+                                                            // Now delete the user from FirebaseAuth
+                                                            user.delete()
+                                                                .addOnCompleteListener { deleteTask ->
+                                                                    if (deleteTask.isSuccessful) {
+                                                                        Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show()
+                                                                        val intent = Intent(this, LoginPage::class.java)
+                                                                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                                        startActivity(intent)
+                                                                        finish()
+                                                                    } else {
+                                                                        Toast.makeText(this, "Failed to delete account: ${deleteTask.exception?.message}", Toast.LENGTH_LONG).show()
+                                                                    }
+                                                                }
+                                                        } else {
+                                                            Toast.makeText(this, "Failed to delete user data: ${dbTask.exception?.message}", Toast.LENGTH_LONG).show()
+                                                        }
+                                                    }
                                             } else {
-                                                Toast.makeText(this, "Failed to delete account: ${deleteTask.exception?.message}", Toast.LENGTH_LONG).show()
+                                                Toast.makeText(this, "Failed to delete username mapping: ${usernameDeleteTask.exception?.message}", Toast.LENGTH_LONG).show()
                                             }
                                         }
                                 } else {
-                                    Toast.makeText(this, "Failed to delete user data: ${dbTask.exception?.message}", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(this, "Username not found", Toast.LENGTH_LONG).show()
                                 }
+                            }
+                            .addOnFailureListener { exception ->
+                                Toast.makeText(this, "Failed to retrieve username: ${exception.message}", Toast.LENGTH_LONG).show()
                             }
                     } else {
                         Toast.makeText(this, "Authentication failed: ${reauthTask.exception?.message}", Toast.LENGTH_LONG).show()
@@ -155,6 +176,7 @@ class SettingsPage : AppCompatActivity() {
             Toast.makeText(this, "No user is logged in", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun setupBottomNavigation() {
         bottomNavigationView.selectedItemId = R.id.navigation_settings
