@@ -42,6 +42,7 @@ This project is developed as part of OPSC7312:
 ### 4. **Shopping List Management**
 - Users can manage their shopping list on the ShoppingListPage, with items organized by category.
 - Real-time syncing with Firebase ensures updates are instantly saved.
+- This uses our own rest API which is hosted on render.com 
 
 ### 5. **Nutritional Information**
 - The NutritionFragment displays detailed nutritional data, grouped into categories.
