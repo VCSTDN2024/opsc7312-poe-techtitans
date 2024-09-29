@@ -26,42 +26,48 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// Main activity for displaying detailed recipe information.
 class RecipeDetailsActivity : AppCompatActivity() {
 
+    // Late initialization of UI components for managing views and navigation.
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var bottomNavigationView: BottomNavigationView
     private val apiKey = BuildConfig.API_KEY
     private val databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
-    private var recipeId: Int = -1
+    private var recipeId: Int = -1  // Placeholder for the recipe ID, default -1 indicating uninitialized.
 
+    // Initial setup function, loads the view components and initializes data fetching.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_details)
 
+        // Linking views by ID.
         viewPager = findViewById(R.id.view_pager)
         tabLayout = findViewById(R.id.tab_layout)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
+        // Setting up bottom navigation with listeners.
         setupBottomNavigation()
 
-        // Get the recipeId from the intent
+        // Retrieve and validate the recipe ID from the intent.
         recipeId = intent.getIntExtra("RECIPE_ID", -1)
         if (recipeId != -1) {
-            getRecipeDetails(recipeId)
+            getRecipeDetails(recipeId)  // Fetch recipe details if ID is valid.
         } else {
-            showError("Invalid Recipe ID")
+            showError("Invalid Recipe ID")  // Error handling for invalid ID.
         }
     }
 
-    // Opens the Meal Planner and passes the recipeId
+    // Event handler to start the Meal Planner Activity and pass the current recipe ID.
     fun openMealPlanner(view: View) {
         val intent = Intent(this, MealPlannerActivity::class.java)
-        intent.putExtra("RECIPE_ID", recipeId) // Pass the recipeId to MealPlannerActivity
+        intent.putExtra("RECIPE_ID", recipeId)  // Attaching the recipe ID to the intent.
         startActivity(intent)
     }
 
+    // Configuration of the bottom navigation view, setting default selected item and item selection listener.
     private fun setupBottomNavigation() {
         bottomNavigationView.selectedItemId = R.id.navigation_home
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
@@ -91,16 +97,16 @@ class RecipeDetailsActivity : AppCompatActivity() {
         }
     }
 
+    // Fetches the detailed information of the recipe from the server using Retrofit API calls.
     private fun getRecipeDetails(recipeId: Int) {
         val call = RetrofitInstance.api.getRecipeInformation(recipeId, apiKey, includeNutrition = true)
         call.enqueue(object : Callback<RecipeDetailsResponse> {
             override fun onResponse(call: Call<RecipeDetailsResponse>, response: Response<RecipeDetailsResponse>) {
                 if (response.isSuccessful) {
-                    val recipeDetails = response.body()
-                    recipeDetails?.let {
-                        checkIfFavoriteAndSave(it)
-                        displayRecipeDetails(it)
-                        setupViewPager(it)
+                    response.body()?.let {
+                        checkIfFavoriteAndSave(it)  // Check if the recipe should be saved.
+                        displayRecipeDetails(it)  // Update UI with the recipe details.
+                        setupViewPager(it)  // Setup tabs and viewpager.
                     }
                 } else {
                     showError("Failed to load recipe details.")
@@ -108,18 +114,19 @@ class RecipeDetailsActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<RecipeDetailsResponse>, t: Throwable) {
-                showError("Error: ${t.message}")
+                showError("Error: ${t.message}")  // Display network or other errors.
             }
         })
     }
 
+    // Checks if the recipe is marked as favorite and saves it in Firebase.
     private fun checkIfFavoriteAndSave(recipeDetails: RecipeDetailsResponse) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         userId?.let {
             databaseReference.child(it).child("favorites").child(recipeId.toString())
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {  // Check if the recipe is marked as favorite
+                        if (snapshot.exists()) {  // Check if the recipe is already marked as favorite.
                             saveRecipeDetailsToFirebase(recipeDetails)
                         }
                     }
@@ -131,6 +138,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
         }
     }
 
+    // Saves the recipe details to Firebase under the user's account.
     private fun saveRecipeDetailsToFirebase(recipeDetails: RecipeDetailsResponse) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         userId?.let {
@@ -145,17 +153,16 @@ class RecipeDetailsActivity : AppCompatActivity() {
         }
     }
 
+    // Updates the UI elements to display the recipe details fetched from the server.
     private fun displayRecipeDetails(details: RecipeDetailsResponse) {
-        // Update the recipe name in the TextView
         val recipeNameTextView: TextView = findViewById(R.id.textView13)
-        recipeNameTextView.text = details.title  // Assuming 'title' contains the recipe name
+        recipeNameTextView.text = details.title  // Setting the recipe title to the TextView.
 
-        // Load the recipe image using Glide
         val imageView: ImageView = findViewById(R.id.iv_recipe_image)
-        Glide.with(this).load(details.image).into(imageView)
+        Glide.with(this).load(details.image).into(imageView)  // Using Glide to load and display the recipe image.
     }
 
-
+    // Configures the ViewPager with fragments for recipe overview, ingredients, steps, and nutrition.
     private fun setupViewPager(details: RecipeDetailsResponse) {
         val fragments = listOf(
             OverviewFragment.newInstance(details.summary),
@@ -167,13 +174,12 @@ class RecipeDetailsActivity : AppCompatActivity() {
             NutritionFragment.newInstance(details.nutrition)
         )
 
-
-
         viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = fragments.size
             override fun createFragment(position: Int): Fragment = fragments[position]
         }
 
+        // Setting custom views for tabs and managing their selection.
         val tabTitles = listOf("Overview", "Ingredients", "Steps", "Nutrition")
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             val customTab = layoutInflater.inflate(R.layout.tab_item, tabLayout, false) as LinearLayout
@@ -182,31 +188,34 @@ class RecipeDetailsActivity : AppCompatActivity() {
             tab.customView = customTab
         }.attach()
 
+        // Handling page changes to update tab styles.
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updateTabStyles(position)
             }
         })
 
-        // Initialize the first tab with the selected background
+        // Set the initial style for the selected tab.
         updateTabStyles(0)
     }
 
+    // Applies styling changes to the tabs based on the currently selected tab.
     private fun updateTabStyles(selectedPosition: Int) {
         for (i in 0 until tabLayout.tabCount) {
             val tab = tabLayout.getTabAt(i)
             val tabView = tab?.customView as? LinearLayout
 
             if (i == selectedPosition) {
-                tabView?.setBackgroundResource(R.drawable.tab_selected_background)  // Set blue box with curved corners
+                tabView?.setBackgroundResource(R.drawable.tab_selected_background)  // Apply the selected background to the current tab.
                 tabView?.isSelected = true
             } else {
-                tabView?.background = null  // Remove background for unselected tabs
+                tabView?.background = null  // Remove background for unselected tabs.
                 tabView?.isSelected = false
             }
         }
     }
 
+    // Displays a toast message for various error states.
     private fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }

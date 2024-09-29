@@ -16,24 +16,23 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// Activity to display overview of a recipe including details, ingredients, steps, and nutrition.
 class RecipeOverviewActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
-    private var recipeId: Int = -1 // Changed to Int
+    private var recipeId: Int = -1
     private val apiKey = BuildConfig.API_KEY
 
+    // Initialize activity and layout, retrieve recipe ID from intent.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_overview)
-
-        // Get the recipeId from the intent
         recipeId = intent.getIntExtra("RECIPE_ID", -1)
 
         viewPager = findViewById(R.id.view_pager)
         tabLayout = findViewById(R.id.tab_layout)
 
-        // Fetch recipe details from Spoonacular API
         if (recipeId != -1) {
             loadRecipeDetailsFromAPI(recipeId)
         } else {
@@ -41,14 +40,14 @@ class RecipeOverviewActivity : AppCompatActivity() {
         }
     }
 
+    // Fetch recipe details from API and handle the response.
     private fun loadRecipeDetailsFromAPI(recipeId: Int) {
         val call = RetrofitInstance.api.getRecipeInformation(recipeId, apiKey)
 
         call.enqueue(object : Callback<RecipeDetailsResponse> {
             override fun onResponse(call: Call<RecipeDetailsResponse>, response: Response<RecipeDetailsResponse>) {
                 if (response.isSuccessful) {
-                    val recipeDetails = response.body()
-                    recipeDetails?.let {
+                    response.body()?.let {
                         displayRecipeDetails(it)
                         setupViewPager(it)
                     }
@@ -63,18 +62,17 @@ class RecipeOverviewActivity : AppCompatActivity() {
         })
     }
 
+    // Display the main image of the recipe.
     private fun displayRecipeDetails(details: RecipeDetailsResponse) {
         val imageView: ImageView = findViewById(R.id.iv_recipe_image)
         Glide.with(this).load(details.image).into(imageView)
     }
 
+    // Set up ViewPager with fragments for different sections of the recipe.
     private fun setupViewPager(details: RecipeDetailsResponse) {
         val fragments = listOf(
             OverviewFragment.newInstance(details.summary),
-            IngredientsFragment.newInstance(
-                details.extendedIngredients.joinToString("\n") { it.original },
-                recipeId // Pass recipeId here
-            ),
+            IngredientsFragment.newInstance(details.extendedIngredients.joinToString("\n") { it.original }, recipeId),
             StepsFragment.newInstance(details.instructions ?: "No instructions available"),
             NutritionFragment.newInstance(details.nutrition)
         )
@@ -84,12 +82,14 @@ class RecipeOverviewActivity : AppCompatActivity() {
             override fun createFragment(position: Int): Fragment = fragments[position]
         }
 
+        // Set tab titles and attach them to the ViewPager.
         val tabTitles = listOf("Overview", "Ingredients", "Steps", "Nutrition")
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()
     }
 
+    // Show error messages as toast.
     private fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
