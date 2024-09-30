@@ -1,3 +1,4 @@
+![App Icon no background](https://github.com/user-attachments/assets/7894e435-f4fe-4a6b-8948-1af1d0fd8e08)
 # **Fusion App**
 
 Fusion is a meal planning and recipe management application designed to simplify grocery and cooking tasks. The app offers features such as meal planning, grocery list management, recipe browsing, and nutritional data tracking. With Firebase integration, users can securely store their data and manage accounts.
