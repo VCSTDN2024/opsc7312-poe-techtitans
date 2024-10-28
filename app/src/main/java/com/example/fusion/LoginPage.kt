@@ -325,14 +325,42 @@ class LoginPage : AppCompatActivity() {
         val username = sharedPreferences.getString("username_biometric", null)
         val password = sharedPreferences.getString("password_biometric", null)
         if (username != null && password != null) {
-            // Perform offline login
-            if (offlineLogin(username, password)) {
-                // Offline login successful
-                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                proceedToHomePage()
-            } else {
-                // If offline login fails, attempt online login
-                loginUser(username, password)
+            // Fetch email from the database using the username
+            val database = FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
+            val usernameRef = database.getReference("usernames").child(username)
+
+            usernameRef.get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val userId = task.result.getValue(String::class.java)
+                    if (userId != null) {
+                        val userRef = database.getReference("users").child(userId)
+                        userRef.child("email").get().addOnCompleteListener { emailTask ->
+                            if (emailTask.isSuccessful) {
+                                val email = emailTask.result.getValue(String::class.java)
+                                if (email != null) {
+                                    // Authenticate with Firebase Auth
+                                    auth.signInWithEmailAndPassword(email, password)
+                                        .addOnCompleteListener { signInTask ->
+                                            if (signInTask.isSuccessful) {
+                                                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
+                                                proceedToHomePage()
+                                            } else {
+                                                Toast.makeText(this, "Authentication failed: ${signInTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                } else {
+                                    Toast.makeText(this, "Failed to retrieve email", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                Toast.makeText(this, "Failed to retrieve email: ${emailTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(this, "Invalid username", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this, "Failed to retrieve username mapping: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         } else {
             Toast.makeText(this, "No credentials stored for biometric login", Toast.LENGTH_SHORT).show()
