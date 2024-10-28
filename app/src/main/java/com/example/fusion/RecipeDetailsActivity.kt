@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,6 +17,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.RecipeDetailsResponse
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -75,8 +78,21 @@ class RecipeDetailsActivity : AppCompatActivity() {
         } else {
             showError("Invalid Recipe ID")  // Error handling for invalid ID.
         }
+
+        applyTranslations()
     }
 
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.textView13)
+        )
+
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+        }
+    }
     // Method to retrieve full recipe details from SharedPreferences
     private fun getRecipeDetailsFromLocalStorage(recipeId: Int): RecipeDetailsResponse? {
         val savedRecipesJson = sharedPreferences.getString("favorite_recipes", "[]")

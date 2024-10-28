@@ -1,7 +1,9 @@
 package com.example.fusion
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -10,6 +12,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.RecipeDetailsResponse
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
@@ -38,8 +42,30 @@ class RecipeOverviewActivity : AppCompatActivity() {
         } else {
             showError("Invalid Recipe ID")
         }
+        applyTranslations()
     }
 
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.container_pass1),
+            findViewById<TextView>(R.id.text_email),
+            findViewById<TextView>(R.id.textView),
+            findViewById<TextView>(R.id.container_pass)
+        )
+
+        val buttons = listOf(
+            findViewById<Button>(R.id.button),
+            findViewById<Button>(R.id.btnSignupPage2),
+            findViewById<Button>(R.id.btnLoginPage2)
+        )
+
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+            TranslationUtil.translateButtons(this, buttons, "af")
+        }
+    }
     // Fetch recipe details from API and handle the response.
     private fun loadRecipeDetailsFromAPI(recipeId: Int) {
         val call = RetrofitInstance.api.getRecipeInformation(recipeId, apiKey)

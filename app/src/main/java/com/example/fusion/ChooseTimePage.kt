@@ -2,8 +2,13 @@ package com.example.fusion
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ChooseTimePage : AppCompatActivity() {
@@ -38,8 +43,29 @@ class ChooseTimePage : AppCompatActivity() {
 
         // Setup Bottom Navigation
         setupBottomNavigation()
-    }
+    applyTranslations()
+}
 
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.titleText2),
+            findViewById<TextView>(R.id.Breakfast),
+            findViewById<TextView>(R.id.Lunch),
+            findViewById<TextView>(R.id.Dinner),
+            findViewById<TextView>(R.id.Snack)
+        )
+
+        val buttons = listOf(
+            findViewById<Button>(R.id.buttonDone)
+        )
+
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+            TranslationUtil.translateButtons(this, buttons, "af")
+        }
+    }
     // Function to pass the day and meal time to MealPlannerMeal
     private fun navigateToMealPlannerMeal(mealTime: String) {
         val intent = Intent(this, MealPlannerMeal::class.java)

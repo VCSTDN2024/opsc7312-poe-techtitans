@@ -7,10 +7,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.RecipeDetailsResponse
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import retrofit2.Call
@@ -51,8 +54,29 @@ class MealTimeActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please select a meal time", Toast.LENGTH_SHORT).show()
             }
         }
+        applyTranslations()
     }
 
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.titleText),
+            findViewById<TextView>(R.id.Breakfast),
+            findViewById<TextView>(R.id.Lunch),
+            findViewById<TextView>(R.id.Dinner),
+            findViewById<TextView>(R.id.Snack)
+        )
+
+        val buttons = listOf(
+            findViewById<Button>(R.id.buttonDone)
+        )
+
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+            TranslationUtil.translateButtons(this, buttons, "af")
+        }
+    }
     // Method to determine the selected meal time based on the checked CheckBox
     private fun getSelectedMealTime(): String? {
         // References to all the CheckBoxes for meal times

@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 
 class StepsFragment : Fragment() {
 
@@ -40,13 +42,27 @@ class StepsFragment : Fragment() {
     ): View? {
         // Inflate the fragment's layout (fragment_steps.xml)
         val view = inflater.inflate(R.layout.fragment_steps, container, false)
+        return view  // Return the view for the fragment
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Find the TextView where the steps will be displayed
         val stepsText: TextView = view.findViewById(R.id.tv_steps)
 
         // Set the steps text in the TextView, using Html.fromHtml to format any HTML content
         stepsText.text = Html.fromHtml(steps, Html.FROM_HTML_MODE_LEGACY)
+        applyTranslations()
+    }
 
-        return view  // Return the view for the fragment
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            requireView().findViewById<TextView>(R.id.tv_steps)
+        )
+
+
+        if(loadLanguagePreference(this@StepsFragment.requireContext()) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this@StepsFragment.requireContext(), textViewsToTranslate, "af")
+        }
     }
 }

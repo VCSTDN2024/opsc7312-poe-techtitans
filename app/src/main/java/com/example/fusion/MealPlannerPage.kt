@@ -2,9 +2,13 @@ package com.example.fusion
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MealPlannerPage : AppCompatActivity() {
@@ -29,8 +33,26 @@ class MealPlannerPage : AppCompatActivity() {
         findViewById<CardView>(R.id.cardFriday)?.setOnClickListener { navigateToChooseTimePage("Friday") }
         findViewById<CardView>(R.id.cardSaturday)?.setOnClickListener { navigateToChooseTimePage("Saturday") }
         findViewById<CardView>(R.id.cardSunday)?.setOnClickListener { navigateToChooseTimePage("Sunday") }
+        applyTranslations()
     }
 
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.titleText),
+            findViewById<TextView>(R.id.Monday),
+            findViewById<TextView>(R.id.Tuesday),
+            findViewById<TextView>(R.id.Wednesday),
+            findViewById<TextView>(R.id.Thursday),
+            findViewById<TextView>(R.id.Friday),
+            findViewById<TextView>(R.id.Saturday),
+            findViewById<TextView>(R.id.Sunday),
+        )
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+        }
+    }
     // Function to navigate to ChooseTimePage and pass the selected day as an intent extra
     private fun navigateToChooseTimePage(selectedDay: String) {
         val intent = Intent(this, ChooseTimePage::class.java) // Create intent to start ChooseTimePage

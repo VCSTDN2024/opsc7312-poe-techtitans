@@ -10,6 +10,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -70,6 +72,27 @@ class editProfilePage : AppCompatActivity() {
 
         btnChangePassword.setOnClickListener {
             showChangePasswordDialog()
+        }
+        applyTranslations()
+    }
+
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.text_edit_profile),
+            findViewById<TextView>(R.id.text_name),
+            findViewById<TextView>(R.id.text_email)
+        )
+
+        val buttons = listOf(
+            findViewById<Button>(R.id.btnChangePassword),
+            findViewById<Button>(R.id.btnUpdateProfile),
+        )
+
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+            TranslationUtil.translateButtons(this, buttons, "af")
         }
     }
 

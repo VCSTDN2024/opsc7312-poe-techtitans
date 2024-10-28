@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -63,8 +65,27 @@ class AddItemActivity : AppCompatActivity() {
         addButton.setOnClickListener {
             addIngredient()
         }
+        applyTranslations()
     }
 
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.header_text),
+            findViewById<TextView>(R.id.ingredient_edit_text),
+            findViewById<TextView>(R.id.category_auto_complete)
+        )
+
+        val buttons = listOf(
+            findViewById<Button>(R.id.add_button)
+        )
+
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+            TranslationUtil.translateButtons(this, buttons, "af")
+        }
+    }
     // Function to fetch categories from Firebase
     private fun fetchCategories() {
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {

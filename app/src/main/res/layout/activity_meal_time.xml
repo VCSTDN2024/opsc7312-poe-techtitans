@@ -88,6 +88,7 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/Breakfast"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -120,6 +121,7 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/Lunch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -152,6 +154,7 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/Dinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -184,6 +187,7 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/Snack"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

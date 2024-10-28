@@ -5,9 +5,12 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 
 class OverviewFragment : Fragment() {
 
@@ -48,5 +51,18 @@ class OverviewFragment : Fragment() {
 
         // Set the summary text in the TextView, using HtmlCompat to properly format any HTML content
         tvOverview.text = HtmlCompat.fromHtml(summary ?: "No summary available", HtmlCompat.FROM_HTML_MODE_LEGACY)
+        applyTranslations()
+    }
+
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            requireView().findViewById<TextView>(R.id.tv_overview)
+        )
+
+
+        if(loadLanguagePreference(this@OverviewFragment.requireContext()) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this@OverviewFragment.requireContext(), textViewsToTranslate, "af")
+        }
     }
 }

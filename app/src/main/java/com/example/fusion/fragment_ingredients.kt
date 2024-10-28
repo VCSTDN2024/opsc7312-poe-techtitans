@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import com.example.fusion.api.ApiClient
 import com.example.fusion.api.ApiService
 import com.example.fusion.model.AddIngredientsRequest
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -61,6 +63,28 @@ class IngredientsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_ingredients, container, false)
 
+
+
+        return view
+    }
+
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            requireView().findViewById<TextView>(R.id.tv_ingredients)
+        )
+
+        val buttonToTranslate = listOf(requireView().findViewById<Button>(R.id.btn_add_to_shopping_list))
+
+
+        if(loadLanguagePreference(this@IngredientsFragment.requireContext()) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this@IngredientsFragment.requireContext(), textViewsToTranslate, "af")
+            TranslationUtil.translateButtons(this@IngredientsFragment.requireContext(), buttonToTranslate, "af")
+        } else {
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Find and assign the TextView and Button from the layout
         ingredientsText = view.findViewById(R.id.tv_ingredients)
         btnAddToShoppingList = view.findViewById(R.id.btn_add_to_shopping_list)
@@ -72,8 +96,7 @@ class IngredientsFragment : Fragment() {
         btnAddToShoppingList.setOnClickListener {
             addIngredientsToShoppingList()
         }
-
-        return view
+        applyTranslations()
     }
 
     // Function to add ingredients to the user's shopping list

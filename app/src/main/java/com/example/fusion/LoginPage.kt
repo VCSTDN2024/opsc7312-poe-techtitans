@@ -13,6 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.core.content.ContextCompat
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -101,6 +103,32 @@ class LoginPage : AppCompatActivity() {
         // Set the click listener for creating a new account
         createAccountTextView.setOnClickListener {
             navigateToRegisterPage() // Navigate to the signup page
+        }
+
+        applyTranslations()
+    }
+
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.container_pass),
+            findViewById<TextView>(R.id.text_view_password)
+        )
+
+        val buttons = listOf(
+            findViewById<Button>(R.id.btnLogin),
+            findViewById<Button>(R.id.btnSignupPage),
+            findViewById<Button>(R.id.btnLoginPage)
+        )
+
+        val checkBoxes = listOf(
+            findViewById<CheckBox>(R.id.checkbox_remember_me)
+        )
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+            TranslationUtil.translateCheckBoxes(this, checkBoxes, "af")
+            TranslationUtil.translateButtons(this, buttons, "af")
         }
     }
 
