@@ -1,18 +1,29 @@
 package com.example.fusion
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fusion.api.RetrofitInstance
+import com.example.fusion.model.RecipeDetailsResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.Calendar
 
 class MealTimeActivity : AppCompatActivity() {
     // Variable to store the selected day and recipe ID
     private lateinit var selectedDay: String
     private var recipeId: Int = -1
+    private val apiKey = BuildConfig.API_KEY
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +42,10 @@ class MealTimeActivity : AppCompatActivity() {
             if (selectedMealTime != null) {
                 // If a meal time is selected, save the meal plan
                 saveMealPlan(selectedMealTime)
+                // Load recipe details from the API
+                loadRecipeDetailsFromAPI(recipeId.toString())
+                // Schedule a notification for the selected meal time
+
             } else {
                 // Display a Toast message if no meal time is selected
                 Toast.makeText(this, "Please select a meal time", Toast.LENGTH_SHORT).show()
@@ -94,4 +109,62 @@ class MealTimeActivity : AppCompatActivity() {
             Toast.makeText(this, "No user logged in!", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun calculateNotificationTime(mealTime: String, prepTime: Int): Calendar {
+        val notificationTime = Calendar.getInstance()
+        when (mealTime) {
+            "Breakfast" -> {
+                notificationTime.set(Calendar.HOUR_OF_DAY, 8)
+                notificationTime.set(Calendar.MINUTE, 0)
+            }
+            "Lunch" -> {
+                notificationTime.set(Calendar.HOUR_OF_DAY, 13)
+                notificationTime.set(Calendar.MINUTE, 0)
+            }
+            "Dinner" -> {
+                notificationTime.set(Calendar.HOUR_OF_DAY, 19)
+                notificationTime.set(Calendar.MINUTE, 0)
+            }
+        }
+        notificationTime.add(Calendar.MINUTE, -prepTime)
+        return notificationTime
+    }
+
+    private fun scheduleMealNotification(mealTime: String, prepTime: Int, recipeTitle: String) {
+        val notificationTime = calculateNotificationTime(mealTime, prepTime)
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, NotificationReceiver::class.java).apply {
+            putExtra("MEAL_TITLE", recipeTitle)
+        }
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, notificationTime.timeInMillis, pendingIntent)
+    }
+
+    // Function to load recipe details from the API using Retrofit
+    private fun loadRecipeDetailsFromAPI(recipeId: String) {
+        val call = RetrofitInstance.api.getRecipeInformation(recipeId.toInt(), apiKey)
+
+        call.enqueue(object : Callback<RecipeDetailsResponse> {
+            override fun onResponse(call: Call<RecipeDetailsResponse>, response: Response<RecipeDetailsResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        val prepTime = it.readyInMinutes
+                        val selectedMealTime = getSelectedMealTime() // Retrieve selected meal time
+                        if (selectedMealTime != null) {
+                            scheduleMealNotification(selectedMealTime, prepTime, it.title)
+                        }
+                    }
+                } else {
+                    Toast.makeText(this@MealTimeActivity, "Failed to load recipe details.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<RecipeDetailsResponse>, t: Throwable) {
+                Toast.makeText(this@MealTimeActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 }

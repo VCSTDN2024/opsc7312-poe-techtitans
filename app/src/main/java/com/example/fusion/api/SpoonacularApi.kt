@@ -22,4 +22,6 @@ interface SpoonacularApi {
         @Query("apiKey") apiKey: String,
         @Query("includeNutrition") includeNutrition: Boolean = true
     ): Call<RecipeDetailsResponse>
+
+
 }

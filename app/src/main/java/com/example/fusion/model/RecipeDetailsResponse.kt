@@ -10,7 +10,8 @@ data class RecipeDetailsResponse(
     val summary: String,                 // Summary description of the recipe
     val instructions: String?,           // Cooking instructions, can be null
     val extendedIngredients: List<ExtendedIngredient>, // List of extended ingredients used in the recipe
-    val nutrition: Nutrition             // Nutrition information for the recipe
+    val nutrition: Nutrition,            // Nutrition information for the recipe
+    val readyInMinutes: Int              // <-- Ensure this field exists
 ) : Serializable                         // Implements Serializable for passing between activities
 
 // Data class representing details of an extended ingredient used in a recipe
@@ -59,3 +60,4 @@ data class Nutrition(
         return categories // Return the categorized nutrients as a map
     }
 }
+
