@@ -63,7 +63,7 @@ jobs:
 
       # Step 8: Build the project using Gradle
       - name: Build with Gradle
-        run: ./gradlew build -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxPermSize=512m"
+        run: ./gradlew build -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true -Dorg.gradle.jvmargs="-Xmx4g"
 
       
       # Optional: Upload Test Results to GitHub Actions artifacts
