@@ -12,7 +12,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
@@ -28,8 +27,8 @@ class LoginPage : AppCompatActivity() {
     private lateinit var rememberMeCheckBox: CheckBox
 
     // Biometric variables
-    private lateinit var biometricPrompt: BiometricPrompt
-    private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    private lateinit var biometricPrompt: androidx.biometric.BiometricPrompt
+    private lateinit var promptInfo: androidx.biometric.BiometricPrompt.PromptInfo
     private lateinit var executor: Executor
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,29 +45,41 @@ class LoginPage : AppCompatActivity() {
 
         // Initialize biometric components
         executor = ContextCompat.getMainExecutor(this)
-        biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
-            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                super.onAuthenticationError(errorCode, errString)
-                Toast.makeText(applicationContext, "Authentication error: $errString", Toast.LENGTH_SHORT).show()
-                Log.d("LoginPage", "Authentication error: $errString")
-            }
+        biometricPrompt = androidx.biometric.BiometricPrompt(
+            this,
+            executor,
+            object : androidx.biometric.BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    Toast.makeText(
+                        applicationContext,
+                        "Authentication error: $errString",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d("LoginPage", "Authentication error: $errString")
+                }
 
-            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                super.onAuthenticationSucceeded(result)
-                Toast.makeText(applicationContext, "Authentication succeeded!", Toast.LENGTH_SHORT).show()
-                Log.d("LoginPage", "Authentication succeeded")
-                // Perform biometric login
-                biometricLogin()
-            }
+                override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    Toast.makeText(
+                        applicationContext,
+                        "Authentication succeeded!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d("LoginPage", "Authentication succeeded")
+                    // Perform biometric login
+                    biometricLogin()
+                }
 
-            override fun onAuthenticationFailed() {
-                super.onAuthenticationFailed()
-                Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
-                Log.d("LoginPage", "Authentication failed")
-            }
-        })
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT)
+                        .show()
+                    Log.d("LoginPage", "Authentication failed")
+                }
+            })
 
-        promptInfo = BiometricPrompt.PromptInfo.Builder()
+        promptInfo = androidx.biometric.BiometricPrompt.PromptInfo.Builder()
             .setTitle("Biometric Login")
             .setSubtitle("Log in using your fingerprint")
             .setNegativeButtonText("Cancel")
