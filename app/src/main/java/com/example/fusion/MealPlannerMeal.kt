@@ -1,6 +1,7 @@
 package com.example.fusion
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.Recipe
 import com.example.fusion.model.RecipeDetailsResponse
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import retrofit2.Call
@@ -54,8 +57,20 @@ class MealPlannerMeal : AppCompatActivity() {
         findViewById<ImageView>(R.id.btnBack).setOnClickListener {
             onBackPressed() // Go back when the back arrow is clicked
         }
+        applyTranslations()
     }
 
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.titleText),
+            findViewById<TextView>(R.id.mealTimeText)
+        )
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+        }
+    }
     // Function to load recipes from Firebase based on the selected day and meal time
     private fun loadRecipesFromFirebase() {
         val currentUser = FirebaseAuth.getInstance().currentUser // Get the current logged-in user

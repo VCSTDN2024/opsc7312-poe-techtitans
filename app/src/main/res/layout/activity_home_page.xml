@@ -145,6 +145,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtCalories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
@@ -188,6 +189,7 @@
 
             <!-- Type of Meal Filter -->
             <TextView
+                android:id="@+id/txtMeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -225,6 +227,7 @@
 
             <!-- Main Ingredient Filter -->
             <TextView
+                android:id="@+id/txtMainIngredient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"

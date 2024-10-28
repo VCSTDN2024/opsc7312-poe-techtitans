@@ -3,10 +3,14 @@ package com.example.fusion
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.EmailAuthProvider
@@ -75,8 +79,25 @@ class SettingsPage : AppCompatActivity() {
 
         // Set up bottom navigation functionality
         setupBottomNavigation()
+        applyTranslations()
     }
 
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.text_settings),
+            findViewById<TextView>(R.id.txtEditProfile),
+            findViewById<TextView>(R.id.txtNotifications),
+            findViewById<TextView>(R.id.txtLanguage),
+            findViewById<TextView>(R.id.txtUOM),
+            findViewById<TextView>(R.id.txtLogout),
+            findViewById<TextView>(R.id.txtDelAcc)
+        )
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+        }
+    }
     // Function to show a confirmation dialog for account deletion
     private fun showDeleteAccountDialog() {
         val builder = AlertDialog.Builder(this)

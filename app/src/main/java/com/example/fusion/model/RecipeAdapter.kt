@@ -5,12 +5,15 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fusion.model.Recipe
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -69,8 +72,20 @@ class RecipeAdapter(
                         }
                     })
             }
+            applyTranslations()
         }
 
+        private fun applyTranslations() {
+            val textViewsToTranslate = listOf(
+                itemView.findViewById<TextView>(R.id.tv_recipe_title)
+            )
+
+
+            if(loadLanguagePreference(this@RecipeAdapter.context) == "af") {
+                // Apply translations to these text views if necessary
+                TranslationUtil.translateTextViews(this@RecipeAdapter.context, textViewsToTranslate, "af")
+            }
+        }
         // Method to handle clicking the save icon
         private fun handleSaveIconClick(userId: String, recipe: Recipe, currentSavedState: Boolean) {
             saveIcon.setOnClickListener {

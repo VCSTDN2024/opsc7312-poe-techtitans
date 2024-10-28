@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fusion.model.Recipe
 import com.example.fusion.model.RecipeDetailsResponse
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -61,8 +65,21 @@ class FavoritesPage : AppCompatActivity() {
         // Display saved recipes from Firebase and local storage
         displaySavedRecipes()
         displayLocalSavedRecipes()
+
+        applyTranslations()
     }
 
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.et_search),
+            findViewById<TextView>(R.id.textView17),
+        )
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+        }
+    }
     // Function to display saved recipes from Firebase
     private fun displaySavedRecipes() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid

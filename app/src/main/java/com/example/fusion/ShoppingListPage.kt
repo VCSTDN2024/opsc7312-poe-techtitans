@@ -2,12 +2,15 @@ package com.example.fusion
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -51,8 +54,20 @@ class ShoppingListPage : AppCompatActivity() {
         } else {
             Toast.makeText(this, "User not signed in", Toast.LENGTH_SHORT).show()
         }
+        applyTranslations()
     }
 
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.txt_shopping_list_title)
+        )
+
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+        }
+    }
     // Setup the bottom navigation bar
     private fun setupBottomNavigation() {
         bottomNavigationView.selectedItemId = R.id.navigation_cart

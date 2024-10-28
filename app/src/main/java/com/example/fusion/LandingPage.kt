@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.Manifest
+import android.content.Context
+import java.util.Locale
 
 class LandingPage : AppCompatActivity() {
 
@@ -21,6 +23,9 @@ class LandingPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge() // Enable edge-to-edge display
         setContentView(R.layout.app_landing_page) // Set the content view to the landing page layout
+
+        val selectedLanguage = loadLanguagePreference()
+        setLocale(selectedLanguage)
 
         // Initialize the fusion logo ImageView
         fusionlogo = findViewById(R.id.logo)
@@ -84,5 +89,23 @@ class LandingPage : AppCompatActivity() {
     // Function to post notifications (to be implemented based on app requirements)
     private fun postNotification() {
         // Your code to post the notification goes here
+    }
+
+    // Load language preference from SharedPreferences
+    private fun loadLanguagePreference(): String {
+        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        return prefs.getString("selected_language", "en") ?: "en"
+    }
+
+    // Set the app locale
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val resources = resources
+        val config = resources.configuration
+        config.setLocale(locale)
+
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }

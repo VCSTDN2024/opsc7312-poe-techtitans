@@ -4,11 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fusion.utils.TranslationUtil
+import com.example.fusion.utils.TranslationUtil.loadLanguagePreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
@@ -51,6 +54,30 @@ class SignupPage : AppCompatActivity() {
         loginTextView.setOnClickListener {
             val intent = Intent(this@SignupPage, LoginPage::class.java)
             startActivity(intent)
+        }
+
+        applyTranslations()
+    }
+
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.container_pass1),
+            findViewById<TextView>(R.id.text_email),
+            findViewById<TextView>(R.id.textView),
+            findViewById<TextView>(R.id.container_pass)
+            )
+
+        val buttons = listOf(
+            findViewById<Button>(R.id.button),
+            findViewById<Button>(R.id.btnSignupPage2),
+            findViewById<Button>(R.id.btnLoginPage2)
+        )
+
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+            TranslationUtil.translateButtons(this, buttons, "af")
         }
     }
 

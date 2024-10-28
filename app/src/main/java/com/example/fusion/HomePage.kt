@@ -1,5 +1,6 @@
 package com.example.fusion
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fusion.api.RetrofitInstance
 import com.example.fusion.model.Recipe
 import com.example.fusion.model.RecipeResponse
+import com.example.fusion.utils.TranslationUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +48,7 @@ class HomePage : AppCompatActivity() {
         // Initialize UI components
         etSearch = findViewById(R.id.et_search)
         rvSearchResults = findViewById(R.id.rv_search_results)
-        btnShowFilter = findViewById<ImageButton>(R.id.btn_show_filters)
+        btnShowFilter = findViewById(R.id.btn_show_filters)
         caloriesGroup = findViewById(R.id.radioGroupCalories)
         mealTypeGroup = findViewById(R.id.radioGroupMealType)
         ingredientGroup = findViewById(R.id.radioGroupIngredients)
@@ -95,6 +98,9 @@ class HomePage : AppCompatActivity() {
 
         // Set up the bottom navigation bar
         setupBottomNavigation()
+
+        // Apply translations if necessary
+        applyTranslations()
     }
 
     // Function to handle search and apply selected filters
@@ -258,5 +264,49 @@ class HomePage : AppCompatActivity() {
 
         // Notify the user that filters have been cleared
         Toast.makeText(this, "Filters cleared", Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * Applies translations to the text components on the HomePage based on the saved language preference.
+     */
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.et_search),
+            findViewById<TextView>(R.id.filterLabel),
+            findViewById<TextView>(R.id.txtMeal),
+            findViewById<TextView>(R.id.txtMainIngredient),
+            findViewById<TextView>(R.id.txtCalories)
+        )
+
+        val radiosToTranslate = listOf(
+            findViewById<RadioButton>(R.id.radioCalories500),
+            findViewById<RadioButton>(R.id.radioCalories1000),
+            findViewById<RadioButton>(R.id.radioCalories1500),
+            findViewById<RadioButton>(R.id.radioCalories2000),
+            findViewById<RadioButton>(R.id.radioBreakfast),
+            findViewById<RadioButton>(R.id.radioLunch),
+            findViewById<RadioButton>(R.id.radioDinner),
+            findViewById<RadioButton>(R.id.radioChicken),
+            findViewById<RadioButton>(R.id.radioBeef),
+            findViewById<RadioButton>(R.id.radioFish),
+            findViewById<RadioButton>(R.id.radioFlour),
+            findViewById<RadioButton>(R.id.radioEggs)
+        )
+
+        val buttons = listOf(
+            findViewById<Button>(R.id.btn_clear_filters)
+        )
+
+        if(loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+            TranslationUtil.translateRadioViews(this, radiosToTranslate, "af")
+            TranslationUtil.translateButtons(this, buttons, "af")
+        }
+    }
+
+    fun loadLanguagePreference(context: Context): String {
+        val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        return prefs.getString("selected_language", "en") ?: "en"
     }
 }

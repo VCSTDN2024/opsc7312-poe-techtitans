@@ -17,8 +17,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // Access API_KEY securely
-        val apiKey = findProperty("API_KEY")?.toString() ?: "b6544cc7e3f043ba8063aaedbb84cb9e"
+        val apiKey = findProperty("API_KEY")?.toString() ?: "323b1c5c1e9e44e29d52c941203a1854"
         buildConfigField("String", "API_KEY", "\"${apiKey}\"") // Correct interpolation
+
+        val googleApiKey = findProperty("GOOGLE_API_KEY")?.toString() ?: "AIzaSyAufJO12KxtN8LAtaKKVtWbPP4vHUzTS14"
+        buildConfigField("String", "GOOGLE_API_KEY", "\"${googleApiKey}\"") // Correct interpolation
     }
 
     // Enable custom BuildConfig generation
@@ -105,6 +108,10 @@ dependencies {
     implementation(libs.firebase.database.ktx)
 
     implementation(libs.androidx.biometric)
+
+    implementation(libs.squareup.okhttp.v493) // To handle network requests
+    implementation(libs.json) // To parse JSON responses
+
 
 
     testImplementation(libs.junit)
