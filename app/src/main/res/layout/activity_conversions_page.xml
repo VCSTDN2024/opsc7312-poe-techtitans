@@ -6,6 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ConversionsPage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,56 +14,44 @@
         android:layout_height="wrap_content">
 
         <!-- Header Image -->
+        <!-- Back Button -->
+
+
         <ImageView
             android:id="@+id/imageView19"
-            android:layout_width="0dp"
+            android:layout_width="411dp"
             android:layout_height="158dp"
+            android:layout_marginTop="4dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/iv_home_page_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-        <!-- Back Button -->
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:background="@android:color/transparent"
-            android:padding="8dp"
-            android:contentDescription="Back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imageView19"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp" />
-
+            app:srcCompat="@drawable/iv_home_page_image" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Conversions"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="@id/imageView19"
             app:layout_constraintBottom_toBottomOf="@id/imageView19"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/imageView19" />
 
         <!-- Horizontal Divider 1 -->
         <View
             android:id="@+id/horizontalDivider1"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="#000000"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/imageView19"
+            android:background="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/imageView19" />
 
         <!-- Grams Input -->
         <EditText
@@ -73,12 +62,12 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/conversiongreyrec"
-            android:inputType="numberDecimal"
             android:hint="Enter Grams"
+            android:inputType="numberDecimal"
             android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@id/horizontalDivider1"
+            app:layout_constraintEnd_toStartOf="@+id/txtOunces"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtOunces" />
+            app:layout_constraintTop_toBottomOf="@id/horizontalDivider1" />
 
         <!-- Ounces Output -->
         <EditText
@@ -88,45 +77,45 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/conversiongreyrec"
-            android:inputType="numberDecimal"
-            android:hint="Ounces"
-            android:textAlignment="center"
             android:enabled="false"
             android:focusable="false"
-            app:layout_constraintTop_toTopOf="@id/txtGrams"
+            android:hint="Ounces"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtGrams"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/txtGrams" />
 
         <!-- Grams Label -->
         <TextView
             android:id="@+id/textView50"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Grams"
-            app:layout_constraintTop_toBottomOf="@id/txtGrams"
             app:layout_constraintStart_toStartOf="@id/txtGrams"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintTop_toBottomOf="@id/txtGrams" />
 
         <!-- Ounces Label -->
         <TextView
             android:id="@+id/textView52"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Ounces"
-            app:layout_constraintTop_toBottomOf="@id/txtOunces"
             app:layout_constraintStart_toStartOf="@id/txtOunces"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintTop_toBottomOf="@id/txtOunces" />
 
         <!-- Horizontal Divider 2 -->
         <View
             android:id="@+id/horizontalDivider2"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="#000000"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/textView50"
+            android:background="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textView50" />
 
         <!-- Kilograms Input -->
         <EditText
@@ -137,12 +126,12 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/conversiongreyrec"
-            android:inputType="numberDecimal"
             android:hint="Enter Kilograms"
+            android:inputType="numberDecimal"
             android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@id/horizontalDivider2"
+            app:layout_constraintEnd_toStartOf="@+id/txtPounds"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtPounds" />
+            app:layout_constraintTop_toBottomOf="@id/horizontalDivider2" />
 
         <!-- Pounds Output -->
         <EditText
@@ -152,45 +141,45 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/conversiongreyrec"
-            android:inputType="numberDecimal"
-            android:hint="Pounds"
-            android:textAlignment="center"
             android:enabled="false"
             android:focusable="false"
-            app:layout_constraintTop_toTopOf="@id/txtKilos"
+            android:hint="Pounds"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtKilos"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/txtKilos" />
 
         <!-- Kilograms Label -->
         <TextView
             android:id="@+id/textView51"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Kilograms"
-            app:layout_constraintTop_toBottomOf="@id/txtKilos"
             app:layout_constraintStart_toStartOf="@id/txtKilos"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintTop_toBottomOf="@id/txtKilos" />
 
         <!-- Pounds Label -->
         <TextView
             android:id="@+id/textView53"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Pounds"
-            app:layout_constraintTop_toBottomOf="@id/txtPounds"
             app:layout_constraintStart_toStartOf="@id/txtPounds"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintTop_toBottomOf="@id/txtPounds" />
 
         <!-- Horizontal Divider 3 -->
         <View
             android:id="@+id/horizontalDivider3"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="#000000"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/textView51"
+            android:background="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textView51" />
 
         <!-- Milliliters Input -->
         <EditText
@@ -201,12 +190,12 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/conversiongreyrec"
-            android:inputType="numberDecimal"
             android:hint="Enter Milliliters"
+            android:inputType="numberDecimal"
             android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@id/horizontalDivider3"
+            app:layout_constraintEnd_toStartOf="@+id/txtFOunces"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtFOunces" />
+            app:layout_constraintTop_toBottomOf="@id/horizontalDivider3" />
 
         <!-- Fluid Ounces Output -->
         <EditText
@@ -216,45 +205,45 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/conversiongreyrec"
-            android:inputType="numberDecimal"
-            android:hint="Fluid Ounces"
-            android:textAlignment="center"
             android:enabled="false"
             android:focusable="false"
-            app:layout_constraintTop_toTopOf="@id/txtMil"
+            android:hint="Fluid Ounces"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtMil"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/txtMil" />
 
         <!-- Milliliters Label -->
         <TextView
             android:id="@+id/textView54"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Milliliters"
-            app:layout_constraintTop_toBottomOf="@id/txtMil"
             app:layout_constraintStart_toStartOf="@id/txtMil"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintTop_toBottomOf="@id/txtMil" />
 
         <!-- Fluid Ounces Label -->
         <TextView
             android:id="@+id/textView58"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Fluid Ounces"
-            app:layout_constraintTop_toBottomOf="@id/txtFOunces"
             app:layout_constraintStart_toStartOf="@id/txtFOunces"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintTop_toBottomOf="@id/txtFOunces" />
 
         <!-- Horizontal Divider 4 -->
         <View
             android:id="@+id/horizontalDivider4"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="#000000"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/textView54"
+            android:background="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textView54" />
 
         <!-- Liters Input -->
         <EditText
@@ -265,12 +254,12 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/conversiongreyrec"
-            android:inputType="numberDecimal"
             android:hint="Enter Liters"
+            android:inputType="numberDecimal"
             android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@id/horizontalDivider4"
+            app:layout_constraintEnd_toStartOf="@+id/txtQuart"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtQuart" />
+            app:layout_constraintTop_toBottomOf="@id/horizontalDivider4" />
 
         <!-- Quarts Output -->
         <EditText
@@ -280,34 +269,34 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/conversiongreyrec"
-            android:inputType="numberDecimal"
-            android:hint="Quarts"
-            android:textAlignment="center"
             android:enabled="false"
             android:focusable="false"
-            app:layout_constraintTop_toTopOf="@id/txtLiters"
+            android:hint="Quarts"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtLiters"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/txtLiters" />
 
         <!-- Liters Label -->
         <TextView
             android:id="@+id/textView55"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Liters"
-            app:layout_constraintTop_toBottomOf="@id/txtLiters"
             app:layout_constraintStart_toStartOf="@id/txtLiters"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintTop_toBottomOf="@id/txtLiters" />
 
         <!-- Quarts Label -->
         <TextView
             android:id="@+id/textView56"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Quarts"
-            app:layout_constraintTop_toBottomOf="@id/txtQuart"
             app:layout_constraintStart_toStartOf="@id/txtQuart"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintTop_toBottomOf="@id/txtQuart" />
 
         <!-- Gallons Output -->
         <EditText
@@ -318,79 +307,103 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/conversiongreyrec"
-            android:inputType="numberDecimal"
-            android:hint="Gallons"
-            android:textAlignment="center"
             android:enabled="false"
             android:focusable="false"
-            app:layout_constraintTop_toBottomOf="@id/txtQuart"
+            android:hint="Gallons"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtLiters"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/txtQuart" />
 
         <!-- Gallons Label -->
         <TextView
             android:id="@+id/textView57"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Gallons"
-            app:layout_constraintTop_toBottomOf="@id/txtGallon"
             app:layout_constraintStart_toStartOf="@id/txtGallon"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintTop_toBottomOf="@id/txtGallon" />
 
         <!-- Apply Button -->
         <Button
             android:id="@+id/btnApply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#DCD9DC"
             android:text="Apply"
             android:textColor="#000000"
-            android:backgroundTint="#DCD9DC"
-            android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@id/textView57"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textView57" />
 
         <!-- Metric/Imperial Selection Text -->
         <TextView
             android:id="@+id/textView47"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Would you like to use the Metric or Imperial system?"
             android:textAlignment="center"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/btnApply"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/btnApply" />
 
         <!-- Metric Button -->
         <Button
             android:id="@+id/btnMetric"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#DBD8DB"
             android:text="Metric"
             android:textColor="#000000"
-            android:backgroundTint="#DBD8DB"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintTop_toBottomOf="@id/textView47"
+            app:layout_constraintEnd_toStartOf="@id/btnImperial"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnImperial" />
+            app:layout_constraintTop_toBottomOf="@id/textView47" />
 
         <!-- Imperial Button -->
         <Button
             android:id="@+id/btnImperial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="#DCD9DC"
             android:text="Imperial"
             android:textColor="#000000"
-            android:backgroundTint="#DCD9DC"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="40dp"
-            app:layout_constraintTop_toBottomOf="@id/textView47"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnMetric"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textView47" />
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="56dp"
+            android:rotation="85"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.088"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/image_arrow_back_ios1" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="422dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="108dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.545"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/iv_home_page_rectangle2" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

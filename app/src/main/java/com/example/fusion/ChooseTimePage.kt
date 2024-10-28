@@ -3,7 +3,6 @@ package com.example.fusion
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -18,7 +17,7 @@ class ChooseTimePage : AppCompatActivity() {
         selectedDay = intent.getStringExtra("DAY_SELECTED").toString()
 
         // Back arrow functionality
-        val backArrow: ImageView = findViewById(R.id.backArrow)
+        val backArrow: ImageView = findViewById(R.id.btnBack)
         backArrow.setOnClickListener {
             onBackPressed()  // Navigate back to the previous screen
         }

@@ -38,7 +38,13 @@ class editProfilePage : AppCompatActivity() {
         imgChangePfp = findViewById(R.id.image_ellipse)
         imgProfilePicture = findViewById(R.id.image_ellipse)
 
-        // Initialize image picker launcher
+        findViewById<ImageView>(R.id.btnBack).setOnClickListener {
+            onBackPressed() // Go back when the back arrow is clicked
+
+        }
+
+
+            // Initialize image picker launcher
         imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
                 // Handle the image URI
@@ -66,6 +72,7 @@ class editProfilePage : AppCompatActivity() {
             showChangePasswordDialog()
         }
     }
+
 
     private fun updatePfp() {
         // Launch image picker
@@ -345,5 +352,8 @@ class editProfilePage : AppCompatActivity() {
         } else {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
         }
-    }
+
+
+        }
 }
+

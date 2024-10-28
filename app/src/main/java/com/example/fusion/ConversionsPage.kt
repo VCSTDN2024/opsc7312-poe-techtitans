@@ -3,6 +3,7 @@ package com.example.fusion
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -22,7 +23,7 @@ class ConversionsPage : AppCompatActivity() {
     private lateinit var btnMetric: Button
     private lateinit var btnImperial: Button
     private lateinit var btnApply: Button
-    private lateinit var btnBack: Button  // Added this line
+    private lateinit var btnBack: ImageView  // Added this line
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

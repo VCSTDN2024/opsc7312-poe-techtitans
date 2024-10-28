@@ -51,7 +51,7 @@ class MealPlannerMeal : AppCompatActivity() {
         loadRecipesFromFirebase()
 
         // Back arrow functionality to go back to the previous screen
-        findViewById<ImageView>(R.id.backArrow).setOnClickListener {
+        findViewById<ImageView>(R.id.btnBack).setOnClickListener {
             onBackPressed() // Go back when the back arrow is clicked
         }
     }

@@ -31,37 +31,39 @@
         app:srcCompat="@drawable/iv_home_page_rectangle2" />
 
 
+    <!-- Title -->
+
+    <!-- ScrollView for the day selection -->
+
+    <!-- Title -->
+
+    <!-- Options for Breakfast, Lunch, Dinner, Snack -->
 
     <ImageView
         android:id="@+id/iv_home_page_rectangle4"
-        android:layout_width="360dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="27dp"
+        android:layout_width="354dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/iv_home_page_rectangle4"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Title -->
-
-    <!-- ScrollView for the day selection -->
     <TextView
         android:id="@+id/titleText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="28dp"
         android:text="Pick a Time"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.539"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!-- Title -->
 
-    <!-- Options for Breakfast, Lunch, Dinner, Snack -->
     <LinearLayout
         android:id="@+id/timeSelectionLayout"
         android:layout_width="match_parent"
@@ -205,17 +207,21 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Back Button -->
-    <ImageView
-        android:id="@+id/backArrow"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_ios" />
 
     <!-- Bottom Navigation -->
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="36dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="8dp"
+        android:rotation="85"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image_arrow_back_ios1" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
