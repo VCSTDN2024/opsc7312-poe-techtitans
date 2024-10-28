@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.junit.junit)
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.idling.concurrent)
+    implementation(libs.androidx.biometric.ktx)
     annotationProcessor(libs.compiler)
     implementation(libs.androidx.cardview)
     implementation(libs.material.v150)
@@ -102,6 +103,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.database.ktx)
+
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.hamcrest.hamcrest.library)
