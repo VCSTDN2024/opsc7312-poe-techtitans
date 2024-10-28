@@ -3,6 +3,7 @@ package com.example.fusion
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -56,19 +57,7 @@ class LoginPage : AppCompatActivity() {
 
         // Set the login button click listener
         loginButton.setOnClickListener {
-            // Get username and password from the text fields
-            val username = usernameEditText.text.toString()
-            val password = passwordEditText.text.toString()
-
-            // Check if username or password is empty
-            if (username.isEmpty() || password.isEmpty()) {
-                // Show a Toast if any field is empty
-                Toast.makeText(this, "Username or password cannot be blank", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                // Attempt to log the user in with the provided credentials
-                loginUser(username, password)
-            }
+            updatedLoginButtonClickListener()
         }
 
         // Set the click listener for creating a new account
@@ -117,8 +106,9 @@ class LoginPage : AppCompatActivity() {
                                             // Save "Remember Me" preference if checked
                                             val editor = sharedPreferences.edit()
                                             editor.putBoolean("remember_me", rememberMeCheckBox.isChecked)
+                                            editor.putString("username", username)
+                                            editor.putString("password", password)
                                             editor.apply()
-
                                             // Log success and navigate to HomePage
                                             Log.d("LoginPage", "Login successful")
                                             Toast.makeText(
@@ -177,14 +167,40 @@ class LoginPage : AppCompatActivity() {
         startActivity(Intent(this, SignupPage::class.java))
     }
 
-    // Override onDestroy to clear "Remember Me" preference if not checked
-    override fun onDestroy() {
-        super.onDestroy()
-        val editor = sharedPreferences.edit()
-        if (!rememberMeCheckBox.isChecked) {
-            // Remove "remember_me" from shared preferences if checkbox is unchecked
-            editor.remove("remember_me")
-            editor.apply()
+    // Function to perform offline login using shared preferences
+    private fun offlineLogin(username: String, password: String): Boolean {
+        val savedUsername = sharedPreferences.getString("username", null)
+        val savedPassword = sharedPreferences.getString("password", null)
+        Log.e("offlineLogin: ", "Username = ${savedUsername}" )
+        Log.e("offlineLogin: ", "Password = ${savedPassword}" )
+
+        Toast.makeText(this, "gay ass bullshit", Toast.LENGTH_SHORT).show()
+        return savedUsername == username && savedPassword == password
+    }
+
+    // Update the login button click listener to support offline login
+    private fun updatedLoginButtonClickListener() {
+        val usernameEditText = findViewById<EditText>(R.id.txtLUsername)
+        val passwordEditText = findViewById<EditText>(R.id.txtLPassword)
+        val loginButton = findViewById<Button>(R.id.btnLogin)
+
+        loginButton.setOnClickListener {
+            val username = usernameEditText.text.toString()
+            val password = passwordEditText.text.toString()
+
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Username or password cannot be blank", Toast.LENGTH_SHORT).show()
+            } else {
+                if (offlineLogin(username, password)) {
+                    // Offline login successful
+                    Toast.makeText(this, "Offline login successful!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, HomePage::class.java))
+                    finish()
+                } else {
+                    // Attempt online login if offline login fails
+                    loginUser(username, password)
+                }
+            }
         }
     }
 }

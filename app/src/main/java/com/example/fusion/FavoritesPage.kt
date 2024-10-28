@@ -1,6 +1,8 @@
 package com.example.fusion
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,12 +12,16 @@ import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fusion.model.Recipe
+import com.example.fusion.model.RecipeDetailsResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 import java.util.concurrent.CountDownLatch
 
 class FavoritesPage : AppCompatActivity() {
@@ -24,6 +30,9 @@ class FavoritesPage : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var rvSearchResults: RecyclerView
     private lateinit var recipeAdapter: RecipeAdapter
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var recipeDetailsMap: Map<Int, RecipeDetailsResponse>
+    private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +41,7 @@ class FavoritesPage : AppCompatActivity() {
         // Initialize bottom navigation view and RecyclerView
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         rvSearchResults = findViewById(R.id.recyclerView)
+        sharedPreferences = getSharedPreferences("favorite_recipes_prefs", Context.MODE_PRIVATE)
 
         // Handle window insets to ensure proper padding for bottom navigation view
         ViewCompat.setOnApplyWindowInsetsListener(bottomNavigationView) { view, insets ->
@@ -48,12 +58,13 @@ class FavoritesPage : AppCompatActivity() {
         recipeAdapter = RecipeAdapter(this, mutableListOf())
         rvSearchResults.adapter = recipeAdapter
 
-        // Display saved recipes from Firebase
+        // Display saved recipes from Firebase and local storage
         displaySavedRecipes()
+        displayLocalSavedRecipes()
     }
 
     // Function to display saved recipes from Firebase
-    private fun displaySavedRecipes(){
+    private fun displaySavedRecipes() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId == null) {
             // Show error if user is not signed in
@@ -123,6 +134,38 @@ class FavoritesPage : AppCompatActivity() {
             }
         }.start()
     }
+
+    // Function to display locally saved recipes
+    private fun displayLocalSavedRecipes() {
+        val savedRecipesJson = sharedPreferences.getString("favorite_recipes", "[]")
+        if (savedRecipesJson.isNullOrEmpty()) {
+            Toast.makeText(this, "No saved recipes available", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val type: Type = object : TypeToken<List<RecipeDetailsResponse>>() {}.type
+        val savedRecipes: List<RecipeDetailsResponse> = gson.fromJson(savedRecipesJson, type)
+        val recipes = mutableListOf<Recipe>()
+
+        // Convert saved RecipeDetailsResponse to Recipe objects for the list
+        savedRecipes.forEach { details ->
+            val recipe = Recipe(
+                id = details.id,
+                title = details.title,
+                image = details.image,
+                isSaved = true // Set to true since these are saved recipes
+            )
+            recipes.add(recipe)
+        }
+
+        // Update the adapter data with locally saved recipes
+        recipeAdapter.updateData(recipes)
+
+        // Store the complete details for accessing later when viewing recipe details
+        recipeDetailsMap = savedRecipes.associateBy { it.id }
+    }
+
+
+
 
     // Function to set up bottom navigation functionality
     private fun setupBottomNavigation() {

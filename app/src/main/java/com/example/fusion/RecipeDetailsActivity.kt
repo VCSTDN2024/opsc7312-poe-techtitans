@@ -1,6 +1,8 @@
 package com.example.fusion
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -22,10 +24,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.reflect.Type
 
+// Main activity for displaying detailed recipe information.
 // Main activity for displaying detailed recipe information.
 class RecipeDetailsActivity : AppCompatActivity() {
 
@@ -33,8 +39,10 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var sharedPreferences: SharedPreferences
     private val apiKey = BuildConfig.API_KEY
     private val databaseReference = FirebaseDatabase.getInstance().getReference("users")
+    private val gson = Gson()
 
     private var recipeId: Int = -1  // Placeholder for the recipe ID, default -1 indicating uninitialized.
 
@@ -48,17 +56,35 @@ class RecipeDetailsActivity : AppCompatActivity() {
         tabLayout = findViewById(R.id.tab_layout)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
+        // Initialize shared preferences
+        sharedPreferences = getSharedPreferences("favorite_recipes_prefs", Context.MODE_PRIVATE)
+
         // Setting up bottom navigation with listeners.
         setupBottomNavigation()
 
         // Retrieve and validate the recipe ID from the intent.
         recipeId = intent.getIntExtra("RECIPE_ID", -1)
         if (recipeId != -1) {
-            getRecipeDetails(recipeId)  // Fetch recipe details if ID is valid.
+            val recipeDetails = getRecipeDetailsFromLocalStorage(recipeId)
+            if (recipeDetails != null) {
+                displayRecipeDetails(recipeDetails)
+                setupViewPager(recipeDetails)
+            } else {
+                getRecipeDetails(recipeId)  // Fallback to fetching details from the server if not found locally.
+            }
         } else {
             showError("Invalid Recipe ID")  // Error handling for invalid ID.
         }
     }
+
+    // Method to retrieve full recipe details from SharedPreferences
+    private fun getRecipeDetailsFromLocalStorage(recipeId: Int): RecipeDetailsResponse? {
+        val savedRecipesJson = sharedPreferences.getString("favorite_recipes", "[]")
+        val type: Type = object : TypeToken<List<RecipeDetailsResponse>>() {}.type
+        val savedRecipes: List<RecipeDetailsResponse> = gson.fromJson(savedRecipesJson, type)
+        return savedRecipes.find { it.id == recipeId }
+    }
+
 
     // Event handler to start the Meal Planner Activity and pass the current recipe ID.
     fun openMealPlanner(view: View) {
@@ -119,7 +145,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
         })
     }
 
-    // Checks if the recipe is marked as favorite and saves it in Firebase.
+    // Checks if the recipe is marked as favorite and saves it in Firebase and locally.
     private fun checkIfFavoriteAndSave(recipeDetails: RecipeDetailsResponse) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         userId?.let {
@@ -128,6 +154,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {  // Check if the recipe is already marked as favorite.
                             saveRecipeDetailsToFirebase(recipeDetails)
+                            saveFavoriteRecipeLocally(recipeDetails)  // Save the detailed recipe to local storage
                         }
                     }
 
@@ -151,6 +178,30 @@ class RecipeDetailsActivity : AppCompatActivity() {
                     Toast.makeText(this, "Failed to save recipe details to Firebase.", Toast.LENGTH_SHORT).show()
                 }
         }
+    }
+
+    // Saves the recipe details locally.
+    private fun saveFavoriteRecipeLocally(recipeDetails: RecipeDetailsResponse) {
+        val savedRecipesJson = sharedPreferences.getString("favorite_recipes", "[]")
+        val type: Type = object : TypeToken<MutableList<RecipeDetailsResponse>>() {}.type
+        val savedRecipes: MutableList<RecipeDetailsResponse> = gson.fromJson(savedRecipesJson, type)
+
+        // Remove duplicate recipes by ID to avoid storing multiple copies
+        val filteredRecipes = savedRecipes.filter { it.id != recipeDetails.id }.toMutableList()
+        filteredRecipes.add(recipeDetails)
+
+        // Save back to shared preferences
+        val editor = sharedPreferences.edit()
+        editor.putString("favorite_recipes", gson.toJson(filteredRecipes))
+        editor.apply()
+    }
+
+
+    // Retrieves all saved favorite recipes.
+    private fun getFavoriteRecipes(): List<RecipeDetailsResponse> {
+        val savedRecipesJson = sharedPreferences.getString("favorite_recipes", "[]")
+        val type: Type = object : TypeToken<List<RecipeDetailsResponse>>() {}.type
+        return gson.fromJson(savedRecipesJson, type)
     }
 
     // Updates the UI elements to display the recipe details fetched from the server.
@@ -220,3 +271,4 @@ class RecipeDetailsActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }
+
