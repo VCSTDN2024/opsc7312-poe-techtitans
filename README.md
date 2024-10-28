@@ -1,3 +1,4 @@
+![App Icon no background](https://github.com/user-attachments/assets/7894e435-f4fe-4a6b-8948-1af1d0fd8e08)
 # **Fusion App**
 
 Fusion is a meal planning and recipe management application designed to simplify grocery and cooking tasks. The app offers features such as meal planning, grocery list management, recipe browsing, and nutritional data tracking. With Firebase integration, users can securely store their data and manage accounts.
@@ -70,4 +71,24 @@ This project is developed as part of OPSC7312:
 ### Step 1: Clone the Repository
 Clone the Fusion repository to your local machine:
 ```bash
-git clone <repository_url>
+git clone https://github.com/UndeadRonin99/Fusion.git
+```
+### Step 2: Acquire a Spoonacular API key
+You must sign up for the Spoonacular API and acquire your API key. The API key is used to fetch the recipes.
+#### Steps to sign up for the Spoonacular API
+  - Visit this website `https://spoonacular.com/food-api`.
+  - Sign up for a new account by pressing the "Start now button".
+  - Once you have created your account navigate to the profile page on your dashboard.
+  - Press the show/hide API key button and copy your API key that is now visible
+
+### Step 3: Add the gradle.properties file
+Inside the `gradle.properties` file add the following code
+
+If the file does not exist you must add it.
+```bash
+org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+android.useAndroidX=true
+kotlin.code.style=official
+android.nonTransitiveRClass=true
+API_KEY={Add your API key here}
+```
