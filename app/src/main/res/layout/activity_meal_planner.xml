@@ -327,7 +327,7 @@
         android:layout_width="119dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#808080"
+        android:backgroundTint="@color/colorPrimary"
         android:text="Done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
