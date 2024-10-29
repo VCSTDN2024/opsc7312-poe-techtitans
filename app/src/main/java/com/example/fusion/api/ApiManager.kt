@@ -15,13 +15,20 @@ class ApiManager {
     }
 
     // Fetch recipes example using Retrofit
-    fun fetchRecipes(query: String, parameters: Map<String, String>, callback: (List<Recipe>) -> Unit) {
+    fun fetchRecipes(
+        query: String,
+        parameters: Map<String, String>,
+        callback: (List<Recipe>) -> Unit
+    ) {
         // Increment the idling resource count when async operation starts
         idlingResource.increment()
 
         val call = RetrofitInstance.api.searchRecipes(query, parameters)
         call.enqueue(object : Callback<RecipeResponse> {
-            override fun onResponse(call: Call<RecipeResponse>, response: Response<RecipeResponse>) {
+            override fun onResponse(
+                call: Call<RecipeResponse>,
+                response: Response<RecipeResponse>
+            ) {
                 // Handle successful response
                 callback(response.body()?.results ?: emptyList())
 

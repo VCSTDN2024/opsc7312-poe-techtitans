@@ -63,11 +63,12 @@ class ShoppingListPage : AppCompatActivity() {
         )
 
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
         }
     }
+
     // Setup the bottom navigation bar
     private fun setupBottomNavigation() {
         bottomNavigationView.selectedItemId = R.id.navigation_cart
@@ -78,19 +79,23 @@ class ShoppingListPage : AppCompatActivity() {
                     startActivity(Intent(this, HomePage::class.java))
                     true
                 }
+
                 R.id.navigation_saved -> {
                     startActivity(Intent(this, FavoritesPage::class.java))
                     true
                 }
+
                 R.id.navigation_calendar -> {
                     startActivity(Intent(this, MealPlannerPage::class.java))
                     true
                 }
+
                 R.id.navigation_cart -> true
                 R.id.navigation_settings -> {
                     startActivity(Intent(this, SettingsPage::class.java))
                     true
                 }
+
                 else -> false
             }
         }
@@ -115,7 +120,8 @@ class ShoppingListPage : AppCompatActivity() {
                     for (itemSnapshot in snapshot.children) {
                         val category = itemSnapshot.child("category").getValue(String::class.java)
                         val itemName = itemSnapshot.child("name").getValue(String::class.java)
-                        val isChecked = itemSnapshot.child("checked").getValue(Boolean::class.java) ?: false
+                        val isChecked =
+                            itemSnapshot.child("checked").getValue(Boolean::class.java) ?: false
 
                         if (category != null && itemName != null) {
                             if (!categoryItemsMap.containsKey(category)) {
@@ -155,13 +161,21 @@ class ShoppingListPage : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@ShoppingListPage, "Failed to load shopping list", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@ShoppingListPage,
+                    "Failed to load shopping list",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
 
     // Function to toggle the visibility of items under a category
-    private fun toggleItemsVisibility(categoryView: TextView, categoryName: String, items: Set<Pair<String, Boolean>>) {
+    private fun toggleItemsVisibility(
+        categoryView: TextView,
+        categoryName: String,
+        items: Set<Pair<String, Boolean>>
+    ) {
         val isExpanded = categoryView.tag as? Boolean ?: false
 
         if (isExpanded) {
@@ -181,7 +195,11 @@ class ShoppingListPage : AppCompatActivity() {
     }
 
     // Function to expand the category and show the items
-    private fun expandCategory(categoryView: TextView, categoryName: String, items: Set<Pair<String, Boolean>>) {
+    private fun expandCategory(
+        categoryView: TextView,
+        categoryName: String,
+        items: Set<Pair<String, Boolean>>
+    ) {
         val index = shoppingListContainer.indexOfChild(categoryView)
         var position = index + 1
         for (item in items) {
@@ -225,7 +243,11 @@ class ShoppingListPage : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@ShoppingListPage, "Failed to remove item", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@ShoppingListPage,
+                        "Failed to remove item",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
         } else {

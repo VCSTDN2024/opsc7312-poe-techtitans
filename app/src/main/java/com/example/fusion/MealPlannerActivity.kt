@@ -64,7 +64,7 @@ class MealPlannerActivity : AppCompatActivity() {
         )
 
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
             TranslationUtil.translateButtons(this, buttons, "af")

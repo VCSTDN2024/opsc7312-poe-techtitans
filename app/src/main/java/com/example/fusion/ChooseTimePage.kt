@@ -13,7 +13,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ChooseTimePage : AppCompatActivity() {
     private lateinit var selectedDay: String
-//yer
+
+    //yer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_time_page)
@@ -43,8 +44,8 @@ class ChooseTimePage : AppCompatActivity() {
 
         // Setup Bottom Navigation
         setupBottomNavigation()
-    applyTranslations()
-}
+        applyTranslations()
+    }
 
     private fun applyTranslations() {
         val textViewsToTranslate = listOf(
@@ -60,12 +61,13 @@ class ChooseTimePage : AppCompatActivity() {
         )
 
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
             TranslationUtil.translateButtons(this, buttons, "af")
         }
     }
+
     // Function to pass the day and meal time to MealPlannerMeal
     private fun navigateToMealPlannerMeal(mealTime: String) {
         val intent = Intent(this, MealPlannerMeal::class.java)
@@ -84,21 +86,26 @@ class ChooseTimePage : AppCompatActivity() {
                     startActivity(Intent(this, HomePage::class.java))
                     true
                 }
+
                 R.id.navigation_saved -> {
                     startActivity(Intent(this, FavoritesPage::class.java))
                     true
                 }
+
                 R.id.navigation_calendar -> {
                     true
                 }
+
                 R.id.navigation_cart -> {
                     startActivity(Intent(this, ShoppingListPage::class.java))
                     true
                 }
+
                 R.id.navigation_settings -> {
                     startActivity(Intent(this, SettingsPage::class.java))
                     true
                 }
+
                 else -> false
             }
         }

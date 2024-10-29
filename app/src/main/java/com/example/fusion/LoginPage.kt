@@ -124,7 +124,7 @@ class LoginPage : AppCompatActivity() {
             findViewById<CheckBox>(R.id.checkbox_remember_me)
         )
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
             TranslationUtil.translateCheckBoxes(this, checkBoxes, "af")
@@ -145,7 +145,8 @@ class LoginPage : AppCompatActivity() {
                 }, 500)
             } else {
                 Log.d("LoginPage", "Biometric authentication not supported")
-                Toast.makeText(this, "Biometric authentication not supported", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Biometric authentication not supported", Toast.LENGTH_SHORT)
+                    .show()
             }
         } else {
             Log.d("LoginPage", "Biometric login is not enabled")
@@ -155,24 +156,29 @@ class LoginPage : AppCompatActivity() {
     // Check if the device supports biometric authentication
     private fun isBiometricSupported(): Boolean {
         val biometricManager = BiometricManager.from(this)
-        val result = biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+        val result =
+            biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
         return when (result) {
             BiometricManager.BIOMETRIC_SUCCESS -> {
                 Log.d("LoginPage", "App can authenticate using biometrics.")
                 true
             }
+
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
                 Log.e("LoginPage", "No biometric hardware available.")
                 false
             }
+
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
                 Log.e("LoginPage", "Biometric hardware is currently unavailable.")
                 false
             }
+
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
                 Log.e("LoginPage", "No biometric credentials enrolled.")
                 false
             }
+
             else -> {
                 Log.e("LoginPage", "Unknown biometric error.")
                 false
@@ -223,7 +229,8 @@ class LoginPage : AppCompatActivity() {
     // Function to handle user login
     private fun loginUser(username: String, password: String) {
         // Get a reference to the Firebase Realtime Database
-        val database = FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
+        val database =
+            FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
         val usernameRef = database.getReference("usernames").child(username)
 
         // Attempt to retrieve the user ID associated with the username
@@ -246,7 +253,10 @@ class LoginPage : AppCompatActivity() {
                                             editor.putString("username", username)
                                             editor.putString("password", password)
                                             // Save "Remember Me" preference
-                                            editor.putBoolean("remember_me", rememberMeCheckBox.isChecked)
+                                            editor.putBoolean(
+                                                "remember_me",
+                                                rememberMeCheckBox.isChecked
+                                            )
                                             editor.apply()
                                             // Log success
                                             Log.d("LoginPage", "Login successful")
@@ -326,7 +336,8 @@ class LoginPage : AppCompatActivity() {
         val password = sharedPreferences.getString("password_biometric", null)
         if (username != null && password != null) {
             // Fetch email from the database using the username
-            val database = FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
+            val database =
+                FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
             val usernameRef = database.getReference("usernames").child(username)
 
             usernameRef.get().addOnCompleteListener { task ->
@@ -342,28 +353,49 @@ class LoginPage : AppCompatActivity() {
                                     auth.signInWithEmailAndPassword(email, password)
                                         .addOnCompleteListener { signInTask ->
                                             if (signInTask.isSuccessful) {
-                                                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(
+                                                    this,
+                                                    "Login successful!",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
                                                 proceedToHomePage()
                                             } else {
-                                                Toast.makeText(this, "Authentication failed: ${signInTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(
+                                                    this,
+                                                    "Authentication failed: ${signInTask.exception?.message}",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
                                             }
                                         }
                                 } else {
-                                    Toast.makeText(this, "Failed to retrieve email", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        this,
+                                        "Failed to retrieve email",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             } else {
-                                Toast.makeText(this, "Failed to retrieve email: ${emailTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    this,
+                                    "Failed to retrieve email: ${emailTask.exception?.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     } else {
                         Toast.makeText(this, "Invalid username", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(this, "Failed to retrieve username mapping: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Failed to retrieve username mapping: ${task.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         } else {
-            Toast.makeText(this, "No credentials stored for biometric login", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No credentials stored for biometric login", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

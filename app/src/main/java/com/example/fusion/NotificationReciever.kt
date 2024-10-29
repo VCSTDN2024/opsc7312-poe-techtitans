@@ -24,7 +24,8 @@ class NotificationReceiver : BroadcastReceiver() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setSound(soundUri) // Set the custom sound URI here
 
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 "MEAL_CHANNEL",

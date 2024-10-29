@@ -37,9 +37,43 @@ data class Nutrition(
         val categories = mutableMapOf<String, MutableList<Nutrient>>()
 
         // Define nutrient categories
-        val macronutrients = listOf("Calories", "Fat", "Saturated Fat", "Carbohydrates", "Net Carbohydrates", "Sugar", "Cholesterol", "Protein", "Fiber")
-        val vitamins = listOf("Vitamin A", "Vitamin C", "Vitamin D", "Vitamin E", "Vitamin K", "Thiamin (B1)", "Riboflavin (B2)", "Niacin (B3)", "Vitamin B6", "Vitamin B12", "Folate", "Pantothenic Acid")
-        val minerals = listOf("Calcium", "Iron", "Magnesium", "Phosphorus", "Potassium", "Sodium", "Zinc", "Copper", "Manganese", "Selenium")
+        val macronutrients = listOf(
+            "Calories",
+            "Fat",
+            "Saturated Fat",
+            "Carbohydrates",
+            "Net Carbohydrates",
+            "Sugar",
+            "Cholesterol",
+            "Protein",
+            "Fiber"
+        )
+        val vitamins = listOf(
+            "Vitamin A",
+            "Vitamin C",
+            "Vitamin D",
+            "Vitamin E",
+            "Vitamin K",
+            "Thiamin (B1)",
+            "Riboflavin (B2)",
+            "Niacin (B3)",
+            "Vitamin B6",
+            "Vitamin B12",
+            "Folate",
+            "Pantothenic Acid"
+        )
+        val minerals = listOf(
+            "Calcium",
+            "Iron",
+            "Magnesium",
+            "Phosphorus",
+            "Potassium",
+            "Sodium",
+            "Zinc",
+            "Copper",
+            "Manganese",
+            "Selenium"
+        )
 
         // Initialize categories for macronutrients, vitamins, minerals, and others
         categories["Macronutrients"] = mutableListOf()

@@ -112,7 +112,11 @@ class HomePage : AppCompatActivity() {
         if (query.isNotEmpty() || selectedFilters.isNotEmpty()) {
             searchRecipes(query, selectedFilters)
         } else {
-            Toast.makeText(this, "Please enter a search term or select a filter", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Please enter a search term or select a filter",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -125,21 +129,45 @@ class HomePage : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_home -> true
                 R.id.navigation_saved -> {
-                    startActivity(Intent(this, FavoritesPage::class.java)) // Navigate to FavoritesPage
+                    startActivity(
+                        Intent(
+                            this,
+                            FavoritesPage::class.java
+                        )
+                    ) // Navigate to FavoritesPage
                     true
                 }
+
                 R.id.navigation_calendar -> {
-                    startActivity(Intent(this, MealPlannerPage::class.java)) // Navigate to MealPlannerPage
+                    startActivity(
+                        Intent(
+                            this,
+                            MealPlannerPage::class.java
+                        )
+                    ) // Navigate to MealPlannerPage
                     true
                 }
+
                 R.id.navigation_cart -> {
-                    startActivity(Intent(this, ShoppingListPage::class.java)) // Navigate to ShoppingListPage
+                    startActivity(
+                        Intent(
+                            this,
+                            ShoppingListPage::class.java
+                        )
+                    ) // Navigate to ShoppingListPage
                     true
                 }
+
                 R.id.navigation_settings -> {
-                    startActivity(Intent(this, SettingsPage::class.java)) // Navigate to SettingsPage
+                    startActivity(
+                        Intent(
+                            this,
+                            SettingsPage::class.java
+                        )
+                    ) // Navigate to SettingsPage
                     true
                 }
+
                 else -> false
             }
         }
@@ -297,7 +325,7 @@ class HomePage : AppCompatActivity() {
             findViewById<Button>(R.id.btn_clear_filters)
         )
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
             TranslationUtil.translateRadioViews(this, radiosToTranslate, "af")

@@ -60,18 +60,22 @@ class RecipeOverviewActivity : AppCompatActivity() {
         )
 
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
             TranslationUtil.translateButtons(this, buttons, "af")
         }
     }
+
     // Fetch recipe details from API and handle the response.
     private fun loadRecipeDetailsFromAPI(recipeId: Int) {
         val call = RetrofitInstance.api.getRecipeInformation(recipeId, apiKey)
 
         call.enqueue(object : Callback<RecipeDetailsResponse> {
-            override fun onResponse(call: Call<RecipeDetailsResponse>, response: Response<RecipeDetailsResponse>) {
+            override fun onResponse(
+                call: Call<RecipeDetailsResponse>,
+                response: Response<RecipeDetailsResponse>
+            ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
                         displayRecipeDetails(it)
@@ -98,7 +102,10 @@ class RecipeOverviewActivity : AppCompatActivity() {
     private fun setupViewPager(details: RecipeDetailsResponse) {
         val fragments = listOf(
             OverviewFragment.newInstance(details.summary),
-            IngredientsFragment.newInstance(details.extendedIngredients.joinToString("\n") { it.original }, recipeId),
+            IngredientsFragment.newInstance(
+                details.extendedIngredients.joinToString("\n") { it.original },
+                recipeId
+            ),
             StepsFragment.newInstance(details.instructions ?: "No instructions available"),
             NutritionFragment.newInstance(details.nutrition)
         )

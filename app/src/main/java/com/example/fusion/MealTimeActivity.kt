@@ -71,12 +71,13 @@ class MealTimeActivity : AppCompatActivity() {
         )
 
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
             TranslationUtil.translateButtons(this, buttons, "af")
         }
     }
+
     // Method to determine the selected meal time based on the checked CheckBox
     private fun getSelectedMealTime(): String? {
         // References to all the CheckBoxes for meal times
@@ -112,8 +113,9 @@ class MealTimeActivity : AppCompatActivity() {
             )
 
             // Reference to the 'meal_plans' node in the Firebase Realtime Database under the user's ID
-            val database = FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
-                .getReference("users").child(userId).child("meal_plans")
+            val database =
+                FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
+                    .getReference("users").child(userId).child("meal_plans")
 
             // Push the new meal plan to the database and handle success or failure
             database.push().setValue(mealPlan)
@@ -141,10 +143,12 @@ class MealTimeActivity : AppCompatActivity() {
                 notificationTime.set(Calendar.HOUR_OF_DAY, 8)
                 notificationTime.set(Calendar.MINUTE, 0)
             }
+
             "Lunch" -> {
                 notificationTime.set(Calendar.HOUR_OF_DAY, 13)
                 notificationTime.set(Calendar.MINUTE, 0)
             }
+
             "Dinner" -> {
                 notificationTime.set(Calendar.HOUR_OF_DAY, 19)
                 notificationTime.set(Calendar.MINUTE, 0)
@@ -161,7 +165,8 @@ class MealTimeActivity : AppCompatActivity() {
         val intent = Intent(this, NotificationReceiver::class.java).apply {
             putExtra("MEAL_TITLE", recipeTitle)
         }
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent =
+            PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, notificationTime.timeInMillis, pendingIntent)
     }
@@ -171,7 +176,10 @@ class MealTimeActivity : AppCompatActivity() {
         val call = RetrofitInstance.api.getRecipeInformation(recipeId.toInt(), apiKey)
 
         call.enqueue(object : Callback<RecipeDetailsResponse> {
-            override fun onResponse(call: Call<RecipeDetailsResponse>, response: Response<RecipeDetailsResponse>) {
+            override fun onResponse(
+                call: Call<RecipeDetailsResponse>,
+                response: Response<RecipeDetailsResponse>
+            ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
                         val prepTime = it.readyInMinutes
@@ -181,12 +189,17 @@ class MealTimeActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    Toast.makeText(this@MealTimeActivity, "Failed to load recipe details.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@MealTimeActivity,
+                        "Failed to load recipe details.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<RecipeDetailsResponse>, t: Throwable) {
-                Toast.makeText(this@MealTimeActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MealTimeActivity, "Error: ${t.message}", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
     }

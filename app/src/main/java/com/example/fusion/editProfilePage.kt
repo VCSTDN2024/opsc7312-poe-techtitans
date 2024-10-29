@@ -46,13 +46,14 @@ class editProfilePage : AppCompatActivity() {
         }
 
 
-            // Initialize image picker launcher
-        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            if (uri != null) {
-                // Handle the image URI
-                uploadProfilePicture(uri)
+        // Initialize image picker launcher
+        imagePickerLauncher =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+                if (uri != null) {
+                    // Handle the image URI
+                    uploadProfilePicture(uri)
+                }
             }
-        }
 
         // Load current user data
         loadUserData()
@@ -89,7 +90,7 @@ class editProfilePage : AppCompatActivity() {
         )
 
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
             TranslationUtil.translateButtons(this, buttons, "af")
@@ -126,10 +127,15 @@ class editProfilePage : AppCompatActivity() {
                     .load(downloadUrl)
                     .into(imgProfilePicture)
 
-                Toast.makeText(this, "Profile picture updated successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Profile picture updated successfully", Toast.LENGTH_SHORT)
+                    .show()
             }
         }.addOnFailureListener { exception ->
-            Toast.makeText(this, "Failed to upload profile picture: ${exception.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Failed to upload profile picture: ${exception.message}",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -143,7 +149,8 @@ class editProfilePage : AppCompatActivity() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val username = snapshot.child("username").getValue(String::class.java)
                     val email = snapshot.child("email").getValue(String::class.java)
-                    val profilePictureUrl = snapshot.child("profilePictureUrl").getValue(String::class.java)
+                    val profilePictureUrl =
+                        snapshot.child("profilePictureUrl").getValue(String::class.java)
 
                     etUsername.setText(username)
                     etUsername.tag = username // Store original username
@@ -377,6 +384,6 @@ class editProfilePage : AppCompatActivity() {
         }
 
 
-        }
+    }
 }
 

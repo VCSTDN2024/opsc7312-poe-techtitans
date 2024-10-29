@@ -48,14 +48,16 @@ class MealPlannerPage : AppCompatActivity() {
             findViewById<TextView>(R.id.Sunday),
         )
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
         }
     }
+
     // Function to navigate to ChooseTimePage and pass the selected day as an intent extra
     private fun navigateToChooseTimePage(selectedDay: String) {
-        val intent = Intent(this, ChooseTimePage::class.java) // Create intent to start ChooseTimePage
+        val intent =
+            Intent(this, ChooseTimePage::class.java) // Create intent to start ChooseTimePage
         intent.putExtra("DAY_SELECTED", selectedDay) // Pass the selected day as extra data
         startActivity(intent) // Start the ChooseTimePage activity
     }
@@ -72,22 +74,42 @@ class MealPlannerPage : AppCompatActivity() {
                     startActivity(Intent(this, HomePage::class.java)) // Navigate to HomePage
                     true
                 }
+
                 R.id.navigation_saved -> {
-                    startActivity(Intent(this, FavoritesPage::class.java)) // Navigate to FavoritesPage
+                    startActivity(
+                        Intent(
+                            this,
+                            FavoritesPage::class.java
+                        )
+                    ) // Navigate to FavoritesPage
                     true
                 }
+
                 R.id.navigation_calendar -> {
                     // Stay on the current page since it's already selected
                     true
                 }
+
                 R.id.navigation_cart -> {
-                    startActivity(Intent(this, ShoppingListPage::class.java)) // Navigate to ShoppingListPage
+                    startActivity(
+                        Intent(
+                            this,
+                            ShoppingListPage::class.java
+                        )
+                    ) // Navigate to ShoppingListPage
                     true
                 }
+
                 R.id.navigation_settings -> {
-                    startActivity(Intent(this, SettingsPage::class.java)) // Navigate to SettingsPage
+                    startActivity(
+                        Intent(
+                            this,
+                            SettingsPage::class.java
+                        )
+                    ) // Navigate to SettingsPage
                     true
                 }
+
                 else -> false // Return false if none of the cases match
             }
         }

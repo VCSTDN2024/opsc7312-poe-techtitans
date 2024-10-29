@@ -22,16 +22,16 @@ object TranslationUtil {
     // Method to translate a list of TextViews to the desired language
     fun translateTextViews(context: Context, textViews: List<TextView>, targetLanguage: String) {
         textViews.forEach { textView ->
-            var originalText : String
-            if(textView.hint!=null) {
-                val hint = textView.hint.toString() ?: ""
+            var originalText: String
+            if (textView.hint != null) {
+                val hint = textView.hint.toString()
                 val text = textView.text.toString()
                 originalText = if (hint.isNotEmpty()) hint else text
-            }else{
+            } else {
                 val text = textView.text.toString()
                 originalText = text
             }
-            if(!originalText.isEmpty()) {
+            if (!originalText.isEmpty()) {
                 translator.translateText(originalText, targetLanguage) { translatedText ->
                     (context as? AppCompatActivity)?.runOnUiThread {
                         if (translatedText != null) {
@@ -61,7 +61,11 @@ object TranslationUtil {
     }
 
     // Method to translate a list of TextViews to the desired language
-    fun translateRadioViews(context: Context, RadioViews: List<RadioButton>, targetLanguage: String) {
+    fun translateRadioViews(
+        context: Context,
+        RadioViews: List<RadioButton>,
+        targetLanguage: String
+    ) {
         RadioViews.forEach { RadioButton: RadioButton ->
             val originalText = RadioButton.text.toString()
             translator.translateText(originalText, targetLanguage) { translatedText ->
@@ -94,7 +98,7 @@ object TranslationUtil {
 
     fun traslateIncomingFromAPI(context: Context, Incoming: List<String>, targetLanguage: String) {
         Incoming.forEach { word: String ->
-            var translated : String
+            var translated: String
             translator.translateText(word, targetLanguage) { translatedText ->
                 (context as? AppCompatActivity)?.runOnUiThread {
                     if (translatedText != null) {

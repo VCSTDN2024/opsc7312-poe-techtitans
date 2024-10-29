@@ -73,13 +73,22 @@ class IngredientsFragment : Fragment() {
             requireView().findViewById<TextView>(R.id.tv_ingredients)
         )
 
-        val buttonToTranslate = listOf(requireView().findViewById<Button>(R.id.btn_add_to_shopping_list))
+        val buttonToTranslate =
+            listOf(requireView().findViewById<Button>(R.id.btn_add_to_shopping_list))
 
 
-        if(loadLanguagePreference(this@IngredientsFragment.requireContext()) == "af") {
+        if (loadLanguagePreference(this@IngredientsFragment.requireContext()) == "af") {
             // Apply translations to these text views if necessary
-            TranslationUtil.translateTextViews(this@IngredientsFragment.requireContext(), textViewsToTranslate, "af")
-            TranslationUtil.translateButtons(this@IngredientsFragment.requireContext(), buttonToTranslate, "af")
+            TranslationUtil.translateTextViews(
+                this@IngredientsFragment.requireContext(),
+                textViewsToTranslate,
+                "af"
+            )
+            TranslationUtil.translateButtons(
+                this@IngredientsFragment.requireContext(),
+                buttonToTranslate,
+                "af"
+            )
         } else {
         }
     }
@@ -131,32 +140,46 @@ class IngredientsFragment : Fragment() {
                                 // Display success message to the user
                                 val message = response.body()?.message
                                 withContext(Dispatchers.Main) {
-                                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
+                                        .show()
                                 }
                             } else {
                                 // Handle the error response
                                 val errorBody = response.errorBody()?.string()
                                 Log.e("IngredientsFragment", "Error Response: $errorBody")
                                 withContext(Dispatchers.Main) {
-                                    Toast.makeText(requireContext(), "Error: $errorBody", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Error: $errorBody",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             }
                         } catch (e: Exception) {
                             // Handle any network or API exceptions
                             Log.e("IngredientsFragment", "Exception: ${e.message}", e)
                             withContext(Dispatchers.Main) {
-                                Toast.makeText(requireContext(), "Network Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Network Error: ${e.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     }
                 } else {
                     // Handle error: unable to get the ID token
-                    Toast.makeText(requireContext(), "Authentication failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Authentication failed", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         } else {
             // If the user is not logged in, display a message
-            Toast.makeText(requireContext(), "Please log in to add items to your shopping list.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Please log in to add items to your shopping list.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

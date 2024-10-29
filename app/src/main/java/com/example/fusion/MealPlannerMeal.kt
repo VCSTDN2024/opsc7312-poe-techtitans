@@ -50,7 +50,8 @@ class MealPlannerMeal : AppCompatActivity() {
         // Initialize RecyclerView and set its layout to a grid with 2 columns
         rvMealRecipes = findViewById(R.id.rv_meal_recipes)
         rvMealRecipes.layoutManager = GridLayoutManager(this, 2)
-        recipeAdapter = RecipeAdapter(this, mutableListOf()) // Initialize the adapter with an empty list
+        recipeAdapter =
+            RecipeAdapter(this, mutableListOf()) // Initialize the adapter with an empty list
         rvMealRecipes.adapter = recipeAdapter
 
         // Load the recipes for the selected day and meal time from Firebase
@@ -71,19 +72,21 @@ class MealPlannerMeal : AppCompatActivity() {
             findViewById<TextView>(R.id.mealTimeText)
         )
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
         }
     }
+
     // Function to load recipes from Firebase based on the selected day and meal time
     private fun loadRecipesFromFirebase() {
         val currentUser = FirebaseAuth.getInstance().currentUser // Get the current logged-in user
         if (currentUser != null) {
             // Get the reference to the user's meal plans in the Firebase Realtime Database
             val userId = currentUser.uid
-            val database = FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
-                .getReference("users").child(userId).child("meal_plans")
+            val database =
+                FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
+                    .getReference("users").child(userId).child("meal_plans")
 
             // Add a listener to retrieve meal plans from the database
             database.addValueEventListener(object : ValueEventListener {
@@ -106,13 +109,21 @@ class MealPlannerMeal : AppCompatActivity() {
 
                     // If no recipes are found, display a Toast message
                     if (!foundRecipes) {
-                        Toast.makeText(this@MealPlannerMeal, "No recipes found for $selectedMealTime on $selectedDay", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@MealPlannerMeal,
+                            "No recipes found for $selectedMealTime on $selectedDay",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     // Display an error message if there's an issue with loading recipes from Firebase
-                    Toast.makeText(this@MealPlannerMeal, "Failed to load recipes", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@MealPlannerMeal,
+                        "Failed to load recipes",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
         } else {
@@ -128,7 +139,10 @@ class MealPlannerMeal : AppCompatActivity() {
 
         // Handle the API response
         call.enqueue(object : Callback<RecipeDetailsResponse> {
-            override fun onResponse(call: Call<RecipeDetailsResponse>, response: Response<RecipeDetailsResponse>) {
+            override fun onResponse(
+                call: Call<RecipeDetailsResponse>,
+                response: Response<RecipeDetailsResponse>
+            ) {
                 if (response.isSuccessful) {
                     // If the response is successful, extract the recipe details
                     val recipeDetails = response.body()
@@ -143,13 +157,21 @@ class MealPlannerMeal : AppCompatActivity() {
                     }
                 } else {
                     // If the response fails, show a Toast message
-                    Toast.makeText(this@MealPlannerMeal, "Failed to fetch recipe details", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@MealPlannerMeal,
+                        "Failed to fetch recipe details",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<RecipeDetailsResponse>, t: Throwable) {
                 // Handle any failure in the API call and display an error message
-                Toast.makeText(this@MealPlannerMeal, "Error: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@MealPlannerMeal,
+                    "Error: ${t.localizedMessage}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
@@ -165,19 +187,38 @@ class MealPlannerMeal : AppCompatActivity() {
                     startActivity(Intent(this, HomePage::class.java)) // Navigate to FavoritesPage
                     true
                 }
+
                 R.id.navigation_saved -> {
-                    startActivity(Intent(this, FavoritesPage::class.java)) // Navigate to FavoritesPage
+                    startActivity(
+                        Intent(
+                            this,
+                            FavoritesPage::class.java
+                        )
+                    ) // Navigate to FavoritesPage
                     true
                 }
+
                 R.id.navigation_calendar -> true
                 R.id.navigation_cart -> {
-                    startActivity(Intent(this, ShoppingListPage::class.java)) // Navigate to ShoppingListPage
+                    startActivity(
+                        Intent(
+                            this,
+                            ShoppingListPage::class.java
+                        )
+                    ) // Navigate to ShoppingListPage
                     true
                 }
+
                 R.id.navigation_settings -> {
-                    startActivity(Intent(this, SettingsPage::class.java)) // Navigate to SettingsPage
+                    startActivity(
+                        Intent(
+                            this,
+                            SettingsPage::class.java
+                        )
+                    ) // Navigate to SettingsPage
                     true
                 }
+
                 else -> false
             }
         }

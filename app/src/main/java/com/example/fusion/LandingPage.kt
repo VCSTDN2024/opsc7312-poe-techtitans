@@ -39,7 +39,10 @@ class LandingPage : AppCompatActivity() {
         fusionlogo.animate().setDuration(1100).alpha(1f).withEndAction {
             startActivity(Intent(this, LoginPage::class.java)) // Start the LoginPage activity
             finish()  // Close the LandingPage to prevent the user from returning to it
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out) // Add fade transition
+            overridePendingTransition(
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            ) // Add fade transition
         }
     }
 

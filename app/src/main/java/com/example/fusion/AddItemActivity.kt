@@ -80,12 +80,13 @@ class AddItemActivity : AppCompatActivity() {
         )
 
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
             TranslationUtil.translateButtons(this, buttons, "af")
         }
     }
+
     // Function to fetch categories from Firebase
     private fun fetchCategories() {
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -107,7 +108,11 @@ class AddItemActivity : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
                 // Show error message if fetching categories fails
-                Toast.makeText(this@AddItemActivity, "Failed to load categories", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@AddItemActivity,
+                    "Failed to load categories",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
@@ -148,7 +153,8 @@ class AddItemActivity : AppCompatActivity() {
 
         // Get the ingredient name and category
         val ingredientName = ingredientEditText.text.toString().trim()
-        val categoryName = if (isNewCategory) newCategoryEditText.text.toString().trim() else selectedCategory
+        val categoryName =
+            if (isNewCategory) newCategoryEditText.text.toString().trim() else selectedCategory
 
         // Validate ingredient name
         if (ingredientName.isEmpty()) {

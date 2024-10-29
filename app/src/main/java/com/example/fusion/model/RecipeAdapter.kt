@@ -38,14 +38,18 @@ class RecipeAdapter(
 
     // ViewHolder class to represent each item view in the RecyclerView
     inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val recipeTitle: TextView = itemView.findViewById(R.id.tv_recipe_title) // Recipe title TextView
-        private val recipeImage: ImageView = itemView.findViewById(R.id.iv_recipe_image) // Recipe image ImageView
-        private val saveIcon: ImageView = itemView.findViewById(R.id.iv_save_recipe) // Save icon ImageView
+        private val recipeTitle: TextView =
+            itemView.findViewById(R.id.tv_recipe_title) // Recipe title TextView
+        private val recipeImage: ImageView =
+            itemView.findViewById(R.id.iv_recipe_image) // Recipe image ImageView
+        private val saveIcon: ImageView =
+            itemView.findViewById(R.id.iv_save_recipe) // Save icon ImageView
 
         // Method to bind recipe data to the views
         fun bind(recipe: Recipe) {
             recipeTitle.text = recipe.title // Set the recipe title
-            Glide.with(context).load(recipe.image).into(recipeImage) // Load the recipe image using Glide
+            Glide.with(context).load(recipe.image)
+                .into(recipeImage) // Load the recipe image using Glide
 
             val userId = FirebaseAuth.getInstance().currentUser?.uid // Get the current user ID
 
@@ -68,7 +72,11 @@ class RecipeAdapter(
 
                         override fun onCancelled(error: DatabaseError) {
                             // Display error message if database check fails
-                            Toast.makeText(context, "Failed to check recipe status: ${error.message}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                "Failed to check recipe status: ${error.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     })
             }
@@ -81,13 +89,22 @@ class RecipeAdapter(
             )
 
 
-            if(loadLanguagePreference(this@RecipeAdapter.context) == "af") {
+            if (loadLanguagePreference(this@RecipeAdapter.context) == "af") {
                 // Apply translations to these text views if necessary
-                TranslationUtil.translateTextViews(this@RecipeAdapter.context, textViewsToTranslate, "af")
+                TranslationUtil.translateTextViews(
+                    this@RecipeAdapter.context,
+                    textViewsToTranslate,
+                    "af"
+                )
             }
         }
+
         // Method to handle clicking the save icon
-        private fun handleSaveIconClick(userId: String, recipe: Recipe, currentSavedState: Boolean) {
+        private fun handleSaveIconClick(
+            userId: String,
+            recipe: Recipe,
+            currentSavedState: Boolean
+        ) {
             saveIcon.setOnClickListener {
                 val currentSavedState = savedRecipes[recipe.id.toString()] ?: false
                 val newSavedState = !currentSavedState // Toggle the saved state
@@ -97,7 +114,8 @@ class RecipeAdapter(
                 if (newSavedState) {
                     // Save recipe to Firebase
                     userId.let { id ->
-                        databaseReference.child(id).child("favorites").child(recipe.id.toString()).setValue(true)
+                        databaseReference.child(id).child("favorites").child(recipe.id.toString())
+                            .setValue(true)
                             .addOnSuccessListener {
                                 // Display success message and navigate to recipe details
                                 Toast.makeText(context, "Recipe saved", Toast.LENGTH_SHORT).show()
@@ -107,7 +125,11 @@ class RecipeAdapter(
                             }
                             .addOnFailureListener { e ->
                                 // Display error message if saving fails
-                                Toast.makeText(context, "Failed to save recipe: ${e.message}", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    context,
+                                    "Failed to save recipe: ${e.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 savedRecipes[recipe.id.toString()] = currentSavedState
                                 saveIcon.setImageResource(if (currentSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
                             }
@@ -115,15 +137,24 @@ class RecipeAdapter(
                 } else {
                     // Remove recipe from Firebase
                     userId.let { id ->
-                        databaseReference.child(id).child("favorites").child(recipe.id.toString()).removeValue()
+                        databaseReference.child(id).child("favorites").child(recipe.id.toString())
+                            .removeValue()
                             .addOnSuccessListener {
                                 // Display success message for removal and remove recipe details
-                                Toast.makeText(context, "Recipe removed from favorites", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    context,
+                                    "Recipe removed from favorites",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 removeRecipeData(id, recipe.id.toString())
                             }
                             .addOnFailureListener { e ->
                                 // Display error message if removal fails
-                                Toast.makeText(context, "Failed to remove recipe: ${e.message}", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    context,
+                                    "Failed to remove recipe: ${e.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 savedRecipes[recipe.id.toString()] = currentSavedState
                                 saveIcon.setImageResource(if (currentSavedState) R.drawable.favoritewhite else R.drawable.image_group1)
                             }
@@ -137,11 +168,19 @@ class RecipeAdapter(
             databaseReference.child(userId).child("recipes").child(recipeId).removeValue()
                 .addOnSuccessListener {
                     // Display success message when recipe details are removed
-                    Toast.makeText(context, "Recipe details also removed from database.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "Recipe details also removed from database.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 .addOnFailureListener { e ->
                     // Display error message if removal of recipe details fails
-                    Toast.makeText(context, "Failed to remove recipe details: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "Failed to remove recipe details: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
         }
     }

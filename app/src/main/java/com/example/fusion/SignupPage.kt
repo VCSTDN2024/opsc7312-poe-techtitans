@@ -46,7 +46,8 @@ class SignupPage : AppCompatActivity() {
             if (password == confirmPassword) {
                 signUp(username, email, password)  // Proceed with signup
             } else {
-                Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show()  // Show error if passwords don't match
+                Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT)
+                    .show()  // Show error if passwords don't match
             }
         }
 
@@ -65,7 +66,7 @@ class SignupPage : AppCompatActivity() {
             findViewById<TextView>(R.id.text_email),
             findViewById<TextView>(R.id.textView),
             findViewById<TextView>(R.id.container_pass)
-            )
+        )
 
         val buttons = listOf(
             findViewById<Button>(R.id.button),
@@ -74,7 +75,7 @@ class SignupPage : AppCompatActivity() {
         )
 
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
             TranslationUtil.translateButtons(this, buttons, "af")
@@ -87,7 +88,10 @@ class SignupPage : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 Log.d("RegisterPage", "User registration successful")  // Log success
-                saveUserToDatabase(username, email)  // Save user details to the Firebase Realtime Database
+                saveUserToDatabase(
+                    username,
+                    email
+                )  // Save user details to the Firebase Realtime Database
                 Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
 
                 // Navigate to login page after successful registration
@@ -96,7 +100,11 @@ class SignupPage : AppCompatActivity() {
             } else {
                 // Handle registration failure
                 Log.e("RegisterPage", "User registration failed", task.exception)
-                Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Registration failed: ${task.exception?.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -111,7 +119,8 @@ class SignupPage : AppCompatActivity() {
         }
 
         // Get Firebase Database references
-        val database = FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
+        val database =
+            FirebaseDatabase.getInstance("https://fusion-14429-default-rtdb.firebaseio.com/")
         val userRef = database.getReference("users")
         val usernameRef = database.getReference("usernames")
 
@@ -130,17 +139,30 @@ class SignupPage : AppCompatActivity() {
                 usernameRef.child(username).setValue(userId).addOnCompleteListener { usernameTask ->
                     if (usernameTask.isSuccessful) {
                         Log.d("RegisterPage", "Username mapping saved successfully")  // Log success
-                        Toast.makeText(this, "User data saved successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "User data saved successfully", Toast.LENGTH_SHORT)
+                            .show()
                     } else {
                         // Handle failure to save the username mapping
-                        Log.e("RegisterPage", "Failed to save username mapping", usernameTask.exception)
-                        Toast.makeText(this, "Failed to save username mapping: ${usernameTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                        Log.e(
+                            "RegisterPage",
+                            "Failed to save username mapping",
+                            usernameTask.exception
+                        )
+                        Toast.makeText(
+                            this,
+                            "Failed to save username mapping: ${usernameTask.exception?.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } else {
                 // Handle failure to save user data
                 Log.e("RegisterPage", "Failed to save user data", task.exception)
-                Toast.makeText(this, "Failed to save user data: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Failed to save user data: ${task.exception?.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

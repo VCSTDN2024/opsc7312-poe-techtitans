@@ -60,9 +60,13 @@ class StepsFragment : Fragment() {
         )
 
 
-        if(loadLanguagePreference(this@StepsFragment.requireContext()) == "af") {
+        if (loadLanguagePreference(this@StepsFragment.requireContext()) == "af") {
             // Apply translations to these text views if necessary
-            TranslationUtil.translateTextViews(this@StepsFragment.requireContext(), textViewsToTranslate, "af")
+            TranslationUtil.translateTextViews(
+                this@StepsFragment.requireContext(),
+                textViewsToTranslate,
+                "af"
+            )
         }
     }
 }

@@ -47,7 +47,8 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private val databaseReference = FirebaseDatabase.getInstance().getReference("users")
     private val gson = Gson()
 
-    private var recipeId: Int = -1  // Placeholder for the recipe ID, default -1 indicating uninitialized.
+    private var recipeId: Int =
+        -1  // Placeholder for the recipe ID, default -1 indicating uninitialized.
 
     // Initial setup function, loads the view components and initializes data fetching.
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,11 +89,12 @@ class RecipeDetailsActivity : AppCompatActivity() {
         )
 
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
         }
     }
+
     // Method to retrieve full recipe details from SharedPreferences
     private fun getRecipeDetailsFromLocalStorage(recipeId: Int): RecipeDetailsResponse? {
         val savedRecipesJson = sharedPreferences.getString("favorite_recipes", "[]")
@@ -118,22 +120,27 @@ class RecipeDetailsActivity : AppCompatActivity() {
                     startActivity(Intent(this, HomePage::class.java))
                     true
                 }
+
                 R.id.navigation_saved -> {
                     startActivity(Intent(this, FavoritesPage::class.java))
                     true
                 }
+
                 R.id.navigation_calendar -> {
                     startActivity(Intent(this, MealPlannerPage::class.java))
                     true
                 }
+
                 R.id.navigation_cart -> {
                     startActivity(Intent(this, ShoppingListPage::class.java))
                     true
                 }
+
                 R.id.navigation_settings -> {
                     startActivity(Intent(this, SettingsPage::class.java))
                     true
                 }
+
                 else -> false
             }
         }
@@ -141,9 +148,13 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
     // Fetches the detailed information of the recipe from the server using Retrofit API calls.
     private fun getRecipeDetails(recipeId: Int) {
-        val call = RetrofitInstance.api.getRecipeInformation(recipeId, apiKey, includeNutrition = true)
+        val call =
+            RetrofitInstance.api.getRecipeInformation(recipeId, apiKey, includeNutrition = true)
         call.enqueue(object : Callback<RecipeDetailsResponse> {
-            override fun onResponse(call: Call<RecipeDetailsResponse>, response: Response<RecipeDetailsResponse>) {
+            override fun onResponse(
+                call: Call<RecipeDetailsResponse>,
+                response: Response<RecipeDetailsResponse>
+            ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
                         checkIfFavoriteAndSave(it)  // Check if the recipe should be saved.
@@ -188,10 +199,15 @@ class RecipeDetailsActivity : AppCompatActivity() {
             val recipeRef = databaseReference.child(it).child("recipes").child(recipeId.toString())
             recipeRef.setValue(recipeDetails)
                 .addOnSuccessListener {
-                    Toast.makeText(this, "Recipe details saved to Firebase.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Recipe details saved to Firebase.", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(this, "Failed to save recipe details to Firebase.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Failed to save recipe details to Firebase.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
         }
     }
@@ -219,7 +235,8 @@ class RecipeDetailsActivity : AppCompatActivity() {
         recipeNameTextView.text = details.title  // Setting the recipe title to the TextView.
 
         val imageView: ImageView = findViewById(R.id.iv_recipe_image)
-        Glide.with(this).load(details.image).into(imageView)  // Using Glide to load and display the recipe image.
+        Glide.with(this).load(details.image)
+            .into(imageView)  // Using Glide to load and display the recipe image.
     }
 
     // Configures the ViewPager with fragments for recipe overview, ingredients, steps, and nutrition.
@@ -244,11 +261,12 @@ class RecipeDetailsActivity : AppCompatActivity() {
         val tabTitlesAfr = listOf("Oorsig", "Bestanddele", "Stappe", "Voeding")
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            val customTab = layoutInflater.inflate(R.layout.tab_item, tabLayout, false) as LinearLayout
+            val customTab =
+                layoutInflater.inflate(R.layout.tab_item, tabLayout, false) as LinearLayout
             val tabTextView = customTab.findViewById<TextView>(R.id.tab_title)
-            if(loadLanguagePreference(this) == "af") {
+            if (loadLanguagePreference(this) == "af") {
                 tabTextView.text = tabTitlesAfr[position]
-            }else if(loadLanguagePreference(this) == "en") {
+            } else if (loadLanguagePreference(this) == "en") {
                 tabTextView.text = tabTitles[position]
             }
             tab.customView = customTab

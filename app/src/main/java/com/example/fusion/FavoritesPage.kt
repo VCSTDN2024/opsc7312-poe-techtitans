@@ -58,7 +58,8 @@ class FavoritesPage : AppCompatActivity() {
         setupBottomNavigation()
 
         // Set up RecyclerView with a GridLayoutManager and an empty RecipeAdapter
-        rvSearchResults.layoutManager = GridLayoutManager(this, 2)  // Display items in a 2-column grid
+        rvSearchResults.layoutManager =
+            GridLayoutManager(this, 2)  // Display items in a 2-column grid
         recipeAdapter = RecipeAdapter(this, mutableListOf())
         rvSearchResults.adapter = recipeAdapter
 
@@ -75,11 +76,12 @@ class FavoritesPage : AppCompatActivity() {
             findViewById<TextView>(R.id.textView17),
         )
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
         }
     }
+
     // Function to display saved recipes from Firebase
     private fun displaySavedRecipes() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -105,7 +107,11 @@ class FavoritesPage : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
                 // Show error message if there was a problem fetching the data
-                Toast.makeText(this@FavoritesPage, "Error fetching favorites: ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@FavoritesPage,
+                    "Error fetching favorites: ${error.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
     }
@@ -133,7 +139,11 @@ class FavoritesPage : AppCompatActivity() {
 
                 override fun onCancelled(databaseError: DatabaseError) {
                     // Show error message if there was a problem fetching recipe details
-                    Toast.makeText(this@FavoritesPage, "Error fetching recipe details: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@FavoritesPage,
+                        "Error fetching recipe details: ${databaseError.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     countDownLatch.countDown()  // Ensure latch count decreases even on failure
                 }
             })
@@ -182,8 +192,6 @@ class FavoritesPage : AppCompatActivity() {
     }
 
 
-
-
     // Function to set up bottom navigation functionality
     private fun setupBottomNavigation() {
         // Set the currently selected item in the bottom navigation bar to "Saved"
@@ -196,19 +204,38 @@ class FavoritesPage : AppCompatActivity() {
                     startActivity(Intent(this, HomePage::class.java))  // Navigate to HomePage
                     true
                 }
+
                 R.id.navigation_saved -> true  // Stay on the current page (Favorites)
                 R.id.navigation_calendar -> {
-                    startActivity(Intent(this, MealPlannerPage::class.java))  // Navigate to MealPlannerPage
+                    startActivity(
+                        Intent(
+                            this,
+                            MealPlannerPage::class.java
+                        )
+                    )  // Navigate to MealPlannerPage
                     true
                 }
+
                 R.id.navigation_cart -> {
-                    startActivity(Intent(this, ShoppingListPage::class.java))  // Navigate to ShoppingListPage
+                    startActivity(
+                        Intent(
+                            this,
+                            ShoppingListPage::class.java
+                        )
+                    )  // Navigate to ShoppingListPage
                     true
                 }
+
                 R.id.navigation_settings -> {
-                    startActivity(Intent(this, SettingsPage::class.java))  // Navigate to SettingsPage
+                    startActivity(
+                        Intent(
+                            this,
+                            SettingsPage::class.java
+                        )
+                    )  // Navigate to SettingsPage
                     true
                 }
+
                 else -> false  // Return false for any unhandled item selections
             }
         }

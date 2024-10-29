@@ -64,7 +64,8 @@ class SettingsPage : AppCompatActivity() {
             auth.signOut()  // Sign out the current user
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, LoginPage::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK  // Clear task stack and start LoginPage
+            intent.flags =
+                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK  // Clear task stack and start LoginPage
             startActivity(intent)
             finish()
         }
@@ -93,11 +94,12 @@ class SettingsPage : AppCompatActivity() {
             findViewById<TextView>(R.id.txtDelAcc)
         )
 
-        if(loadLanguagePreference(this) == "af") {
+        if (loadLanguagePreference(this) == "af") {
             // Apply translations to these text views if necessary
             TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
         }
     }
+
     // Function to show a confirmation dialog for account deletion
     private fun showDeleteAccountDialog() {
         val builder = AlertDialog.Builder(this)
@@ -120,7 +122,8 @@ class SettingsPage : AppCompatActivity() {
     // Function to prompt the user to enter their password before account deletion
     private fun showPasswordDialog() {
         val passwordInput = EditText(this)
-        passwordInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD  // Set input type to password
+        passwordInput.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD  // Set input type to password
 
         val passwordDialog = AlertDialog.Builder(this)
             .setTitle("Confirm Password")
@@ -173,32 +176,61 @@ class SettingsPage : AppCompatActivity() {
                                                             user.delete()
                                                                 .addOnCompleteListener { deleteTask ->
                                                                     if (deleteTask.isSuccessful) {
-                                                                        Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show()
-                                                                        val intent = Intent(this, LoginPage::class.java)
-                                                                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                                        Toast.makeText(
+                                                                            this,
+                                                                            "Account deleted successfully",
+                                                                            Toast.LENGTH_SHORT
+                                                                        ).show()
+                                                                        val intent = Intent(
+                                                                            this,
+                                                                            LoginPage::class.java
+                                                                        )
+                                                                        intent.flags =
+                                                                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                                                         startActivity(intent)  // Return to the login page
                                                                         finish()
                                                                     } else {
-                                                                        Toast.makeText(this, "Failed to delete account: ${deleteTask.exception?.message}", Toast.LENGTH_LONG).show()
+                                                                        Toast.makeText(
+                                                                            this,
+                                                                            "Failed to delete account: ${deleteTask.exception?.message}",
+                                                                            Toast.LENGTH_LONG
+                                                                        ).show()
                                                                     }
                                                                 }
                                                         } else {
-                                                            Toast.makeText(this, "Failed to delete user data: ${dbTask.exception?.message}", Toast.LENGTH_LONG).show()
+                                                            Toast.makeText(
+                                                                this,
+                                                                "Failed to delete user data: ${dbTask.exception?.message}",
+                                                                Toast.LENGTH_LONG
+                                                            ).show()
                                                         }
                                                     }
                                             } else {
-                                                Toast.makeText(this, "Failed to delete username mapping: ${usernameDeleteTask.exception?.message}", Toast.LENGTH_LONG).show()
+                                                Toast.makeText(
+                                                    this,
+                                                    "Failed to delete username mapping: ${usernameDeleteTask.exception?.message}",
+                                                    Toast.LENGTH_LONG
+                                                ).show()
                                             }
                                         }
                                 } else {
-                                    Toast.makeText(this, "Username not found", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(this, "Username not found", Toast.LENGTH_LONG)
+                                        .show()
                                 }
                             }
                             .addOnFailureListener { exception ->
-                                Toast.makeText(this, "Failed to retrieve username: ${exception.message}", Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    this,
+                                    "Failed to retrieve username: ${exception.message}",
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
                     } else {
-                        Toast.makeText(this, "Authentication failed: ${reauthTask.exception?.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this,
+                            "Authentication failed: ${reauthTask.exception?.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
         } else {
@@ -218,18 +250,37 @@ class SettingsPage : AppCompatActivity() {
                     startActivity(Intent(this, HomePage::class.java))  // Navigate to HomePage
                     true
                 }
+
                 R.id.navigation_saved -> {
-                    startActivity(Intent(this, FavoritesPage::class.java))  // Navigate to FavoritesPage
+                    startActivity(
+                        Intent(
+                            this,
+                            FavoritesPage::class.java
+                        )
+                    )  // Navigate to FavoritesPage
                     true
                 }
+
                 R.id.navigation_calendar -> {
-                    startActivity(Intent(this, MealPlannerPage::class.java))  // Navigate to MealPlannerPage
+                    startActivity(
+                        Intent(
+                            this,
+                            MealPlannerPage::class.java
+                        )
+                    )  // Navigate to MealPlannerPage
                     true
                 }
+
                 R.id.navigation_cart -> {
-                    startActivity(Intent(this, ShoppingListPage::class.java))  // Navigate to ShoppingListPage
+                    startActivity(
+                        Intent(
+                            this,
+                            ShoppingListPage::class.java
+                        )
+                    )  // Navigate to ShoppingListPage
                     true
                 }
+
                 R.id.navigation_settings -> true  // Stay on the current page (Settings)
                 else -> false
             }

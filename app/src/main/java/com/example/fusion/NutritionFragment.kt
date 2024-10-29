@@ -51,10 +51,15 @@ class NutritionFragment : Fragment() {
         nutrition?.let {
             val categorizedNutrients = it.getCategorizedNutrients()
             rvNutritionCategories.layoutManager = LinearLayoutManager(requireContext())
-            rvNutritionCategories.adapter = NutrientCategoryAdapter(requireContext(), categorizedNutrients)
+            rvNutritionCategories.adapter =
+                NutrientCategoryAdapter(requireContext(), categorizedNutrients)
         } ?: run {
             // Display a toast message if no nutrition data is available.
-            Toast.makeText(requireContext(), "No nutrition information available", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "No nutrition information available",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

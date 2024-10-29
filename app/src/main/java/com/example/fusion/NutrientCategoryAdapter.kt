@@ -20,13 +20,19 @@ class NutrientCategoryAdapter(
 
     // ViewHolder class for holding category data.
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvCategoryTitle: TextView = itemView.findViewById(R.id.tv_category_title) // TextView for displaying the category title.
-        val rvNutrients: RecyclerView = itemView.findViewById(R.id.rv_nutrients) // RecyclerView for displaying nutrients in this category.
+        val tvCategoryTitle: TextView =
+            itemView.findViewById(R.id.tv_category_title) // TextView for displaying the category title.
+        val rvNutrients: RecyclerView =
+            itemView.findViewById(R.id.rv_nutrients) // RecyclerView for displaying nutrients in this category.
     }
 
     // Creates new ViewHolder instances for each category.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_nutrient_category, parent, false) // Inflate layout for each category item.
+        val view = LayoutInflater.from(context).inflate(
+            R.layout.item_nutrient_category,
+            parent,
+            false
+        ) // Inflate layout for each category item.
         return CategoryViewHolder(view)
     }
 
@@ -36,12 +42,16 @@ class NutrientCategoryAdapter(
     // Binds data to each ViewHolder, setting up nested RecyclerViews for nutrients.
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categories[position] // Get category name based on position.
-        val nutrients = categorizedNutrients[category] ?: emptyList() // Retrieve nutrients for this category or an empty list if none.
+        val nutrients = categorizedNutrients[category]
+            ?: emptyList() // Retrieve nutrients for this category or an empty list if none.
 
         holder.tvCategoryTitle.text = category // Set the category title in the TextView.
 
         // Set up a LinearLayoutManager and adapter for the nested RecyclerView.
         holder.rvNutrients.layoutManager = LinearLayoutManager(context)
-        holder.rvNutrients.adapter = NutrientAdapter(context, nutrients) // Use NutrientAdapter for nutrients within the category.
+        holder.rvNutrients.adapter = NutrientAdapter(
+            context,
+            nutrients
+        ) // Use NutrientAdapter for nutrients within the category.
     }
 }

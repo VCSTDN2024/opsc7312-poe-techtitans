@@ -50,7 +50,8 @@ class OverviewFragment : Fragment() {
         val tvOverview: TextView = view.findViewById(R.id.tv_overview)
 
         // Set the summary text in the TextView, using HtmlCompat to properly format any HTML content
-        tvOverview.text = HtmlCompat.fromHtml(summary ?: "No summary available", HtmlCompat.FROM_HTML_MODE_LEGACY)
+        tvOverview.text =
+            HtmlCompat.fromHtml(summary ?: "No summary available", HtmlCompat.FROM_HTML_MODE_LEGACY)
         applyTranslations()
     }
 
@@ -60,9 +61,13 @@ class OverviewFragment : Fragment() {
         )
 
 
-        if(loadLanguagePreference(this@OverviewFragment.requireContext()) == "af") {
+        if (loadLanguagePreference(this@OverviewFragment.requireContext()) == "af") {
             // Apply translations to these text views if necessary
-            TranslationUtil.translateTextViews(this@OverviewFragment.requireContext(), textViewsToTranslate, "af")
+            TranslationUtil.translateTextViews(
+                this@OverviewFragment.requireContext(),
+                textViewsToTranslate,
+                "af"
+            )
         }
     }
 }
