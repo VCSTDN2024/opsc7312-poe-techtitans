@@ -213,13 +213,6 @@ class RecipeDetailsActivity : AppCompatActivity() {
     }
 
 
-    // Retrieves all saved favorite recipes.
-    private fun getFavoriteRecipes(): List<RecipeDetailsResponse> {
-        val savedRecipesJson = sharedPreferences.getString("favorite_recipes", "[]")
-        val type: Type = object : TypeToken<List<RecipeDetailsResponse>>() {}.type
-        return gson.fromJson(savedRecipesJson, type)
-    }
-
     // Updates the UI elements to display the recipe details fetched from the server.
     private fun displayRecipeDetails(details: RecipeDetailsResponse) {
         val recipeNameTextView: TextView = findViewById(R.id.textView13)
@@ -248,10 +241,16 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
         // Setting custom views for tabs and managing their selection.
         val tabTitles = listOf("Overview", "Ingredients", "Steps", "Nutrition")
+        val tabTitlesAfr = listOf("Oorsig", "Bestanddele", "Stappe", "Voeding")
+
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             val customTab = layoutInflater.inflate(R.layout.tab_item, tabLayout, false) as LinearLayout
             val tabTextView = customTab.findViewById<TextView>(R.id.tab_title)
-            tabTextView.text = tabTitles[position]
+            if(loadLanguagePreference(this) == "af") {
+                tabTextView.text = tabTitlesAfr[position]
+            }else if(loadLanguagePreference(this) == "en") {
+                tabTextView.text = tabTitles[position]
+            }
             tab.customView = customTab
         }.attach()
 
