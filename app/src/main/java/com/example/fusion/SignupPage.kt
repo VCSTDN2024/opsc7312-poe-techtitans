@@ -37,7 +37,7 @@ class SignupPage : AppCompatActivity() {
 
         // Handle user registration
         registerButton.setOnClickListener {
-            val username = usernameEditText.text.toString()
+            val username = usernameEditText.text.toString().trim() // Trim spaces
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
             val confirmPassword = confirmPasswordEditText.text.toString()
