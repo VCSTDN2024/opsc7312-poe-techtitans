@@ -1,94 +1,158 @@
-![App Icon no background](https://github.com/user-attachments/assets/7894e435-f4fe-4a6b-8948-1af1d0fd8e08)
-# **Fusion App**
 
-Fusion is a meal planning and recipe management application designed to simplify grocery and cooking tasks. The app offers features such as meal planning, grocery list management, recipe browsing, and nutritional data tracking. With Firebase integration, users can securely store their data and manage accounts.
+![FUSION](https://github.com/user-attachments/assets/7957c876-3178-40d8-83dc-13a8cf8713f7)
+# Fusion App
 
-## **Contributors**
-This project is developed as part of OPSC7312:
+Fusion is a comprehensive recipe application with features like recipe search, ingredient management, meal planning, and personalized settings. The app incorporates Firebase for authentication and data storage, Retrofit for API calls, and a multi-language interface supporting English and Afrikaans.
 
-- **ST10024454** Matteo Pita  
-- **ST10161340** Tyler Friedman  
-- **ST10046014** Nicholas James Malan  
-- **ST10043367** Reece Cunningham  
-- **ST10043352** Shira Bome
+## Table of Contents
+1. [Features](#features)
+2. [Technologies Used](#technologies-used)
+3. [Setup & Installation](#setup--installation)
+4. [Core Components](#core-components)
+5. [Usage](#usage)
+6. [API Integration](#api-integration)
+7. [Firebase Integration](#firebase-integration)
+8. [Biometric Authentication](#biometric-authentication)
+9. [Multi-language Support](#multi-language-support)
+10. [Customization & Extensibility](#customization--extensibility)
 
-## **Minimum System Requirements**
-### **Operating System**
-- Windows 8.1, 10, or 11
+## Features
 
-### **Hardware Requirements**
-- **Processor:** 1.8 GHz or faster (Quad-core or better recommended)
-- **RAM:** 2 GB minimum (8 GB recommended; 12.5 GB if using a virtual PC)
-- **Storage:** 
-  - Minimum 800 MB for basic installation  
-  - Complete installation: ~210 GB  
-  - SSD recommended for better performance
-- **Display:** Minimum 720p (1280 x 720); WXGA (1366 x 768) or higher recommended
+### 1. User Authentication
+   - **Firebase Authentication**: Users can register, log in, and securely log out.
+   - **Biometric Authentication**: Users can enable biometric login (using fingerprint or face authentication, depending on the device's hardware). This allows for quick, secure access after initial login.
 
-## **Features**
+### 2. Recipe Management
+   - **Recipe Search**: Search by keywords, filter by meal type, calorie count, and main ingredients. Results are displayed in a grid with detailed recipe views.
+   - **Favorite Recipes**: Save favorite recipes to Firebase for quick access and locally cache them in SharedPreferences for offline access.
+   - **Detailed Recipe View**: Displays recipe summary, ingredients, step-by-step instructions, and nutritional information.
 
-### 1. **Browse and Search Recipes**
-- Users can browse recipes on the HomePage using search terms or filters like ingredients, meal type, and calories.
-- Recipes are displayed in a grid format, and users can tap on any recipe for detailed information using Retrofit.
+### 3. Ingredient & Shopping List
+   - **Ingredient Management**: Add recipe ingredients to a shopping list, which is stored in Firebase. Users can check off items as they are bought.
+   - **Category Grouping**: Ingredients in the shopping list are grouped by category, with expandable views for organization.
+   - **Firebase Sync**: Shopping list data is synced with Firebase, allowing real-time updates across devices.
 
-### 2. **Recipe Details**
-- The RecipeDetailsActivity provides an overview, ingredients, steps, and nutritional information for selected recipes.
-- Users can swipe between sections using ViewPager2 and view images with Glide.
-- Recipes can be added to meal plans or marked as favorites.
+### 4. Meal Planning
+   - **Day and Meal Time Selection**: Users can plan meals by selecting days and meal times.
+   - **Meal Planner Calendar**: Set up a weekly meal plan and view planned recipes by day and meal time.
+   - **Notification for Meal Prep**: Schedule notifications based on meal times to remind users when to start cooking.
 
-### 3. **Meal Planning**
-- Users can plan meals for specific days and meal times on the MealPlannerPage.
-- Recipes can be added to meal plans, and meal planning data is stored in Firebase.
+### 5. Settings & Personalization
+   - **Profile Management**: Users can edit profiles, manage notification settings, switch languages, and customize unit of measurement preferences.
+   - **Language Settings**: Support for English and Afrikaans, allowing users to switch languages seamlessly.
+   - **Unit Conversion**: Easily convert between metric and imperial units within the app.
+   - **Account Deletion**: Confirm account deletion with re-authentication for security. Removes user data from Firebase.
 
-### 4. **Shopping List Management**
-- Users can manage their shopping list on the ShoppingListPage, with items organized by category.
-- Real-time syncing with Firebase ensures updates are instantly saved.
-- This uses our own rest API which is hosted on render.com 
+### 6. Notifications
+   - **Custom Notifications**: Scheduled notifications with custom sounds to remind users about upcoming meals.
 
-### 5. **Nutritional Information**
-- The NutritionFragment displays detailed nutritional data, grouped into categories.
-- NutrientAdapter and NutrientCategoryAdapter handle the display of nutrient data in a RecyclerView.
+## Technologies Used
 
-### 6. **User Authentication**
-- Users can sign up or log in using Firebase Authentication. Account creation, login, and deletion are handled through Firebase.
+- **Android SDK & Kotlin**: Core development platform and language.
+- **Firebase**:
+   - **Authentication** for user login and account management.
+   - **Realtime Database** for storing user data, favorites, meal plans, and shopping lists.
+- **Retrofit** for API calls to retrieve recipe data.
+- **Glide** for efficient image loading.
+- **TranslationUtil**: Custom utility for language translation and multi-language support.
 
-### 7. **Profile Management and Settings**
-- The SettingsPage allows users to manage their profile, log out, or delete their account.
-- Account deletion removes all associated data from Firebase.
+## Setup & Installation
 
-### 8. **Upcoming Features**
-- **LanguagePage:** Future feature allowing users to change the app language (not yet implemented).
-- **NotificationsPage:** Future feature for managing app notifications (not yet implemented).
+1. Clone the repository:
+2. Open the project in Android Studio.
+3. Set up your **Firebase project** and add `google-services.json` to `app/`.
+4. Update `BuildConfig.API_KEY` in `RetrofitInstance.kt` with your recipe API key.
+5. Run the app on an emulator or a connected device.
 
-### 9. **Firebase Integration**
-- Firebase is used for user authentication and real-time database storage for meal plans, shopping lists, and more.
+## Core Components
 
-### 10. **API Integration**
-- The app uses Retrofit to fetch recipe and nutritional data from the Spoonacular API.
+### Activity & Fragment Overview
 
-## **Setup Instructions**
+1. **LoginPage & SignupPage**
+   - Authentication screens supporting Firebase login, offline login, and biometric login.
+   - On successful authentication, navigate to the `HomePage`.
 
-### Step 1: Clone the Repository
-Clone the Fusion repository to your local machine:
-```bash
-git clone https://github.com/UndeadRonin99/Fusion.git
-```
-### Step 2: Acquire a Spoonacular API key
-You must sign up for the Spoonacular API and acquire your API key. The API key is used to fetch the recipes.
-#### Steps to sign up for the Spoonacular API
-  - Visit this website `https://spoonacular.com/food-api`.
-  - Sign up for a new account by pressing the "Start now button".
-  - Once you have created your account navigate to the profile page on your dashboard.
-  - Press the show/hide API key button and copy your API key that is now visible
+2. **HomePage**
+   - **Search and Filter**: Enter keywords or apply filters to fetch specific recipes using Retrofit.
+   - **Bottom Navigation**: Navigate between the home, favorites, meal planner, shopping list, and settings pages.
 
-### Step 3: Add the gradle.properties file
-Inside the `gradle.properties` file add the following code
+3. **RecipeDetailsActivity**
+   - Displays the full details of a selected recipe, organized in tabs (Overview, Ingredients, Steps, Nutrition).
+   - Users can add recipes to favorites, view ingredients, and plan meals directly.
 
-If the file does not exist you must add it.
-```bash
-org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
-android.useAndroidX=true
-kotlin.code.style=official
-android.nonTransitiveRClass=true
-API_KEY={Add your API key here}
-```
+4. **MealPlannerPage & MealTimeActivity**
+   - Plan meals by day and time, saving data to Firebase.
+   - Schedule notifications based on meal preparation time and selected meal time.
+
+5. **ShoppingListPage**
+   - Displays categorized shopping items with expandable views.
+   - Users can check off or remove items, with updates saved to Firebase.
+
+6. **SettingsPage**
+   - Manage account settings, including notifications, language preferences, and account deletion.
+   - Navigate to pages like `editProfilePage`, `LanguagePage`, and `ConversionsPage`.
+
+### Adapter Classes
+
+- **RecipeAdapter**: Displays search results and favorite recipes in a grid layout.
+- **NutrientAdapter & NutrientCategoryAdapter**: Organize and display nutritional data within categories on the `NutritionFragment`.
+
+### Utility Classes
+
+- **TranslationUtil**: Manages language loading and applies translations across UI components.
+- **NotificationReceiver**: Configures and displays custom notifications.
+
+## Usage
+
+1. **Sign Up/Login**: Create an account or log in with Firebase authentication.
+2. **Enable Biometric Authentication**: Prompt appears after the first login, allowing users to set up biometric login for quick access.
+3. **Search Recipes**: Use the search bar on `HomePage` to find recipes by keywords and filters.
+4. **View Details**: Tap a recipe to view its details, including ingredients, instructions, and nutritional data.
+5. **Add to Shopping List**: Add ingredients to the shopping list and mark items as bought.
+6. **Plan Meals**: Set up meals for each day, receive meal prep notifications.
+7. **Settings Customization**: Manage language, notifications, and user profile settings.
+
+## API Integration
+
+- The app uses **Retrofit** to connect to a recipe API (replace `BuildConfig.API_KEY` with your actual key).
+- Example endpoints:
+   - **Search Recipes**: Fetch recipes based on keyword and filters.
+   - **Recipe Details**: Retrieve detailed information, including nutrition.
+
+## Firebase Integration
+
+1. **Authentication**: User login, registration, and account deletion.
+2. **Realtime Database**:
+   - **User Data**: Stores profile info, favorites, and meal plans.
+   - **Shopping List**: Saves shopping list items by category.
+3. **Storage Security**: Rules ensure each user accesses only their data.
+
+## Biometric Authentication
+
+Fusion allows users to securely log in using biometric authentication (e.g., fingerprint or facial recognition). This feature enhances convenience and security by eliminating the need to enter a password for each login. Here's how it works:
+
+1. **Enabling Biometric Login**: 
+   - After the first successful login, the app prompts the user to enable biometric authentication.
+   - Users can opt-in or skip this step; opting in saves their credentials for biometric login.
+
+2. **Using Biometric Login**:
+   - Once enabled, users can log in using biometrics instead of entering credentials.
+   - Upon launching the app, the biometric prompt automatically appears, allowing users to authenticate quickly.
+
+3. **Security & Re-authentication**:
+   - Biometric login is secured with Firebase Authentication, ensuring credentials are verified with Firebase's backend.
+   - Users can disable biometric login in the Settings page if desired.
+
+4. **Implementation**:
+   - Fusion uses `BiometricPrompt` for biometric authentication.
+   - Stored credentials are encrypted, ensuring security even if the device is compromised.
+
+## Multi-language Support
+
+The app supports **English** and **Afrikaans**. Users can switch languages in the settings, with translations applied across all relevant UI components using `TranslationUtil`.
+
+## Customization & Extensibility
+
+- **Adding More Languages**: Extend `TranslationUtil` with more languages and add necessary translations.
+- **New Recipe Filters**: Extend filtering options in `HomePage` to include more diet or nutrition filters.
+- **Additional Notification Types**: Customize notifications for reminders about ingredients or favorite recipes.

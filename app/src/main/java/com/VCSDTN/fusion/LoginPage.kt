@@ -404,7 +404,7 @@ class LoginPage : AppCompatActivity() {
         val usernameEditText = findViewById<EditText>(R.id.txtLUsername)
         val passwordEditText = findViewById<EditText>(R.id.txtLPassword)
 
-        val username = usernameEditText.text.toString()
+        val username = usernameEditText.text.toString().trim() // Trims any leading or trailing spaces
         val password = passwordEditText.text.toString()
 
         if (username.isEmpty() || password.isEmpty()) {
