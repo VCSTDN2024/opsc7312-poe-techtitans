@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.fusion"
+    namespace = "com.VCSDTN.fusion"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.fusion"
+        applicationId = "com.VCSDTN.fusion"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
