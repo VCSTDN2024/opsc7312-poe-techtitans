@@ -54,9 +54,6 @@
             android:name=".LanguagePage"
             android:exported="false" />
         <activity
-            android:name=".NotificationsPage"
-            android:exported="false" />
-        <activity
             android:name=".editProfilePage"
             android:exported="false" />
         <activity

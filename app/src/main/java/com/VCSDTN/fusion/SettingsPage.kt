@@ -40,12 +40,6 @@ class SettingsPage : AppCompatActivity() {
             startActivity(intent)  // Navigate to the edit profile page
         }
 
-        // Notifications Click Listener
-        findViewById<MaterialCardView>(R.id.cardNotifications).setOnClickListener {
-            val intent = Intent(this, NotificationsPage::class.java)
-            startActivity(intent)  // Navigate to the notifications settings page
-        }
-
         // Language Click Listener
         findViewById<MaterialCardView>(R.id.cardLanguage).setOnClickListener {
             val intent = Intent(this, LanguagePage::class.java)
@@ -86,7 +80,6 @@ class SettingsPage : AppCompatActivity() {
         val textViewsToTranslate = listOf(
             findViewById<TextView>(R.id.text_settings),
             findViewById<TextView>(R.id.txtEditProfile),
-            findViewById<TextView>(R.id.txtNotifications),
             findViewById<TextView>(R.id.txtLanguage),
             findViewById<TextView>(R.id.txtUOM),
             findViewById<TextView>(R.id.txtLogout),

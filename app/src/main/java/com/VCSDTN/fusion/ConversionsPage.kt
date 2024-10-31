@@ -2,10 +2,14 @@ package com.VCSDTN.fusion
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.VCSDTN.fusion.utils.TranslationUtil
+import com.VCSDTN.fusion.utils.TranslationUtil.loadLanguagePreference
 
 class ConversionsPage : AppCompatActivity() {
 
@@ -67,6 +71,45 @@ class ConversionsPage : AppCompatActivity() {
 
         // Initialize input fields
         updateInputFields()
+
+        applyTranslations()
+    }
+
+    private fun applyTranslations() {
+        val textViewsToTranslate = listOf(
+            findViewById<TextView>(R.id.textView12),
+            findViewById<TextView>(R.id.textView50),
+            findViewById<TextView>(R.id.textView51),
+            findViewById<TextView>(R.id.textView52),
+            findViewById<TextView>(R.id.textView53),
+            findViewById<TextView>(R.id.textView54),
+            findViewById<TextView>(R.id.textView55),
+            findViewById<TextView>(R.id.textView58),
+            findViewById<TextView>(R.id.textView56),
+            findViewById<TextView>(R.id.textView57),
+            findViewById<TextView>(R.id.textView47),
+            findViewById(R.id.txtGrams),
+            findViewById(R.id.txtOunces),
+            findViewById(R.id.txtKilos),
+            findViewById(R.id.txtPounds),
+            findViewById(R.id.txtMil),
+            findViewById(R.id.txtLiters),
+            findViewById(R.id.txtQuart),
+            findViewById(R.id.txtGallon),
+            findViewById(R.id.txtFOunces)
+        )
+
+        val buttons = listOf(
+            findViewById<Button>(R.id.btnApply),
+            findViewById<Button>(R.id.btnMetric),
+            findViewById<Button>(R.id.btnImperial)
+        )
+
+        if (loadLanguagePreference(this) == "af") {
+            // Apply translations to these text views if necessary
+            TranslationUtil.translateTextViews(this, textViewsToTranslate, "af")
+            TranslationUtil.translateButtons(this, buttons, "af")
+        }
     }
 
     private fun updateInputFields() {
