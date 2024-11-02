@@ -23,22 +23,22 @@ Fusion is a comprehensive recipe application with features like recipe search, i
 
 ### 2. Recipe Management
    - **Recipe Search** (User feature 1): Search by keywords, filter by meal type, calorie count, and main ingredients. Results are displayed in a grid with detailed recipe views.
-   - **Favorite Recipes**: Save favorite recipes to Firebase for quick access and locally cache them in SharedPreferences for offline access.
-   - **Detailed Recipe View**: Displays recipe summary, ingredients, step-by-step instructions, and nutritional information.
+   - **Favorite Recipes** (User feature 2): Save favorite recipes to Firebase for quick access and locally cache them in SharedPreferences for offline access.
+   - **Detailed Recipe View** (User feature 3): Displays recipe summary, ingredients, step-by-step instructions, and nutritional information.
 
 ### 3. Ingredient & Shopping List
-   - **Ingredient Management**: Add recipe ingredients to a shopping list, which is stored in Firebase. Users can check off items as they are bought.
-   - **Category Grouping**: Ingredients in the shopping list are grouped by category, with expandable views for organization.
+   - **Ingredient Management** (User feature 4): Add recipe ingredients to a shopping list, which is stored in Firebase. Users can check off items as they are bought.
+   - **Category Grouping**(User feature 5): Ingredients in the shopping list are grouped by category, with expandable views for organization.
    - **Firebase Sync**: Shopping list data is synced with Firebase, allowing real-time updates across devices.
 
 ### 4. Meal Planning
-   - **Day and Meal Time Selection**: Users can plan meals by selecting days and meal times.
+   - **Day and Meal Time Selection**(User feature 6): Users can plan meals by selecting days and meal times.
    - **Notification for Meal Prep**: Schedule notifications based on meal times to remind users when to start cooking.
 
 ### 5. Settings & Personalization
-   - **Profile Management**: Users can edit profiles, and switch languauges.
+   - **Profile Management** (User feature 7): Users can edit profiles, and switch languauges.
    - **Language Settings**: Support for English and Afrikaans, allowing users to switch languages seamlessly.
-   - **Unit Conversion**: Easily convert between metric and imperial units within the app.
+   - **Unit Conversion**(User feature 8): Easily convert between metric and imperial units within the app.
    - **Account Deletion**: Confirm account deletion with re-authentication for security. Removes user data from Firebase.
 
 ### 6. Notifications
