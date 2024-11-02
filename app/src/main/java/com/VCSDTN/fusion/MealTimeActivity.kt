@@ -150,7 +150,7 @@ class MealTimeActivity : AppCompatActivity() {
             }
 
             "Dinner" -> {
-                notificationTime.set(Calendar.HOUR_OF_DAY, 19)
+                notificationTime.set(Calendar.HOUR_OF_DAY, 22)
                 notificationTime.set(Calendar.MINUTE, 0)
             }
         }
