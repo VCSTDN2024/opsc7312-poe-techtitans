@@ -14,7 +14,6 @@ Fusion is a comprehensive recipe application with features like recipe search, i
 7. [Firebase Integration](#firebase-integration)
 8. [Biometric Authentication](#biometric-authentication)
 9. [Multi-language Support](#multi-language-support)
-10. [Customization & Extensibility](#customization--extensibility)
 
 ## Features
 
@@ -34,11 +33,10 @@ Fusion is a comprehensive recipe application with features like recipe search, i
 
 ### 4. Meal Planning
    - **Day and Meal Time Selection**: Users can plan meals by selecting days and meal times.
-   - **Meal Planner Calendar**: Set up a weekly meal plan and view planned recipes by day and meal time.
    - **Notification for Meal Prep**: Schedule notifications based on meal times to remind users when to start cooking.
 
 ### 5. Settings & Personalization
-   - **Profile Management**: Users can edit profiles, manage notification settings, switch languages, and customize unit of measurement preferences.
+   - **Profile Management**: Users can edit profiles, and switch languauges.
    - **Language Settings**: Support for English and Afrikaans, allowing users to switch languages seamlessly.
    - **Unit Conversion**: Easily convert between metric and imperial units within the app.
    - **Account Deletion**: Confirm account deletion with re-authentication for security. Removes user data from Firebase.
@@ -61,7 +59,7 @@ Fusion is a comprehensive recipe application with features like recipe search, i
 1. Clone the repository:
 2. Open the project in Android Studio.
 3. Set up your **Firebase project** and add `google-services.json` to `app/`.
-4. Update `BuildConfig.API_KEY` in `RetrofitInstance.kt` with your recipe API key.
+4. Update `BuildConfig.API_KEY` in `RetrofitInstance.kt` with your spoonacular API key.
 5. Run the app on an emulator or a connected device.
 
 ## Core Components
@@ -129,7 +127,7 @@ Fusion is a comprehensive recipe application with features like recipe search, i
 
 ## Biometric Authentication
 
-Fusion allows users to securely log in using biometric authentication (e.g., fingerprint or facial recognition). This feature enhances convenience and security by eliminating the need to enter a password for each login. Here's how it works:
+Fusion allows users to securely log in using biometric authentication. This feature enhances convenience and security by eliminating the need to enter a password for each login. Here's how it works:
 
 1. **Enabling Biometric Login**: 
    - After the first successful login, the app prompts the user to enable biometric authentication.
@@ -141,7 +139,6 @@ Fusion allows users to securely log in using biometric authentication (e.g., fin
 
 3. **Security & Re-authentication**:
    - Biometric login is secured with Firebase Authentication, ensuring credentials are verified with Firebase's backend.
-   - Users can disable biometric login in the Settings page if desired.
 
 4. **Implementation**:
    - Fusion uses `BiometricPrompt` for biometric authentication.
@@ -151,8 +148,3 @@ Fusion allows users to securely log in using biometric authentication (e.g., fin
 
 The app supports **English** and **Afrikaans**. Users can switch languages in the settings, with translations applied across all relevant UI components using `TranslationUtil`.
 
-## Customization & Extensibility
-
-- **Adding More Languages**: Extend `TranslationUtil` with more languages and add necessary translations.
-- **New Recipe Filters**: Extend filtering options in `HomePage` to include more diet or nutrition filters.
-- **Additional Notification Types**: Customize notifications for reminders about ingredients or favorite recipes.
