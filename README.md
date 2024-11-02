@@ -22,7 +22,7 @@ Fusion is a comprehensive recipe application with features like recipe search, i
    - **Biometric Authentication**: Users can enable biometric login (using fingerprint or face authentication, depending on the device's hardware). This allows for quick, secure access after initial login.
 
 ### 2. Recipe Management
-   - **Recipe Search**: Search by keywords, filter by meal type, calorie count, and main ingredients. Results are displayed in a grid with detailed recipe views.
+   - **Recipe Search** (User feature 1): Search by keywords, filter by meal type, calorie count, and main ingredients. Results are displayed in a grid with detailed recipe views.
    - **Favorite Recipes**: Save favorite recipes to Firebase for quick access and locally cache them in SharedPreferences for offline access.
    - **Detailed Recipe View**: Displays recipe summary, ingredients, step-by-step instructions, and nutritional information.
 
