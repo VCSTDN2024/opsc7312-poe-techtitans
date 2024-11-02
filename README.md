@@ -14,6 +14,7 @@ Fusion is a comprehensive recipe application with features like recipe search, i
 7. [Firebase Integration](#firebase-integration)
 8. [Biometric Authentication](#biometric-authentication)
 9. [Multi-language Support](#multi-language-support)
+10. [Links](#links)
 
 ## Features
 
@@ -147,4 +148,11 @@ Fusion allows users to securely log in using biometric authentication. This feat
 ## Multi-language Support
 
 The app supports **English** and **Afrikaans**. Users can switch languages in the settings, with translations applied across all relevant UI components using `TranslationUtil`.
+
+## Links
+Link to youtube video of the application running:
+[Here](https://youtu.be/VplMxy9QUXQ)
+
+Link to repository for the API:
+[Here](https://github.com/UndeadRonin99/Fusion_API)
 
